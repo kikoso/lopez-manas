@@ -2,45 +2,45 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Articles on </title>
-    <link>//localhost:1313/articles/</link>
+    <link>/articles/</link>
     <description>Recent content in Articles on </description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Thu, 08 May 2025 11:01:25 +0200</lastBuildDate>
-    <atom:link href="//localhost:1313/articles/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/articles/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My Fifth Post</title>
-      <link>//localhost:1313/articles/article-1/</link>
+      <link>/articles/article-1/</link>
       <pubDate>Thu, 08 May 2025 11:01:25 +0200</pubDate>
-      <guid>//localhost:1313/articles/article-1/</guid>
+      <guid>/articles/article-1/</guid>
       <description></description>
     </item>
     <item>
       <title>My Forth Post</title>
-      <link>//localhost:1313/articles/my-forth-post/</link>
+      <link>/articles/my-forth-post/</link>
       <pubDate>Thu, 08 May 2025 11:01:25 +0200</pubDate>
-      <guid>//localhost:1313/articles/my-forth-post/</guid>
+      <guid>/articles/my-forth-post/</guid>
       <description></description>
     </item>
     <item>
       <title>My Sixth Post</title>
-      <link>//localhost:1313/articles/my-sixth-post/</link>
+      <link>/articles/my-sixth-post/</link>
       <pubDate>Thu, 08 May 2025 11:01:25 +0200</pubDate>
-      <guid>//localhost:1313/articles/my-sixth-post/</guid>
+      <guid>/articles/my-sixth-post/</guid>
       <description></description>
     </item>
     <item>
       <title>My third Post</title>
-      <link>//localhost:1313/articles/my-second-post/</link>
+      <link>/articles/my-second-post/</link>
       <pubDate>Thu, 08 May 2025 11:01:25 +0200</pubDate>
-      <guid>//localhost:1313/articles/my-second-post/</guid>
+      <guid>/articles/my-second-post/</guid>
       <description></description>
     </item>
     <item>
       <title>My third Post</title>
-      <link>//localhost:1313/articles/my-third-post/</link>
+      <link>/articles/my-third-post/</link>
       <pubDate>Thu, 08 May 2025 11:01:25 +0200</pubDate>
-      <guid>//localhost:1313/articles/my-third-post/</guid>
+      <guid>/articles/my-third-post/</guid>
       <description></description>
     </item>
   </channel>
