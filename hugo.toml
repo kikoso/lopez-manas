@@ -50,41 +50,21 @@ googleAnalytics = "UA-PROPERTY_ID"
   weight = 7
 
 [[menu.social]]
-  name = 'Twitter'
-  url = 'https://twitter.com'
+  name = "Mastodon"
+  url = "https://kotlin.social/@eenriquelopez"
   weight = 1
 [[menu.social]]
-  name = 'GitHub'
-  url = 'https://github.com'
+  name = "BlueSky"
+  url = "https://bsky.app/profile/eenriquelopez.bsky.social"
   weight = 2
 [[menu.social]]
-  name = 'LinkedIn'
-  url = 'https://linkedin.com'
+  name = "LinkedIn"
+  url = "https://www.linkedin.com/in/eenriquelopez/"
   weight = 3
 [[menu.social]]
-  name = 'Instagram'
-  url = 'https://instagram.com'
+  name = "Email"
+  url = "mailto:eenriquelopez@gmail.com"
   weight = 4
-[[menu.social]]
-  name = 'Dribbble'
-  url = 'https://dribbble.com'
-  weight = 5
-[[menu.social]]
-  name = 'Codepen'
-  url = 'https://codepen.io'
-  weight = 6
-[[menu.social]]
-  name = 'Twitch'
-  url = 'https://twitch.com'
-  weight = 7
-[[menu.social]]
-  name = 'Email'
-  url = 'mailto:user@example.org'
-  weight = 8
-[[menu.social]]
-  name = 'RSS'
-  url = '/articles/index.xml'
-  weight = 9
 
 
 # syntax highlight settings
