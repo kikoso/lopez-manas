@@ -38,7 +38,7 @@ googleAnalytics = "UA-PROPERTY_ID"
   weight = 9
 [[menu.main]]
   name = 'Enrique's Fund'
-  url = '  https://docs.google.com/spreadsheets/d/e/2PACX-1vQOzDQQRd61shPyA98mfFLnpHQt05pUkgrbtyuXYBccQlo_ZyAodHe2K0Z-gKr5XWXCNpx5Izyarb87/pubhtml?gid=411705077&single=true'
+  url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOzDQQRd61shPyA98mfFLnpHQt05pUkgrbtyuXYBccQlo_ZyAodHe2K0Z-gKr5XWXCNpx5Izyarb87/pubhtml?gid=411705077&single=true'
   weight = 10
 
 
