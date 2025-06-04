@@ -20,10 +20,7 @@ googleAnalytics = "UA-PROPERTY_ID"
   name = 'Articles'
   url = '/articles'
   weight = 3
-[[menu.main]]
-  name = 'About Me'
-  url = '/aboutme/'
-  weight = 4
+
 [[menu.main]]
   name = 'Links'
   params.header = true
