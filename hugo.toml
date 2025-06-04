@@ -45,16 +45,20 @@ googleAnalytics = "UA-PROPERTY_ID"
   params.header = true
   weight = 6
 [[menu.main]]
-  name = 'NYC Bike Usage Analysis'
+  name = 'An Analysis with R of Bike Usage in NYC'
   url = 'https://bikesnyc.eu/'
   weight = 7
+[[menu.main]]
+  name = 'Lexicon'
+  url = 'https://lexicon.de/'
+  weight = 8
 
 [[menu.social]]
   name = "Mastodon"
   url = "https://kotlin.social/@eenriquelopez"
   weight = 1
 [[menu.social]]
-  name = "BlueSky"
+  name = "Bluesky"
   url = "https://bsky.app/profile/eenriquelopez.bsky.social"
   weight = 2
 [[menu.social]]
