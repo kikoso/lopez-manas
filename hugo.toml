@@ -45,8 +45,8 @@ googleAnalytics = "UA-PROPERTY_ID"
   params.header = true
   weight = 6
 [[menu.main]]
-  name = 'Polywork'
-  url = 'https://polywork.com'
+  name = 'NYC Bike Usage Analysis'
+  url = 'https://bikesnyc.eu/'
   weight = 7
 
 [[menu.social]]
