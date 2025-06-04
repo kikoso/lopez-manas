@@ -36,10 +36,14 @@ googleAnalytics = "UA-PROPERTY_ID"
   name = 'An Analysis with R of Bike Usage in NYC'
   url = 'https://bikesnyc.eu/'
   weight = 7
+  [[menu.main]]
+  name = 'Kotlin Weekly'
+  url = 'https://kotlinweekly.net'
+  weight = 8
 [[menu.main]]
   name = 'Lexicon'
   url = 'https://lexicon.de/'
-  weight = 8
+  weight = 9
 
 [[menu.social]]
   name = "Mastodon"
