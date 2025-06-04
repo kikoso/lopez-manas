@@ -41,8 +41,8 @@ googleAnalytics = "UA-PROPERTY_ID"
   url = 'https://kotlinweekly.net'
   weight = 8
 [[menu.main]]
-  name = 'Lexicon'
-  url = 'https://lexicon.de/'
+  name = 'Lexiconic'
+  url = 'https://lexiconic.de/'
   weight = 9
 
 [[menu.social]]
