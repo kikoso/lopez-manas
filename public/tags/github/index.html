@@ -14,7 +14,29 @@
   <meta name="description" content="Enrique&#39;s Sanctum" /><meta name="generator" content="Hugo 0.147.2">
 
   <link rel="stylesheet" href="/css/main.css" />
+<script type="module">
+  
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js";
+  
+  
 
+  
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyDsPJSYVBjdPXwmnG6k9or56tsbnUBRpXs",
+    authDomain: "lopez-manas.firebaseapp.com",
+    projectId: "lopez-manas",
+    storageBucket: "lopez-manas.firebasestorage.app",
+    messagingSenderId: "72774040073",
+    appId: "1:72774040073:web:ea0dae8ab519b4b6d7d6d8",
+    measurementId: "G-M37D0QHKMX"
+  };
+
+  
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
   
   
 
@@ -261,6 +283,20 @@
 <script type="text/javascript" src="/main.js" defer></script>
 
 
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-M37D0QHKMX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-M37D0QHKMX');
+        }
+      </script>
 </body>
 
 </html>

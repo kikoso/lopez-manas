@@ -43,5 +43,12 @@
       <guid>/articles/kmp-ios-developers-and-production/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;https://cdn-images-1.medium.com/max/1024/1*uz-uJJLVLZEVx5FBImJQWw.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Kotlin Multiplatform (or KMP, KMM Mobile, etc) has been widely used for a number of years in applications that are currently in production. JetBrains &lt;a href=&#34;https://kotlinlang.org/lp/mobile/case-studies/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;compiled a website&lt;/a&gt; listing some of the companies that are currently using KMP.&lt;/p&gt;&#xA;&lt;p&gt;Since the advent of the mobile platforms we enjoy today, there has always been a certain market interest to push multiplatform technologies, such as Cordova, Xamarin, and others. With more or less success, those technologies aimed to provide a unified framework to develop multiple codebases, mostly focusing on the aspect of pricing (create code once, deploy multiple times).&lt;/p&gt;</description>
     </item>
+    <item>
+      <title>A short story of randomness (I)</title>
+      <link>/articles/a-short-story-of-randomness-i/</link>
+      <pubDate>Sun, 04 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>/articles/a-short-story-of-randomness-i/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://cdn-images-1.medium.com/max/768/1*xeAPuWFdYuep6JvFUdvvDw.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;I have always been fascinated by the above comic strip. A discussion on randomness and determinism becomes as much a philosophical issue as it is a practical one. They are used in a variety of applications: from the obvious cryptography, gaming or gambling to the less evident politics or arts.&lt;/p&gt;&#xA;&lt;p&gt;How can we be sure that a number is random? Will observing the process mine our efforts on generating the random number, similar to the observation of a cat inside a box with a decaying radioactive atom? Despite the potential complexity of generating random numbers, we can provide an initially simple method to generate them.&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>

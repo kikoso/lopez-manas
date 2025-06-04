@@ -16,7 +16,29 @@ Kotlin Multiplatform (or KMP, KMM Mobile, etc) has been widely used for a number
 Since the advent of the mobile platforms we enjoy today, there has always been a certain market interest to push multiplatform technologies, such as Cordova, Xamarin, and others. With more or less success, those technologies aimed to provide a unified framework to develop multiple codebases, mostly focusing on the aspect of pricing (create code once, deploy multiple times)." /><meta name="generator" content="Hugo 0.147.2">
 
   <link rel="stylesheet" href="/css/main.css" />
+<script type="module">
+  
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js";
+  
+  
 
+  
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyDsPJSYVBjdPXwmnG6k9or56tsbnUBRpXs",
+    authDomain: "lopez-manas.firebaseapp.com",
+    projectId: "lopez-manas",
+    storageBucket: "lopez-manas.firebasestorage.app",
+    messagingSenderId: "72774040073",
+    appId: "1:72774040073:web:ea0dae8ab519b4b6d7d6d8",
+    measurementId: "G-M37D0QHKMX"
+  };
+
+  
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
   
   
 
@@ -421,6 +443,19 @@ Since the advent of the mobile platforms we enjoy today, there has always been a
 <p>In this post I will share how the pandemic changed my investment thesis, the things I learned, and the mistakes I did. 14 months into the crisis of our generation (and with a few months to recover whatever the new normal will be), we now know that things will never be the way they used to be.</p>
         </div>
       </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/a-short-story-of-randomness-i/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">A short story of randomness (I)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p><img src="https://cdn-images-1.medium.com/max/768/1*xeAPuWFdYuep6JvFUdvvDw.jpeg" alt=""></p>
+<p>I have always been fascinated by the above comic strip. A discussion on randomness and determinism becomes as much a philosophical issue as it is a practical one. They are used in a variety of applications: from the obvious cryptography, gaming or gambling to the less evident politics or arts.</p>
+<p>How can we be sure that a number is random? Will observing the process mine our efforts on generating the random number, similar to the observation of a cat inside a box with a decaying radioactive atom? Despite the potential complexity of generating random numbers, we can provide an initially simple method to generate them.</p>
+        </div>
+      </a>
       </div>
     </section>
 
@@ -500,6 +535,20 @@ Since the advent of the mobile platforms we enjoy today, there has always been a
 <script type="text/javascript" src="/main.js" defer></script>
 
 
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-M37D0QHKMX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-M37D0QHKMX');
+        }
+      </script>
 </body>
 
 </html>
