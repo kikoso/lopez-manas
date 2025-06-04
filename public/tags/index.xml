@@ -148,5 +148,26 @@
       <guid>/tags/money/</guid>
       <description></description>
     </item>
+    <item>
+      <title>Determinism</title>
+      <link>/tags/determinism/</link>
+      <pubDate>Sun, 04 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>/tags/determinism/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Random</title>
+      <link>/tags/random/</link>
+      <pubDate>Sun, 04 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>/tags/random/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Randomness</title>
+      <link>/tags/randomness/</link>
+      <pubDate>Sun, 04 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>/tags/randomness/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

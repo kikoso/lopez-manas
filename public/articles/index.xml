@@ -64,5 +64,12 @@
       <guid>/articles/a-recapitulation-of-investing-in-pandemic-times/</guid>
       <description>&lt;p&gt;It has been around 14 months since the pandemic started. We have all been affected by it to a greater or lesser degree, and the investing world has not been an exception (although surprisingly, the stock market is one of the winners of the pandemic).&lt;/p&gt;&#xA;&lt;p&gt;In this post I will share how the pandemic changed my investment thesis, the things I learned, and the mistakes I did. 14 months into the crisis of our generation (and with a few months to recover whatever the new normal will be), we now know that things will never be the way they used to be.&lt;/p&gt;</description>
     </item>
+    <item>
+      <title>A short story of randomness (I)</title>
+      <link>/articles/a-short-story-of-randomness-i/</link>
+      <pubDate>Sun, 04 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>/articles/a-short-story-of-randomness-i/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://cdn-images-1.medium.com/max/768/1*xeAPuWFdYuep6JvFUdvvDw.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;I have always been fascinated by the above comic strip. A discussion on randomness and determinism becomes as much a philosophical issue as it is a practical one. They are used in a variety of applications: from the obvious cryptography, gaming or gambling to the less evident politics or arts.&lt;/p&gt;&#xA;&lt;p&gt;How can we be sure that a number is random? Will observing the process mine our efforts on generating the random number, similar to the observation of a cat inside a box with a decaying radioactive atom? Despite the potential complexity of generating random numbers, we can provide an initially simple method to generate them.&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>

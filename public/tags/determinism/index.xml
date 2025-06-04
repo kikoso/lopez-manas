@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Determinism on </title>
+    <link>/tags/determinism/</link>
+    <description>Recent content in Determinism on </description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 04 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/determinism/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A short story of randomness (I)</title>
+      <link>/articles/a-short-story-of-randomness-i/</link>
+      <pubDate>Sun, 04 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>/articles/a-short-story-of-randomness-i/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://cdn-images-1.medium.com/max/768/1*xeAPuWFdYuep6JvFUdvvDw.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;I have always been fascinated by the above comic strip. A discussion on randomness and determinism becomes as much a philosophical issue as it is a practical one. They are used in a variety of applications: from the obvious cryptography, gaming or gambling to the less evident politics or arts.&lt;/p&gt;&#xA;&lt;p&gt;How can we be sure that a number is random? Will observing the process mine our efforts on generating the random number, similar to the observation of a cat inside a box with a decaying radioactive atom? Despite the potential complexity of generating random numbers, we can provide an initially simple method to generate them.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
