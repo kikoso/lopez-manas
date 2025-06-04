@@ -21,14 +21,6 @@ googleAnalytics = "UA-PROPERTY_ID"
   url = '/articles'
   weight = 3
 [[menu.main]]
-  name = 'Portfolio'
-  url = '/portfolio'
-  weight = 4
-[[menu.main]]
-  name = 'Stack'
-  url = '/stack'
-  weight = 5
-[[menu.main]]
   name = 'Links'
   params.header = true
   weight = 6
@@ -44,6 +36,11 @@ googleAnalytics = "UA-PROPERTY_ID"
   name = 'Lexiconic'
   url = 'https://lexiconic.de/'
   weight = 9
+[[menu.main]]
+  name = 'Enrique's Fund'
+  url = '  https://docs.google.com/spreadsheets/d/e/2PACX-1vQOzDQQRd61shPyA98mfFLnpHQt05pUkgrbtyuXYBccQlo_ZyAodHe2K0Z-gKr5XWXCNpx5Izyarb87/pubhtml?gid=411705077&single=true'
+  weight = 10
+
 
 [[menu.social]]
   name = "Mastodon"
