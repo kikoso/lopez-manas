@@ -3,28 +3,98 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/</loc>
-    <lastmod>2025-05-08T11:01:25+02:00</lastmod>
+    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/articles/</loc>
-    <lastmod>2025-05-08T11:01:25+02:00</lastmod>
+    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/articles/article-1/</loc>
-    <lastmod>2025-05-08T11:01:25+02:00</lastmod>
+    <loc>/tags/finance/</loc>
+    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/articles/my-forth-post/</loc>
-    <lastmod>2025-05-08T11:01:25+02:00</lastmod>
+    <loc>/tags/investing/</loc>
+    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/articles/my-sixth-post/</loc>
-    <lastmod>2025-05-08T11:01:25+02:00</lastmod>
+    <loc>/tags/kotlin/</loc>
+    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/articles/my-second-post/</loc>
-    <lastmod>2025-05-08T11:01:25+02:00</lastmod>
-  </url><url>
-    <loc>/articles/my-third-post/</loc>
-    <lastmod>2025-05-08T11:01:25+02:00</lastmod>
-  </url><url>
-    <loc>/categories/</loc>
+    <loc>/tags/programming/</loc>
+    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/</loc>
+    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/articles/vibe-coding-kotlin-finance-data-visualization/</loc>
+    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/long-term-thinking/</loc>
+    <lastmod>2024-10-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/marathon/</loc>
+    <lastmod>2024-10-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/running/</loc>
+    <lastmod>2024-10-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/articles/treat-life-like-a-marathon-not-like-a-sprint/</loc>
+    <lastmod>2024-10-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/build/</loc>
+    <lastmod>2024-10-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/devops/</loc>
+    <lastmod>2024-10-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/github/</loc>
+    <lastmod>2024-10-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/gradle/</loc>
+    <lastmod>2024-10-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/articles/uploading-sarif-reports-to-github/</loc>
+    <lastmod>2024-10-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/articles/kotlinconf-2024-announcements/</loc>
+    <lastmod>2024-05-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/android/</loc>
+    <lastmod>2023-05-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/articles/http-chunk-requests-with-android-and-ktor/</loc>
+    <lastmod>2023-05-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/ktor/</loc>
+    <lastmod>2023-05-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/invest/</loc>
+    <lastmod>2023-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/investment/</loc>
+    <lastmod>2023-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/articles/my-investing-summary-of-2022/</loc>
+    <lastmod>2023-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/stocks/</loc>
+    <lastmod>2023-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/kmp/</loc>
+    <lastmod>2022-05-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/articles/kmp-ios-developers-and-production/</loc>
+    <lastmod>2022-05-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/kotlin-native/</loc>
+    <lastmod>2022-05-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/articles/a-recapitulation-of-investing-in-pandemic-times/</loc>
+    <lastmod>2021-06-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/cash/</loc>
+    <lastmod>2021-06-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/money/</loc>
+    <lastmod>2021-06-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/</loc>
   </url>
 </urlset>

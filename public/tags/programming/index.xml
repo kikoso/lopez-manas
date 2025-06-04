@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Programming on </title>
+    <link>/tags/programming/</link>
+    <description>Recent content in Programming on </description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 12 Apr 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vibe Coding, Kotlin, Finance, and Data Visualization</title>
+      <link>/articles/vibe-coding-kotlin-finance-data-visualization/</link>
+      <pubDate>Sat, 12 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>/articles/vibe-coding-kotlin-finance-data-visualization/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://cdn-images-1.medium.com/max/1024/1*ZwgQvwiwhHiEZc2j7905DQ.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Recently, I came across a paper discussing an experiment and tried to reproduce it. Here’s a brief summary:&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;- Portfolio A&lt;/strong&gt;: In a bull market, grows by 20%; in a bear market, drops by 20%.&#xA;&lt;strong&gt;- Portfolio B&lt;/strong&gt;: In a bull market, grows by 25%; in a bear market, drops by 35%.&#xA;&lt;strong&gt;- Bull market probability:&lt;/strong&gt; 75%.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://cdn-images-1.medium.com/max/1024/1*qJ4nV9eXJYn_FQM_ypUxlw.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;According to the paper, both portfolios should have a one-year expected return of 10%. However, the paper claims that Portfolio A wins over Portfolio B around 90% of the time at the end of a 30-year simulation. This sounds a bit too excessive to me (it means that, at the end of the entire simulation, 9 times out of 10 portfolio A wins). I was expecting this number to be lower. The author also mentioned that he was using GenAI to generate the code, and he even mentions “this process seems like magic”. Strong indications that the code is likely not correct.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
