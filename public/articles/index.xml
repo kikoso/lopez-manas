@@ -6,42 +6,63 @@
     <description>Recent content in Articles on </description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 08 May 2025 11:01:25 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 12 Apr 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="/articles/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>My Fifth Post</title>
-      <link>/articles/article-1/</link>
-      <pubDate>Thu, 08 May 2025 11:01:25 +0200</pubDate>
-      <guid>/articles/article-1/</guid>
-      <description></description>
+      <title>Vibe Coding, Kotlin, Finance, and Data Visualization</title>
+      <link>/articles/vibe-coding-kotlin-finance-data-visualization/</link>
+      <pubDate>Sat, 12 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>/articles/vibe-coding-kotlin-finance-data-visualization/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://cdn-images-1.medium.com/max/1024/1*ZwgQvwiwhHiEZc2j7905DQ.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Recently, I came across a paper discussing an experiment and tried to reproduce it. Here’s a brief summary:&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;- Portfolio A&lt;/strong&gt;: In a bull market, grows by 20%; in a bear market, drops by 20%.&#xA;&lt;strong&gt;- Portfolio B&lt;/strong&gt;: In a bull market, grows by 25%; in a bear market, drops by 35%.&#xA;&lt;strong&gt;- Bull market probability:&lt;/strong&gt; 75%.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://cdn-images-1.medium.com/max/1024/1*qJ4nV9eXJYn_FQM_ypUxlw.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;According to the paper, both portfolios should have a one-year expected return of 10%. However, the paper claims that Portfolio A wins over Portfolio B around 90% of the time at the end of a 30-year simulation. This sounds a bit too excessive to me (it means that, at the end of the entire simulation, 9 times out of 10 portfolio A wins). I was expecting this number to be lower. The author also mentioned that he was using GenAI to generate the code, and he even mentions “this process seems like magic”. Strong indications that the code is likely not correct.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>My Forth Post</title>
-      <link>/articles/my-forth-post/</link>
-      <pubDate>Thu, 08 May 2025 11:01:25 +0200</pubDate>
-      <guid>/articles/my-forth-post/</guid>
-      <description></description>
+      <title>Treat life like a marathon, not like a sprint</title>
+      <link>/articles/treat-life-like-a-marathon-not-like-a-sprint/</link>
+      <pubDate>Thu, 24 Oct 2024 00:00:00 +0000</pubDate>
+      <guid>/articles/treat-life-like-a-marathon-not-like-a-sprint/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://cdn-images-1.medium.com/max/1024/1*dyrnHLgrVODQxpYucd3pmQ.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Like most of us, I am daily flooded with thoughts about life, my objective position in it, whether I am missing anything, or whether I need to do better. Am I providing enough for my family? Is my career on track? Am I being healthy enough? Am I just passing through life instead of aiming to strive?&lt;/p&gt;&#xA;&lt;p&gt;Those thoughts have been slowly mitigated, but they never got away. Over time, I have been slowly accepting this reality, and I came to realise that all the marathon training and long-distance running have helped me come to terms with these facts.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>My Sixth Post</title>
-      <link>/articles/my-sixth-post/</link>
-      <pubDate>Thu, 08 May 2025 11:01:25 +0200</pubDate>
-      <guid>/articles/my-sixth-post/</guid>
-      <description></description>
+      <title>Uploading SARIF Reports to GitHub</title>
+      <link>/articles/uploading-sarif-reports-to-github/</link>
+      <pubDate>Wed, 23 Oct 2024 00:00:00 +0000</pubDate>
+      <guid>/articles/uploading-sarif-reports-to-github/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://cdn-images-1.medium.com/max/1024/1*f-FgrMVP9S8QByT9Ts4pRA.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Recently I wanted to add Lint reports to a repository on GitHub. The goal is to report potential Lint violations when new code is committed, to make sure that all the committed code is lint-warning-free and pretty.&lt;/p&gt;&#xA;&lt;p&gt;My first idea was to look for a GitHub action that could run ./gradlew lint and report it as a PR comment. After asking about ideas in the Android Study Group, &lt;a href=&#34;https://www.linkedin.com/in/carterjernigan/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;Carter Jernigan&lt;/a&gt; and &lt;a href=&#34;https://www.linkedin.com/in/jzbrooks&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;Justin Brooks&lt;/a&gt; suggested me to upload directly the SARIF files into GitHub. I wasn’t aware this was possible.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>My third Post</title>
-      <link>/articles/my-second-post/</link>
-      <pubDate>Thu, 08 May 2025 11:01:25 +0200</pubDate>
-      <guid>/articles/my-second-post/</guid>
-      <description></description>
+      <title>KotlinConf 2024 announcements</title>
+      <link>/articles/kotlinconf-2024-announcements/</link>
+      <pubDate>Fri, 24 May 2024 00:00:00 +0000</pubDate>
+      <guid>/articles/kotlinconf-2024-announcements/</guid>
+      <description>&lt;p&gt;The first day of the KotlinConf 2024 is over, and there has been a significant amount. After 5 years the conference happened again at The Bella Center in Copenhagen, a fantastic venue close to the historical center of the Danish capital.&lt;/p&gt;&#xA;&lt;p&gt;The last two weeks have been intense, with the Google I/O announcing another set of relevant features for Android and Kotlin developers. Most notably, Google is now supporting KMP for Android development. This is not a surprise move, since Google has been slowly pushing KMP for many of their libraries and products. Having official support is, however, a confirmation of a direction that makes Android developers happy. We are no longer relying on uncertainty. Quite the opposite, we know that putting our time and effort on Kotlin Multiplatform is likely to pay dividends over the upcoming years.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>My third Post</title>
-      <link>/articles/my-third-post/</link>
-      <pubDate>Thu, 08 May 2025 11:01:25 +0200</pubDate>
-      <guid>/articles/my-third-post/</guid>
-      <description></description>
+      <title>HTTP chunk requests with Android and ktor</title>
+      <link>/articles/http-chunk-requests-with-android-and-ktor/</link>
+      <pubDate>Tue, 23 May 2023 00:00:00 +0000</pubDate>
+      <guid>/articles/http-chunk-requests-with-android-and-ktor/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://cdn-images-1.medium.com/max/1024/1*DH0c8GEa9vfu53dxt45JSA.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;In this very short article, I will explain briefly what is a chunk or streamed HTTP request, what are the benefits of using it, and how it works in Android.&lt;/p&gt;&#xA;&lt;p&gt;Android apps use HTTP requests to download data from a backend. This information is stored and processed on the app to make it functional.&lt;/p&gt;&#xA;&lt;p&gt;HTTP requests are executed using different frameworks on Android. The most common ones are Retrofit or OkHttp.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>My Investing Summary of 2022</title>
+      <link>/articles/my-investing-summary-of-2022/</link>
+      <pubDate>Sun, 01 Jan 2023 00:00:00 +0000</pubDate>
+      <guid>/articles/my-investing-summary-of-2022/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://cdn-images-1.medium.com/max/1024/1*JmgR3z9eliHKcowqYksZAQ.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Another solar rotation passed, and the world experienced a plethora of unexpected events. In the aftermath of the Corona epidemic that altered the course of the last couple of years, we had the unfortunate invasion of Ukraine by Russian forces, the tightening of Corona measures in China (and toward the end of the year, their withdrawal and gradual reopening of the economy), an ongoing economic recession, the rate hike by the FED and the general uncertainty of the most immediate future.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>KMP, iOS Developers and Production</title>
+      <link>/articles/kmp-ios-developers-and-production/</link>
+      <pubDate>Wed, 25 May 2022 00:00:00 +0000</pubDate>
+      <guid>/articles/kmp-ios-developers-and-production/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://cdn-images-1.medium.com/max/1024/1*uz-uJJLVLZEVx5FBImJQWw.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Kotlin Multiplatform (or KMP, KMM Mobile, etc) has been widely used for a number of years in applications that are currently in production. JetBrains &lt;a href=&#34;https://kotlinlang.org/lp/mobile/case-studies/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;compiled a website&lt;/a&gt; listing some of the companies that are currently using KMP.&lt;/p&gt;&#xA;&lt;p&gt;Since the advent of the mobile platforms we enjoy today, there has always been a certain market interest to push multiplatform technologies, such as Cordova, Xamarin, and others. With more or less success, those technologies aimed to provide a unified framework to develop multiple codebases, mostly focusing on the aspect of pricing (create code once, deploy multiple times).&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>A recapitulation of investing in pandemic times</title>
+      <link>/articles/a-recapitulation-of-investing-in-pandemic-times/</link>
+      <pubDate>Sun, 20 Jun 2021 00:00:00 +0000</pubDate>
+      <guid>/articles/a-recapitulation-of-investing-in-pandemic-times/</guid>
+      <description>&lt;p&gt;It has been around 14 months since the pandemic started. We have all been affected by it to a greater or lesser degree, and the investing world has not been an exception (although surprisingly, the stock market is one of the winners of the pandemic).&lt;/p&gt;&#xA;&lt;p&gt;In this post I will share how the pandemic changed my investment thesis, the things I learned, and the mistakes I did. 14 months into the crisis of our generation (and with a few months to recover whatever the new normal will be), we now know that things will never be the way they used to be.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

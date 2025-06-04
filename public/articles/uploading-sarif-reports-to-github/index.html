@@ -8,44 +8,62 @@
   <link rel="icon" href="/favicon.ico">
 
   <title>
-    Articles - 
+    Uploading SARIF Reports to GitHub - 
   </title>
 
-  <meta name="description" content="My Digital Garden on the Internet" /><meta name="generator" content="Hugo 0.147.2">
+  <meta name="description" content="
+Recently I wanted to add Lint reports to a repository on GitHub. The goal is to report potential Lint violations when new code is committed, to make sure that all the committed code is lint-warning-free and pretty.
+My first idea was to look for a GitHub action that could run ./gradlew lint and report it as a PR comment. After asking about ideas in the Android Study Group, Carter Jernigan and Justin Brooks suggested me to upload directly the SARIF files into GitHub. I wasn’t aware this was possible." /><meta name="generator" content="Hugo 0.147.2">
 
   <link rel="stylesheet" href="/css/main.css" />
 
   
   
 
-  <meta property="og:url" content="/articles/">
-  <meta property="og:title" content="Articles">
-  <meta property="og:description" content="My Digital Garden on the Internet">
+  <meta property="og:url" content="/articles/uploading-sarif-reports-to-github/">
+  <meta property="og:title" content="Uploading SARIF Reports to GitHub">
+  <meta property="og:description" content="Recently I wanted to add Lint reports to a repository on GitHub. The goal is to report potential Lint violations when new code is committed, to make sure that all the committed code is lint-warning-free and pretty.
+My first idea was to look for a GitHub action that could run ./gradlew lint and report it as a PR comment. After asking about ideas in the Android Study Group, Carter Jernigan and Justin Brooks suggested me to upload directly the SARIF files into GitHub. I wasn’t aware this was possible.">
   <meta property="og:locale" content="en">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2024-10-23T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-10-23T00:00:00+00:00">
+    <meta property="article:tag" content="Kotlin">
+    <meta property="article:tag" content="Build">
+    <meta property="article:tag" content="Devops">
+    <meta property="article:tag" content="Gradle">
+    <meta property="article:tag" content="Github">
     <meta property="og:image" content="/digital-garden-logo.png">
 
 
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="/digital-garden-logo.png">
-  <meta name="twitter:title" content="Articles">
-  <meta name="twitter:description" content="My Digital Garden on the Internet">
+  <meta name="twitter:title" content="Uploading SARIF Reports to GitHub">
+  <meta name="twitter:description" content="Recently I wanted to add Lint reports to a repository on GitHub. The goal is to report potential Lint violations when new code is committed, to make sure that all the committed code is lint-warning-free and pretty.
+My first idea was to look for a GitHub action that could run ./gradlew lint and report it as a PR comment. After asking about ideas in the Android Study Group, Carter Jernigan and Justin Brooks suggested me to upload directly the SARIF files into GitHub. I wasn’t aware this was possible.">
 
 
   
-  <meta itemprop="name" content="Articles">
-  <meta itemprop="description" content="My Digital Garden on the Internet">
-  <meta itemprop="datePublished" content="2025-04-12T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2025-04-12T00:00:00+00:00">
+  <meta itemprop="name" content="Uploading SARIF Reports to GitHub">
+  <meta itemprop="description" content="Recently I wanted to add Lint reports to a repository on GitHub. The goal is to report potential Lint violations when new code is committed, to make sure that all the committed code is lint-warning-free and pretty.
+My first idea was to look for a GitHub action that could run ./gradlew lint and report it as a PR comment. After asking about ideas in the Android Study Group, Carter Jernigan and Justin Brooks suggested me to upload directly the SARIF files into GitHub. I wasn’t aware this was possible.">
+  <meta itemprop="datePublished" content="2024-10-23T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2024-10-23T00:00:00+00:00">
+  <meta itemprop="wordCount" content="357">
   <meta itemprop="image" content="/digital-garden-logo.png">
+  <meta itemprop="keywords" content="Kotlin,Build,Devops,Gradle,Github">
 
   
-  <meta itemprop="name" content="Articles">
-  <meta itemprop="description" content="My Digital Garden on the Internet">
-  <meta itemprop="datePublished" content="2025-04-12T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2025-04-12T00:00:00+00:00">
+  <meta itemprop="name" content="Uploading SARIF Reports to GitHub">
+  <meta itemprop="description" content="Recently I wanted to add Lint reports to a repository on GitHub. The goal is to report potential Lint violations when new code is committed, to make sure that all the committed code is lint-warning-free and pretty.
+My first idea was to look for a GitHub action that could run ./gradlew lint and report it as a PR comment. After asking about ideas in the Android Study Group, Carter Jernigan and Justin Brooks suggested me to upload directly the SARIF files into GitHub. I wasn’t aware this was possible.">
+  <meta itemprop="datePublished" content="2024-10-23T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2024-10-23T00:00:00+00:00">
+  <meta itemprop="wordCount" content="357">
   <meta itemprop="image" content="/digital-garden-logo.png">
+  <meta itemprop="keywords" content="Kotlin,Build,Devops,Gradle,Github">
 </head>
 <body class="flex relative h-full min-h-screen"><aside
   class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:basis-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar flex-shrink-0">
@@ -89,7 +107,7 @@
     </li>
     
     <li>
-      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  bg-slate-800 text-white dark:bg-slate-50 dark:text-slate-800 dark:selection:bg-slate-400 "
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="/articles" >
         <span>Articles</span>
         
@@ -236,10 +254,17 @@
 </svg></button>
 <div class="flex-1 max-w-full">
 
+
+
+
+
 <div class="flex h-screen relative">
 
   <section
-    class="w-full h-full md:min-w-[400px] md:w-1/4 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col py-3 overflow-y-auto scroll-area">
+    class="will-change-transform transform transition-transform -translate-x-[200%] absolute top-0 left-0 lg:relative
+  lg:translate-x-0 lg:min-w-[400px] lg:w-1/4 h-full bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 lg:flex flex-col py-3 overflow-y-auto scroll-area">
+    
+    
     <a href="/articles/">
       <h2 class="font-bold mb-5 py-1 pl-12 pr-3 md:px-3">Articles</h2>
     </a>
@@ -269,12 +294,14 @@
   }
 </script>
 <div class="space-y-2.5">
-      <a class="article block px-3 py-4 hover:bg-slate-200 dark:hover:bg-slate-700" href="/articles/vibe-coding-kotlin-finance-data-visualization/">
-
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/vibe-coding-kotlin-finance-data-visualization/">
         
         
         <h3 class="text-lg font-semibold mb-0.5">Vibe Coding, Kotlin, Finance, and Data Visualization</h3>
-        <div class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
           <p><img src="https://cdn-images-1.medium.com/max/1024/1*ZwgQvwiwhHiEZc2j7905DQ.jpeg" alt=""></p>
 <p>Recently, I came across a paper discussing an experiment and tried to reproduce it. Here’s a brief summary:</p>
 <p><strong>- Portfolio A</strong>: In a bull market, grows by 20%; in a bear market, drops by 20%.
@@ -284,87 +311,134 @@
 <p>According to the paper, both portfolios should have a one-year expected return of 10%. However, the paper claims that Portfolio A wins over Portfolio B around 90% of the time at the end of a 30-year simulation. This sounds a bit too excessive to me (it means that, at the end of the entire simulation, 9 times out of 10 portfolio A wins). I was expecting this number to be lower. The author also mentioned that he was using GenAI to generate the code, and he even mentions “this process seems like magic”. Strong indications that the code is likely not correct.</p>
         </div>
       </a>
-      <a class="article block px-3 py-4 hover:bg-slate-200 dark:hover:bg-slate-700" href="/articles/treat-life-like-a-marathon-not-like-a-sprint/">
-
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/treat-life-like-a-marathon-not-like-a-sprint/">
         
         
         <h3 class="text-lg font-semibold mb-0.5">Treat life like a marathon, not like a sprint</h3>
-        <div class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
           <p><img src="https://cdn-images-1.medium.com/max/1024/1*dyrnHLgrVODQxpYucd3pmQ.jpeg" alt=""></p>
 <p>Like most of us, I am daily flooded with thoughts about life, my objective position in it, whether I am missing anything, or whether I need to do better. Am I providing enough for my family? Is my career on track? Am I being healthy enough? Am I just passing through life instead of aiming to strive?</p>
 <p>Those thoughts have been slowly mitigated, but they never got away. Over time, I have been slowly accepting this reality, and I came to realise that all the marathon training and long-distance running have helped me come to terms with these facts.</p>
         </div>
       </a>
-      <a class="article block px-3 py-4 hover:bg-slate-200 dark:hover:bg-slate-700" href="/articles/uploading-sarif-reports-to-github/">
-
+      
+      <a class="article block px-3 py-4  bg-slate-900 dark:bg-slate-700 text-slate-50 "
+        href="/articles/uploading-sarif-reports-to-github/">
         
         
         <h3 class="text-lg font-semibold mb-0.5">Uploading SARIF Reports to GitHub</h3>
-        <div class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
+        <div
+          class="text-sm  text-slate-400  line-clamp-2">
           <p><img src="https://cdn-images-1.medium.com/max/1024/1*f-FgrMVP9S8QByT9Ts4pRA.jpeg" alt=""></p>
 <p>Recently I wanted to add Lint reports to a repository on GitHub. The goal is to report potential Lint violations when new code is committed, to make sure that all the committed code is lint-warning-free and pretty.</p>
 <p>My first idea was to look for a GitHub action that could run ./gradlew lint and report it as a PR comment. After asking about ideas in the Android Study Group, <a href="https://www.linkedin.com/in/carterjernigan/"  target="_blank" rel="noopener" >Carter Jernigan</a> and <a href="https://www.linkedin.com/in/jzbrooks"  target="_blank" rel="noopener" >Justin Brooks</a> suggested me to upload directly the SARIF files into GitHub. I wasn’t aware this was possible.</p>
         </div>
       </a>
-      <a class="article block px-3 py-4 hover:bg-slate-200 dark:hover:bg-slate-700" href="/articles/kotlinconf-2024-announcements/">
-
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/kotlinconf-2024-announcements/">
         
         
         <h3 class="text-lg font-semibold mb-0.5">KotlinConf 2024 announcements</h3>
-        <div class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
           <p>The first day of the KotlinConf 2024 is over, and there has been a significant amount. After 5 years the conference happened again at The Bella Center in Copenhagen, a fantastic venue close to the historical center of the Danish capital.</p>
 <p>The last two weeks have been intense, with the Google I/O announcing another set of relevant features for Android and Kotlin developers. Most notably, Google is now supporting KMP for Android development. This is not a surprise move, since Google has been slowly pushing KMP for many of their libraries and products. Having official support is, however, a confirmation of a direction that makes Android developers happy. We are no longer relying on uncertainty. Quite the opposite, we know that putting our time and effort on Kotlin Multiplatform is likely to pay dividends over the upcoming years.</p>
         </div>
       </a>
-      <a class="article block px-3 py-4 hover:bg-slate-200 dark:hover:bg-slate-700" href="/articles/http-chunk-requests-with-android-and-ktor/">
-
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/http-chunk-requests-with-android-and-ktor/">
         
         
         <h3 class="text-lg font-semibold mb-0.5">HTTP chunk requests with Android and ktor</h3>
-        <div class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
           <p><img src="https://cdn-images-1.medium.com/max/1024/1*DH0c8GEa9vfu53dxt45JSA.jpeg" alt=""></p>
 <p>In this very short article, I will explain briefly what is a chunk or streamed HTTP request, what are the benefits of using it, and how it works in Android.</p>
 <p>Android apps use HTTP requests to download data from a backend. This information is stored and processed on the app to make it functional.</p>
 <p>HTTP requests are executed using different frameworks on Android. The most common ones are Retrofit or OkHttp.</p>
         </div>
       </a>
-      <a class="article block px-3 py-4 hover:bg-slate-200 dark:hover:bg-slate-700" href="/articles/my-investing-summary-of-2022/">
-
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/my-investing-summary-of-2022/">
         
         
         <h3 class="text-lg font-semibold mb-0.5">My Investing Summary of 2022</h3>
-        <div class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
           <p><img src="https://cdn-images-1.medium.com/max/1024/1*JmgR3z9eliHKcowqYksZAQ.jpeg" alt=""></p>
 <p>Another solar rotation passed, and the world experienced a plethora of unexpected events. In the aftermath of the Corona epidemic that altered the course of the last couple of years, we had the unfortunate invasion of Ukraine by Russian forces, the tightening of Corona measures in China (and toward the end of the year, their withdrawal and gradual reopening of the economy), an ongoing economic recession, the rate hike by the FED and the general uncertainty of the most immediate future.</p>
         </div>
       </a>
-      <a class="article block px-3 py-4 hover:bg-slate-200 dark:hover:bg-slate-700" href="/articles/kmp-ios-developers-and-production/">
-
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/kmp-ios-developers-and-production/">
         
         
         <h3 class="text-lg font-semibold mb-0.5">KMP, iOS Developers and Production</h3>
-        <div class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
           <p><img src="https://cdn-images-1.medium.com/max/1024/1*uz-uJJLVLZEVx5FBImJQWw.jpeg" alt=""></p>
 <p>Kotlin Multiplatform (or KMP, KMM Mobile, etc) has been widely used for a number of years in applications that are currently in production. JetBrains <a href="https://kotlinlang.org/lp/mobile/case-studies/"  target="_blank" rel="noopener" >compiled a website</a> listing some of the companies that are currently using KMP.</p>
 <p>Since the advent of the mobile platforms we enjoy today, there has always been a certain market interest to push multiplatform technologies, such as Cordova, Xamarin, and others. With more or less success, those technologies aimed to provide a unified framework to develop multiple codebases, mostly focusing on the aspect of pricing (create code once, deploy multiple times).</p>
         </div>
       </a>
-      <a class="article block px-3 py-4 hover:bg-slate-200 dark:hover:bg-slate-700" href="/articles/a-recapitulation-of-investing-in-pandemic-times/">
-
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/a-recapitulation-of-investing-in-pandemic-times/">
         
         
         <h3 class="text-lg font-semibold mb-0.5">A recapitulation of investing in pandemic times</h3>
-        <div class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
           <p>It has been around 14 months since the pandemic started. We have all been affected by it to a greater or lesser degree, and the investing world has not been an exception (although surprisingly, the stock market is one of the winners of the pandemic).</p>
 <p>In this post I will share how the pandemic changed my investment thesis, the things I learned, and the mistakes I did. 14 months into the crisis of our generation (and with a few months to recover whatever the new normal will be), we now know that things will never be the way they used to be.</p>
         </div>
       </a>
       </div>
-  </section>
+    </section>
 
-  <main class="hidden md:grid h-screen place-items-center flex-1">
-    <p class="text-center p-8 text-2xl text-slate-300 dark:text-slate-700">Select a post to read</p>
-  </main>
+  <div class="overflow-y-auto h-screen w-full">
+    <article class="px-6 py-20 w-full mx-auto prose lg:prose-lg h-fit dark:prose-invert prose-img:mx-auto">
+
+      
+      <h1 class="!mb-2">Uploading SARIF Reports to GitHub</h1>
+
+	  
+      <p class="text-sm text-slate-500 !mb-8"> Planted October 23, 2024
+		
+	  </p>
+      
+
+      
+
+      <p><img src="https://cdn-images-1.medium.com/max/1024/1*f-FgrMVP9S8QByT9Ts4pRA.jpeg" alt=""></p>
+<p>Recently I wanted to add Lint reports to a repository on GitHub. The goal is to report potential Lint violations when new code is committed, to make sure that all the committed code is lint-warning-free and pretty.</p>
+<p>My first idea was to look for a GitHub action that could run ./gradlew lint and report it as a PR comment. After asking about ideas in the Android Study Group, <a href="https://www.linkedin.com/in/carterjernigan/"  target="_blank" rel="noopener" >Carter Jernigan</a> and <a href="https://www.linkedin.com/in/jzbrooks"  target="_blank" rel="noopener" >Justin Brooks</a> suggested me to upload directly the SARIF files into GitHub. I wasn’t aware this was possible.</p>
+<h4 id="what-is-a-sarif-file">What is a SARIF file?</h4>
+<p>SARIF is a standardized format to represent the result of static analysis. It contains some metadata regarding the static analysis tool that was used to create the report, active rules, and found violations. This is an excerpt from a SARIF file, representing a Lint violation (not targeting the latest Android version):</p>
+<p><a href="https://medium.com/media/67d055661eb8f76f887d35a35b34b2d2/href"  target="_blank" rel="noopener" >View Gist on Medium</a></p>
+<p>By default, the output of ./gradlew lint does not include a report in a SARIF format, but this can be easily added with the following block in a Gradle file:</p>
+<p><a href="https://medium.com/media/17e1774ffd17ec103f59b685b84b7559/href"  target="_blank" rel="noopener" >View Gist on Medium</a></p>
+<p>After adding and syncing this line, running Lint will now generate a report in a SARIF format:</p>
+<p><img src="https://cdn-images-1.medium.com/max/778/1*sNcAO43NEzRBMF8tlB0biA.png" alt=""></p>
+<p>One more problem that we may find here is that, if we have a multimodule project, this can result in several SARIF files that we need to merge and unify. This can easily be done via a GitHub action, which merges and upload the SARIF files:</p>
+<p><a href="https://medium.com/media/8295209d0a00c9707ac1ac7efd1091bb/href"  target="_blank" rel="noopener" >View Gist on Medium</a></p>
+<p>Finally, GitHub will now post Lint violations on every PR, which you can check while reviewing it:</p>
+<p><img src="https://cdn-images-1.medium.com/max/1024/1*QY01NTlh1L1QA57HVdisVw.png" alt=""></p>
+<p>Then the code scanning section in GitHub will be activated, and all the current Lint violations will be displayed under <a href="https://github.com/googlemaps/android-maps-utils/security/code-scanning?query=pr%3A1406&#43;is%3Aopen"  target="_blank" rel="noopener" >https://github.com/ORG/REPO/security/code-scanning?query=pr%3A1406+is%3Aopen</a></p>
+<p><img src="https://cdn-images-1.medium.com/max/1024/1*8M1LnJC3Y4bOY1hTpRkZ9w.png" alt=""></p>
+<p>This trick only works for open-source repositories, or those that use GitHub Advanced Security.</p>
+<p>I share my thoughts about Software Engineering and life in general on my <a href="https://kotlin.social/@eenriquelopez"  target="_blank" rel="noopener" >Mastodon account</a>. If you have liked this article or if it did help you, feel free to share, 👏 it and/or leave a comment. This is the currency that fuels amateur writers.</p>
+<p>Disclaimer: This article didn’t use Generative AI in its elaboration.</p>
+
+    </article>
+  </div>
 
 </div>
 
