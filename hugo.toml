@@ -54,14 +54,18 @@ googleAnalytics = "UA-PROPERTY_ID"
   name = "Bluesky"
   url = "https://bsky.app/profile/eenriquelopez.bsky.social"
   weight = 2
+  [[menu.social]]
+  name = "Goodreads"
+  url = "https://www.goodreads.com/author/show/7510473.Enrique_L_pez_Ma_as"
+  weight = 3
 [[menu.social]]
   name = "LinkedIn"
   url = "https://www.linkedin.com/in/eenriquelopez/"
-  weight = 3
+  weight = 4
 [[menu.social]]
   name = "Email"
   url = "mailto:eenriquelopez@gmail.com"
-  weight = 4
+  weight = 5
 
 
 # syntax highlight settings
