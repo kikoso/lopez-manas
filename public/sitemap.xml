@@ -3,110 +3,133 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/</loc>
-    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
+    <lastmod>2025-06-09T09:50:43+02:00</lastmod>
   </url><url>
     <loc>/articles/</loc>
-    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
+    <lastmod>2025-06-09T09:50:43+02:00</lastmod>
   </url><url>
-    <loc>/tags/finance/</loc>
-    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
+    <loc>/articles/2025-04-12_vibe-coding-kotlin-finance-and-data-visualization/</loc>
+    <lastmod>2025-06-09T09:50:43+02:00</lastmod>
   </url><url>
-    <loc>/tags/investing/</loc>
-    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
+    <loc>/articles/2024-10-24_treat-life-like-a-marathon-not-like-a-sprint/</loc>
+    <lastmod>2025-06-09T09:50:40+02:00</lastmod>
   </url><url>
-    <loc>/tags/kotlin/</loc>
-    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
+    <loc>/articles/2024-10-23_uploading-sarif-reports-to-github/</loc>
+    <lastmod>2025-06-09T09:50:35+02:00</lastmod>
   </url><url>
-    <loc>/tags/programming/</loc>
-    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
+    <loc>/articles/2024-05-24_kotlinconf-2024-announcements/</loc>
+    <lastmod>2025-06-09T09:50:33+02:00</lastmod>
   </url><url>
-    <loc>/tags/</loc>
-    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
+    <loc>/articles/2023-05-23_http-chunk-requests-with-android-and-ktor/</loc>
+    <lastmod>2025-06-09T09:50:30+02:00</lastmod>
   </url><url>
-    <loc>/articles/vibe-coding-kotlin-finance-data-visualization/</loc>
-    <lastmod>2025-04-12T00:00:00+00:00</lastmod>
+    <loc>/articles/2023-01-01_my-investing-summary-of-2022/</loc>
+    <lastmod>2025-06-09T09:50:23+02:00</lastmod>
   </url><url>
-    <loc>/tags/long-term-thinking/</loc>
-    <lastmod>2024-10-24T00:00:00+00:00</lastmod>
+    <loc>/articles/2022-05-25_kmp-ios-developers-and-production/</loc>
+    <lastmod>2025-06-09T09:50:19+02:00</lastmod>
   </url><url>
-    <loc>/tags/marathon/</loc>
-    <lastmod>2024-10-24T00:00:00+00:00</lastmod>
+    <loc>/articles/2021-06-20_recapitulation-of-investing-in-pandemic-times/</loc>
+    <lastmod>2025-06-09T09:50:13+02:00</lastmod>
   </url><url>
-    <loc>/tags/running/</loc>
-    <lastmod>2024-10-24T00:00:00+00:00</lastmod>
+    <loc>/articles/2021-04-04_short-story-of-randomness-i/</loc>
+    <lastmod>2025-06-09T09:50:11+02:00</lastmod>
   </url><url>
-    <loc>/articles/treat-life-like-a-marathon-not-like-a-sprint/</loc>
-    <lastmod>2024-10-24T00:00:00+00:00</lastmod>
+    <loc>/articles/2021-03-14_from-java-to-kotlin-and-back-iii-calling-java-from-kotlin/</loc>
+    <lastmod>2025-06-09T09:50:10+02:00</lastmod>
   </url><url>
-    <loc>/tags/build/</loc>
-    <lastmod>2024-10-23T00:00:00+00:00</lastmod>
+    <loc>/articles/2021-03-07_from-java-to-kotlin-and-back-ii-calling-kotlin-from-java/</loc>
+    <lastmod>2025-06-09T09:50:08+02:00</lastmod>
   </url><url>
-    <loc>/tags/devops/</loc>
-    <lastmod>2024-10-23T00:00:00+00:00</lastmod>
+    <loc>/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/</loc>
+    <lastmod>2025-06-09T09:50:00+02:00</lastmod>
   </url><url>
-    <loc>/tags/github/</loc>
-    <lastmod>2024-10-23T00:00:00+00:00</lastmod>
+    <loc>/articles/2021-02-18_considerations-when-creating-android-libraries/</loc>
+    <lastmod>2025-06-09T09:49:57+02:00</lastmod>
   </url><url>
-    <loc>/tags/gradle/</loc>
-    <lastmod>2024-10-23T00:00:00+00:00</lastmod>
+    <loc>/articles/2021-02-11_github-actions-for-android-developers/</loc>
+    <lastmod>2025-06-09T09:49:53+02:00</lastmod>
   </url><url>
-    <loc>/articles/uploading-sarif-reports-to-github/</loc>
-    <lastmod>2024-10-23T00:00:00+00:00</lastmod>
+    <loc>/articles/2020-10-26_using-the-signature-class-to-verify-data/</loc>
+    <lastmod>2025-06-09T09:49:51+02:00</lastmod>
   </url><url>
-    <loc>/articles/kotlinconf-2024-announcements/</loc>
-    <lastmod>2024-05-24T00:00:00+00:00</lastmod>
+    <loc>/articles/2020-01-25_managing-the-kotlin-weekly/</loc>
+    <lastmod>2025-06-09T09:49:46+02:00</lastmod>
   </url><url>
-    <loc>/tags/android/</loc>
-    <lastmod>2023-05-23T00:00:00+00:00</lastmod>
+    <loc>/articles/2019-12-27_2019-in-retrospective/</loc>
+    <lastmod>2025-06-09T09:49:40+02:00</lastmod>
   </url><url>
-    <loc>/articles/http-chunk-requests-with-android-and-ktor/</loc>
-    <lastmod>2023-05-23T00:00:00+00:00</lastmod>
+    <loc>/articles/2019-12-05_gentle-introduction-to-investing-for-software-engineers-ivmy-methodology-to-determine-which/</loc>
+    <lastmod>2025-06-09T09:49:32+02:00</lastmod>
   </url><url>
-    <loc>/tags/ktor/</loc>
-    <lastmod>2023-05-23T00:00:00+00:00</lastmod>
+    <loc>/articles/2019-09-08_repost-which-city-has-the-most-intense-android-scene-in-europe/</loc>
+    <lastmod>2025-06-09T09:49:29+02:00</lastmod>
   </url><url>
-    <loc>/tags/invest/</loc>
-    <lastmod>2023-01-01T00:00:00+00:00</lastmod>
+    <loc>/articles/2019-08-31_using-git-hooks-to-improve-your-development-workflow/</loc>
+    <lastmod>2025-06-09T09:49:26+02:00</lastmod>
   </url><url>
-    <loc>/tags/investment/</loc>
-    <lastmod>2023-01-01T00:00:00+00:00</lastmod>
+    <loc>/articles/2018-12-23_gentle-introduction-to-investing-for-software-engineers-iii-determining-a-company-value-and/</loc>
+    <lastmod>2025-06-09T09:49:21+02:00</lastmod>
   </url><url>
-    <loc>/articles/my-investing-summary-of-2022/</loc>
-    <lastmod>2023-01-01T00:00:00+00:00</lastmod>
+    <loc>/articles/2018-09-05_gentle-introduction-to-investing-for-software-engineers-ii-compounding-interest-and/</loc>
+    <lastmod>2025-06-09T09:49:16+02:00</lastmod>
   </url><url>
-    <loc>/tags/stocks/</loc>
-    <lastmod>2023-01-01T00:00:00+00:00</lastmod>
+    <loc>/articles/2018-07-27_gentle-introduction-to-investing-for-software-engineers-i-motivation/</loc>
+    <lastmod>2025-06-09T09:49:09+02:00</lastmod>
   </url><url>
-    <loc>/tags/kmp/</loc>
-    <lastmod>2022-05-25T00:00:00+00:00</lastmod>
+    <loc>/articles/2018-04-12_approaching-a-methodology-to-select-speakers-for-conferences/</loc>
+    <lastmod>2025-06-09T09:49:07+02:00</lastmod>
   </url><url>
-    <loc>/articles/kmp-ios-developers-and-production/</loc>
-    <lastmod>2022-05-25T00:00:00+00:00</lastmod>
+    <loc>/articles/2018-02-27_creating-a-library-for-android-the-good-the-bad-and-the-ugly/</loc>
+    <lastmod>2025-06-09T09:49:00+02:00</lastmod>
   </url><url>
-    <loc>/tags/kotlin-native/</loc>
-    <lastmod>2022-05-25T00:00:00+00:00</lastmod>
+    <loc>/articles/2017-06-14_on-strategies-to-apply-kotlin-to-existing-java-code/</loc>
+    <lastmod>2025-06-09T09:48:51+02:00</lastmod>
   </url><url>
-    <loc>/articles/a-recapitulation-of-investing-in-pandemic-times/</loc>
-    <lastmod>2021-06-20T00:00:00+00:00</lastmod>
+    <loc>/articles/2017-04-30_followup-on-how-to-store-tokens-securely-in-android/</loc>
+    <lastmod>2025-06-09T09:48:48+02:00</lastmod>
   </url><url>
-    <loc>/tags/cash/</loc>
-    <lastmod>2021-06-20T00:00:00+00:00</lastmod>
+    <loc>/articles/2017-04-24_using-firebase-as-a-real-time-system/</loc>
+    <lastmod>2025-06-09T09:48:43+02:00</lastmod>
   </url><url>
-    <loc>/tags/money/</loc>
-    <lastmod>2021-06-20T00:00:00+00:00</lastmod>
+    <loc>/articles/2017-01-30_learning-to-use-and-abuse-mutability/</loc>
+    <lastmod>2025-06-09T09:48:35+02:00</lastmod>
   </url><url>
-    <loc>/articles/a-short-story-of-randomness-i/</loc>
-    <lastmod>2021-04-04T00:00:00+00:00</lastmod>
+    <loc>/articles/2017-01-06_an-overview-of-polls-for-android-mobile-developers-in-2016/</loc>
+    <lastmod>2025-06-09T09:48:31+02:00</lastmod>
   </url><url>
-    <loc>/tags/determinism/</loc>
-    <lastmod>2021-04-04T00:00:00+00:00</lastmod>
+    <loc>/articles/2016-12-07_on-properly-using-volatile-and-synchronized/</loc>
+    <lastmod>2025-06-09T09:48:26+02:00</lastmod>
   </url><url>
-    <loc>/tags/random/</loc>
-    <lastmod>2021-04-04T00:00:00+00:00</lastmod>
+    <loc>/articles/2016-11-25_diving-deeper-into-the-java-transient-modifier/</loc>
+    <lastmod>2025-06-09T09:48:24+02:00</lastmod>
   </url><url>
-    <loc>/tags/randomness/</loc>
-    <lastmod>2021-04-04T00:00:00+00:00</lastmod>
+    <loc>/articles/2016-11-07_finally-understanding-how-references-work-in-android-and-java/</loc>
+    <lastmod>2025-06-09T09:48:19+02:00</lastmod>
+  </url><url>
+    <loc>/articles/2016-07-29_you-live-in-a-better-world-today/</loc>
+    <lastmod>2025-06-09T09:48:14+02:00</lastmod>
+  </url><url>
+    <loc>/articles/2016-06-21_theoretical-animal/</loc>
+    <lastmod>2025-06-09T09:48:06+02:00</lastmod>
+  </url><url>
+    <loc>/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/</loc>
+    <lastmod>2025-06-09T09:47:55+02:00</lastmod>
+  </url><url>
+    <loc>/articles/2015-05-05_automating-android-development/</loc>
+    <lastmod>2025-06-09T09:47:52+02:00</lastmod>
+  </url><url>
+    <loc>/articles/2015-02-08_eventdriven-programming-for-android-part-iii/</loc>
+    <lastmod>2025-06-09T09:47:50+02:00</lastmod>
+  </url><url>
+    <loc>/articles/2015-01-28_eventdriven-programming-for-android-part-ii/</loc>
+    <lastmod>2025-06-09T09:47:48+02:00</lastmod>
+  </url><url>
+    <loc>/articles/2015-01-25_eventdriven-programming-for-android-part-i/</loc>
+    <lastmod>2025-06-09T09:47:46+02:00</lastmod>
   </url><url>
     <loc>/categories/</loc>
+  </url><url>
+    <loc>/tags/</loc>
   </url>
 </urlset>
