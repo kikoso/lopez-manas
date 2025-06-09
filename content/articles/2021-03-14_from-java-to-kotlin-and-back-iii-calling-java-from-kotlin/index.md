@@ -37,12 +37,21 @@ Since Java lacks a few of the powerful features we already have on Kotlin, we wi
 Whereas nullability is one of the core features in Kotlin, Java does not provide out-of-the-box support for it. Every parameter in Java should always have a nullability annotation. Otherwise, they are understood as “[platform types](https://p5v.medium.com/platform-types-in-kotlin-5caceeb556ad)”, which have an ambiguous way to determine nullability and can trigger runtime errors, pretty much what Kotlin nullability aims to avoid. For example, consider the following piece of code:
 
 
-
+```Java
+public String doNotUseAnnotation(boolean returnNull) {
+     return returnNull ? null : “I will not crash”;
+}
+```
 
 If we try to call the function _doNotUseAnnotation_ with false, the code will trigger an Exception. Because we didn’t add any annotation, Kotlin implies that the function is not nullable. In Java, we would be setting up the nullability as follows:
 
-
-
+```Java
+public void myFunction(@Nullable String myString) {
+  if (myString != null) { 
+    myString.doSomething();
+  }
+}
+```
 
 The most common ones that we will find are @Nullable and @NotNull, present in the package _org.jetbrains.annotation_ but also in _com.android.annotation_ and others, such as Lombok.
 
@@ -67,24 +76,40 @@ Kotlin uses property access instead of getters and setters, like Java. The defin
 The following Java class:
 
 
-
+```Java
+public final class MyClass {
+  public String getName() {  }
+  public boolean isFinished() {  }
+}
+```
 
 will be accessed like the following block in Kotlin:
 
-
+```Kotlin
+val name = myClass.name 
+val active = myClass.isFinished
+```
 
 
 ### Kotlin keywords
 
 Kotlin has a few hard keywords that we should not be using in our Java code, since the Kotlin counterpart will need backticks to call them.
 
-
+```Kotlin
+foo.`is`(bar)
+```
 
 
 Protip: these backticks can be used all around when naming methods and variables in Kotlin, not only in the case of hard keywords or tests.
 
+```Kotlin
 
-
+class `The Final Countdown` {
+    fun `We're leavin together`() {
+        val `But still its farewell`: String?
+    }
+}
+```
 
 ### Summary
 
