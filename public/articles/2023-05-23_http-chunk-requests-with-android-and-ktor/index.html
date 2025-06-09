@@ -75,7 +75,7 @@ Android apps use HTTP requests to download data from a backend. This information
 HTTP requests are executed using different frameworks on Android. The most common ones are Retrofit or OkHttp.">
   <meta itemprop="datePublished" content="2023-05-23T04:26:12+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:30+02:00">
-  <meta itemprop="wordCount" content="730">
+  <meta itemprop="wordCount" content="830">
   <meta itemprop="image" content="/articles/2023-05-23_http-chunk-requests-with-android-and-ktor/images/1.jpeg">
   <meta itemprop="image" content="/articles/2023-05-23_http-chunk-requests-with-android-and-ktor/images/2.png">
   <meta itemprop="image" content="/articles/2023-05-23_http-chunk-requests-with-android-and-ktor/images/3.png">
@@ -87,7 +87,7 @@ Android apps use HTTP requests to download data from a backend. This information
 HTTP requests are executed using different frameworks on Android. The most common ones are Retrofit or OkHttp.">
   <meta itemprop="datePublished" content="2023-05-23T04:26:12+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:30+02:00">
-  <meta itemprop="wordCount" content="730">
+  <meta itemprop="wordCount" content="830">
   <meta itemprop="image" content="/articles/2023-05-23_http-chunk-requests-with-android-and-ktor/images/1.jpeg">
   <meta itemprop="image" content="/articles/2023-05-23_http-chunk-requests-with-android-and-ktor/images/2.png">
   <meta itemprop="image" content="/articles/2023-05-23_http-chunk-requests-with-android-and-ktor/images/3.png">
@@ -968,7 +968,18 @@ A trend that will only continue to grow.</p>
 <p>Android apps use HTTP requests to download data from a backend. This information is stored and processed on the app to make it functional.</p>
 <p>HTTP requests are executed using different frameworks on Android. The most common ones are Retrofit or OkHttp.</p>
 <p>Simplifying the underlying network operations, and after identifying the IP address of the computer hosting the requested URL, an HTTP request looks like follows:</p>
-<p>The HTTP request contains (among others) the following fields:</p>
+<pre tabindex="0"><code>OkHttpClient: --&gt; GET https://api.yourserver.com/sandbox/v1/example/23aa13d2-b161-432d-a67e-c50e8783f7dd http/1.1
+OkHttpClient: X-apikey: AATR1oqYAZzp6o6ndALfIk6GG1dOcDED
+OkHttpClient: Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRw...
+OkHttpClient: Accept-Language: en-US
+OkHttpClient: Connection: close
+OkHttpClient: Accept: application/json
+OkHttpClient: Accept-Charset: UTF-8
+OkHttpClient: User-Agent: Ktor client
+OkHttpClient: Host: api.yourserver.com
+OkHttpClient: Accept-Encoding: gzip
+OkHttpClient: --&gt; END GET
+</code></pre><p>The HTTP request contains (among others) the following fields:</p>
 <ul>
 <li>The HTTP method used: GET, POST, PUT, PATCH or DELETE. There are actually 8 different HTTP methods, being the remaining ones CONNECT, OPTIONS and TRACE.</li>
 <li>Authorization headers (things like an API Key, or the Auth key we will need to identify ourselves as lefit clients).</li>
@@ -989,8 +1000,29 @@ A trend that will only continue to grow.</p>
 <p>There are also a few more differences in how they operate at the network level. This falls out of the scope of this article, but if you are interested you can read the <a href="https://en.wikipedia.org/wiki/OSI_model"  target="_blank" rel="noopener" >Wikipedia article</a> that explains the OSI model.</p>
 <p>However, there might be cases where it is more convenient to use an HTTP Streamed request. From infrastructure to reusing certain models already being handled by the HTTP client, the casuistic can be wide.</p>
 <p>Ktor supports this relatively out-of-the-box. The following snippet is able to execute a streamed request from a given API:</p>
-<p>To verify that this is working, you can execute a cURL against the streaming API, using a command similar to the one below:</p>
-<p>When you execute this, there is an interesting twist in the story. You will be able to see the response from the backend as you normally see it, but this time each chunk will be separated by a number, specifying the size of the next chunk:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">val</span> client = HttpClient(CIO)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">val</span> file = <span style="color:#50fa7b">File</span>.createTempFile(<span style="color:#f1fa8c">&#34;files&#34;</span>, <span style="color:#f1fa8c">&#34;index&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    runBlocking {
+</span></span><span style="display:flex;"><span>        client.prepareGet(<span style="color:#f1fa8c">&#34;https://api.example.com&#34;</span>).execute { httpResponse <span style="color:#ff79c6">-&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">val</span> channel: ByteReadChannel = httpResponse.body()
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">while</span> (!channel.isClosedForRead) {
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">val</span> packet = channel.readRemaining(<span style="color:#50fa7b">DEFAULT_BUFFER_SIZE</span>.toLong())
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">while</span> (!packet.isEmpty) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#ff79c6">val</span> bytes = packet.readBytes()
+</span></span><span style="display:flex;"><span>                    <span style="color:#ff79c6">file</span>.appendBytes(bytes)
+</span></span><span style="display:flex;"><span>                    println(<span style="color:#f1fa8c">&#34;Received </span><span style="color:#f1fa8c">${file.length()}</span><span style="color:#f1fa8c"> bytes from </span><span style="color:#f1fa8c">${httpResponse.contentLength()}</span><span style="color:#f1fa8c">&#34;</span>)
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            println(<span style="color:#f1fa8c">&#34;A file saved to </span><span style="color:#f1fa8c">${file.path}</span><span style="color:#f1fa8c">&#34;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>To verify that this is working, you can execute a cURL against the streaming API, using a command similar to the one below:</p>
+<pre tabindex="0"><code>curl --location --request GET &#39;https://api.example.com&#39; --header &#39;X-apikey: yourAPIkey&#39; --raw
+</code></pre><p>When you execute this, there is an interesting twist in the story. You will be able to see the response from the backend as you normally see it, but this time each chunk will be separated by a number, specifying the size of the next chunk:</p>
 <p><img src="/articles/2023-05-23_http-chunk-requests-with-android-and-ktor/images/3.png#layoutTextWidth" alt="image"></p>
 <p>As promised, this is not the longest article I’ve written, but I hope it provides some context on Streamed requests, and how they work — and eventually, you can get some inspiration to apply when for your project, in case you need them.</p>
 <p>I write my thoughts about Software Engineering and life in general on my <a href="https://twitter.com/eenriquelopez"  target="_blank" rel="noopener" >Twitter account</a>. If you have liked this article or if it did help you, feel free to share, 👏 it and/or leave a comment. This is the currency that fuels amateur writers.</p>
