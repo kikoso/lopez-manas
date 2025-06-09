@@ -75,7 +75,7 @@ Absolute security does not exist. Security is a set of measures, being piled up 
 Almost three years ago, I wrote a post giving some ideas to protect String tokens from a hypothetical attacker decompiling our Android application. For the sake of remembrance, and in order to ward off the inescapable death of the Internet, I am reproducing some sections here.">
   <meta itemprop="datePublished" content="2017-04-30T09:36:23+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:48:48+02:00">
-  <meta itemprop="wordCount" content="1665">
+  <meta itemprop="wordCount" content="1794">
   <meta itemprop="image" content="/articles/2017-04-30_followup-on-how-to-store-tokens-securely-in-android/images/1.jpeg">
   <meta itemprop="image" content="/articles/2017-04-30_followup-on-how-to-store-tokens-securely-in-android/images/2.png">
 
@@ -86,7 +86,7 @@ Absolute security does not exist. Security is a set of measures, being piled up 
 Almost three years ago, I wrote a post giving some ideas to protect String tokens from a hypothetical attacker decompiling our Android application. For the sake of remembrance, and in order to ward off the inescapable death of the Internet, I am reproducing some sections here.">
   <meta itemprop="datePublished" content="2017-04-30T09:36:23+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:48:48+02:00">
-  <meta itemprop="wordCount" content="1665">
+  <meta itemprop="wordCount" content="1794">
   <meta itemprop="image" content="/articles/2017-04-30_followup-on-how-to-store-tokens-securely-in-android/images/1.jpeg">
   <meta itemprop="image" content="/articles/2017-04-30_followup-on-how-to-store-tokens-securely-in-android/images/2.png">
 </head>
@@ -982,17 +982,59 @@ A trend that will only continue to grow.</p>
 <p>What about saving this String in one of the other mechanisms provided by Android, such as the SharedPreferences? This is barely a good idea. SharedPreferences can be easily accessed from the Emulator or any rooted device. Some years ago a guy called <a href="http://resources.infosecinstitute.com/android-hacking-security-part-9-insecure-local-storage-shared-preferences/"  target="_blank" rel="noopener" >Srinivas</a> proofed how the scored could be altered in a video-game. We are running out of options here!</p>
 <h4 id="native-development-kit-ndk">Native Development Kit (NDK)</h4>
 <p>I am going to refresh here the initial model I proposed, and how we can as well iterate through it to provide a more secure alternative. Let’s image two functions that could serve to encrypt and decrypt our data:</p>
-<p>Nothing fancy here. These two functions will take a key value and a string to be encoded or decoded. They will return the encrypted or the decrypted token, respectively. We would call the following function as follows:</p>
-<p>Are you guessing the direction? That is right. We could encrypt and decrypt our token on demand. This provides an additional layer of security: when the code gets obfuscated, it is not anymore as straightforward as performing a String search and check the environment surrounding that String. But can you still figure out a problem that needs to be solved?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">byte</span><span style="color:#ff79c6">[]</span> <span style="color:#50fa7b">encrypt</span>(<span style="color:#8be9fd">byte</span><span style="color:#ff79c6">[]</span> raw, <span style="color:#8be9fd">byte</span><span style="color:#ff79c6">[]</span> clear) <span style="color:#8be9fd;font-style:italic">throws</span> Exception {
+</span></span><span style="display:flex;"><span>        SecretKeySpec skeySpec <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> SecretKeySpec(raw, <span style="color:#f1fa8c">&#34;AES&#34;</span>);
+</span></span><span style="display:flex;"><span>        Cipher cipher <span style="color:#ff79c6">=</span> Cipher.<span style="color:#50fa7b">getInstance</span>(<span style="color:#f1fa8c">&#34;AES&#34;</span>);
+</span></span><span style="display:flex;"><span>        cipher.<span style="color:#50fa7b">init</span>(Cipher.<span style="color:#50fa7b">ENCRYPT_MODE</span>, skeySpec);
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">byte</span><span style="color:#ff79c6">[]</span> encrypted <span style="color:#ff79c6">=</span> cipher.<span style="color:#50fa7b">doFinal</span>(clear);
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> encrypted;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">byte</span><span style="color:#ff79c6">[]</span> <span style="color:#50fa7b">decrypt</span>(<span style="color:#8be9fd">byte</span><span style="color:#ff79c6">[]</span> raw, <span style="color:#8be9fd">byte</span><span style="color:#ff79c6">[]</span> encrypted) <span style="color:#8be9fd;font-style:italic">throws</span> Exception {
+</span></span><span style="display:flex;"><span>        SecretKeySpec skeySpec <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> SecretKeySpec(raw, <span style="color:#f1fa8c">&#34;AES&#34;</span>);
+</span></span><span style="display:flex;"><span>        Cipher cipher <span style="color:#ff79c6">=</span> Cipher.<span style="color:#50fa7b">getInstance</span>(<span style="color:#f1fa8c">&#34;AES&#34;</span>);
+</span></span><span style="display:flex;"><span>        cipher.<span style="color:#50fa7b">init</span>(Cipher.<span style="color:#50fa7b">DECRYPT_MODE</span>, skeySpec);
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">byte</span><span style="color:#ff79c6">[]</span> decrypted <span style="color:#ff79c6">=</span> cipher.<span style="color:#50fa7b">doFinal</span>(encrypted);
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> decrypted;
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>Nothing fancy here. These two functions will take a key value and a string to be encoded or decoded. They will return the encrypted or the decrypted token, respectively. We would call the following function as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>ByteArrayOutputStream baos <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> ByteArrayOutputStream();  
+</span></span><span style="display:flex;"><span>bm.<span style="color:#50fa7b">compress</span>(Bitmap.<span style="color:#50fa7b">CompressFormat</span>.<span style="color:#50fa7b">PNG</span>, 100, baos); 
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">byte</span><span style="color:#ff79c6">[]</span> b <span style="color:#ff79c6">=</span> baos.<span style="color:#50fa7b">toByteArray</span>();  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">byte</span><span style="color:#ff79c6">[]</span> keyStart <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;encryption key&#34;</span>.<span style="color:#50fa7b">getBytes</span>();
+</span></span><span style="display:flex;"><span>KeyGenerator kgen <span style="color:#ff79c6">=</span> KeyGenerator.<span style="color:#50fa7b">getInstance</span>(<span style="color:#f1fa8c">&#34;AES&#34;</span>);
+</span></span><span style="display:flex;"><span>SecureRandom sr <span style="color:#ff79c6">=</span> SecureRandom.<span style="color:#50fa7b">getInstance</span>(<span style="color:#f1fa8c">&#34;SHA1PRNG&#34;</span>);
+</span></span><span style="display:flex;"><span>sr.<span style="color:#50fa7b">setSeed</span>(keyStart);
+</span></span><span style="display:flex;"><span>kgen.<span style="color:#50fa7b">init</span>(128, sr); 
+</span></span><span style="display:flex;"><span>SecretKey skey <span style="color:#ff79c6">=</span> kgen.<span style="color:#50fa7b">generateKey</span>();
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">byte</span><span style="color:#ff79c6">[]</span> key <span style="color:#ff79c6">=</span> skey.<span style="color:#50fa7b">getEncoded</span>();    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// encrypt</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">byte</span><span style="color:#ff79c6">[]</span> encryptedData <span style="color:#ff79c6">=</span> encrypt(key,b);
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// decrypt</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">byte</span><span style="color:#ff79c6">[]</span> decryptedData <span style="color:#ff79c6">=</span> decrypt(key,encryptedData);
+</span></span></code></pre></div><p>Are you guessing the direction? That is right. We could encrypt and decrypt our token on demand. This provides an additional layer of security: when the code gets obfuscated, it is not anymore as straightforward as performing a String search and check the environment surrounding that String. But can you still figure out a problem that needs to be solved?</p>
 <p>Can you?</p>
 <p>Give it a couple of seconds more if you have not figured it out yet.</p>
 <p>Yes, you are right. We have an encryption key that is being also stored as String. This is adding more layers of security by obscurity, but we still have a token on plain text, regardless of whether this token is used for encryption or is the token per-se.</p>
 <p>Let’s going to use now the NDK, and keep iterating our security mechanism.</p>
 <p>NDK allows us to access a C++ code base from our Android code. As a first approach, let’s take a minute to think what to do. We could have a native C++ function that stores an API Key or whatever sensitive data we are trying to store. This function could later on be called from the code, and no string will be stored in any Java file. This would provide an automatic protection against decompiling techniques.</p>
 <p>Our C++ function would look like follows:</p>
-<p>It will be called easily in your Java code:</p>
-<p>And the encryption/decryption function will be called as in the next snippet:</p>
-<p>If we know generate an APK, obfuscate it, decompile it and try to access the string contained in the native function getSecretKey(), we will not be able to find it! Victory?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>Java_com_example_exampleApp_ExampleClass_getSecretKey( JNIEnv<span style="color:#ff79c6">*</span> env,
+</span></span><span style="display:flex;"><span>                                                  jobject thiz )
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> (<span style="color:#ff79c6">*</span>env)<span style="color:#ff79c6">-&gt;</span>NewStringUTF(env, <span style="color:#f1fa8c">&#34;mySecretKey&#34;</span>.<span style="color:#f1fa8c">&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">}
+</span></span></span></code></pre></div><p>It will be called easily in your Java code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">static</span> {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#50fa7b">loadLibrary</span>(<span style="color:#f1fa8c">&#34;library-name&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">native</span> String <span style="color:#50fa7b">getSecretKey</span>();
+</span></span></code></pre></div><p>And the encryption/decryption function will be called as in the next snippet:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd">byte</span><span style="color:#ff79c6">[]</span> keyStart <span style="color:#ff79c6">=</span> getSecretKey().<span style="color:#50fa7b">getBytes</span>();
+</span></span></code></pre></div><p>If we know generate an APK, obfuscate it, decompile it and try to access the string contained in the native function getSecretKey(), we will not be able to find it! Victory?</p>
 <p>Not really. The NDK code can actually be disassembled and inspected. This is getting tougher, and you are starting to require more advanced tools and techniques. You got rid of 95% of the script kids, but a team with enough resources and motivation will still be able to access the token. Remember this sentence?</p>
 <blockquote>
 <p>Absolute security does not exist. Security is a set of measures, being piled up and combined, trying to slow down the inevitable.

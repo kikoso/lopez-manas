@@ -995,26 +995,28 @@ Excerpt of <a href="https://books.google.com.vn/books?id=aMxPDwAAQBAJ&amp;amp;pg
 val file = File(&quot;src/yamls/&quot; + filename + &quot;.yaml&quot;)<br>
 val result = Yaml.default.parse(Issue.serializer(), file.<em>readText</em>())</p>
 <p><em>createMdFile</em>(result, filename)</p>
-<p>var html = <em>createHeader</em>(result.number.toString(), result.date)<br>
-html += <em>createTitle</em>(result.title)<br>
-result.announcements?.<em>let</em> <strong>{</strong> html += <em>createAnnouncements</em>(result.announcements) **}<br>
-**result.articles?.<em>let</em> <strong>{</strong> html += <em>createArticles</em>(result.articles) **}<br>
-**result.sponsored?.<em>let</em> <strong>{</strong> html += <em>createSponsored</em>(result.sponsored) **}<br>
-**result.android?.<em>let</em> <strong>{</strong> html += <em>createAndroid</em>(result.android) **}<br>
-**result.kotlinMultiplatformArticles?.<em>let</em> <strong>{</strong> html += <em>createMultiplatform</em>(result.kotlinMultiplatformArticles) **}<br>
-**result.videos?.<em>let</em> <strong>{</strong> html += <em>createVideos</em>(result.videos) **}<br>
-**result.jobs?.<em>let</em> <strong>{</strong> html += <em>createJobs</em>(result.jobs) **}<br>
-**result.podcast?.<em>let</em> <strong>{</strong> html += <em>createPodcast</em>(result.podcast) **}<br>
-**result.conferences?.<em>let</em> <strong>{</strong> html += <em>createConferences</em>(result.conferences) **}<br>
-**result.libraries?.<em>let</em> <strong>{</strong> html += <em>createLibraries</em>(result.libraries) <strong>}</strong>`</p>
-<p>The .MD file is automatically copied into the folder where I store the static page created with Jekyll, that will later be uploaded into Firebase:
-`//Copy file to the kotlin-weekly project<br>
-Runtime.getRuntime().exec(&quot;cp src/mds/&quot;+filename+&quot;-title.md ../kotlin-weekly/_posts/&quot;)</p>
-<p><em>println</em>(&quot;Moving to kotlin-weekly directory&quot;)<br>
-Runtime.getRuntime().exec(&quot;cd ../kotlin-weekly&quot;)`</p>
-<p>As a nice side effect, I copy directly into the clipboard the entire HTML, so I just need to paste it into Mailchimp:
-<code>val clipboard = Toolkit.getDefaultToolkit()._systemClipboard   _clipboard.setContents(StringSelection(html), null)</code></p>
-<p>After I commit the content from the Jekyll directory into GitHub, a hook will be triggered. This hook will build the Jekyll page, and automatically post it into Firebase.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">var</span> html = _createHeader_(result.number.toString(), result.date)  
+</span></span><span style="display:flex;"><span>html <span style="color:#ff79c6">+=</span> _createTitle_(result.title)  
+</span></span><span style="display:flex;"><span>result.announcements<span style="color:#ff79c6">?.</span>_let_ **{** html <span style="color:#ff79c6">+=</span> _createAnnouncements_(result.announcements) **}  
+</span></span><span style="display:flex;"><span>**result.articles<span style="color:#ff79c6">?.</span>_let_ **{** html <span style="color:#ff79c6">+=</span> _createArticles_(result.articles) **}  
+</span></span><span style="display:flex;"><span>**result.sponsored<span style="color:#ff79c6">?.</span>_let_ **{** html <span style="color:#ff79c6">+=</span> _createSponsored_(result.sponsored) **}  
+</span></span><span style="display:flex;"><span>**result.android<span style="color:#ff79c6">?.</span>_let_ **{** html <span style="color:#ff79c6">+=</span> _createAndroid_(result.android) **}  
+</span></span><span style="display:flex;"><span>**result.kotlinMultiplatformArticles<span style="color:#ff79c6">?.</span>_let_ **{** html <span style="color:#ff79c6">+=</span> _createMultiplatform_(result.kotlinMultiplatformArticles) **}  
+</span></span><span style="display:flex;"><span>**result.videos<span style="color:#ff79c6">?.</span>_let_ **{** html <span style="color:#ff79c6">+=</span> _createVideos_(result.videos) **}  
+</span></span><span style="display:flex;"><span>**result.jobs<span style="color:#ff79c6">?.</span>_let_ **{** html <span style="color:#ff79c6">+=</span> _createJobs_(result.jobs) **}  
+</span></span><span style="display:flex;"><span>**result.podcast<span style="color:#ff79c6">?.</span>_let_ **{** html <span style="color:#ff79c6">+=</span> _createPodcast_(result.podcast) **}  
+</span></span><span style="display:flex;"><span>**result.conferences<span style="color:#ff79c6">?.</span>_let_ **{** html <span style="color:#ff79c6">+=</span> _createConferences_(result.conferences) **}  
+</span></span><span style="display:flex;"><span>**result.libraries<span style="color:#ff79c6">?.</span>_let_ **{** html <span style="color:#ff79c6">+=</span> _createLibraries_(result.libraries) **}**`
+</span></span></code></pre></div><p>The .MD file is automatically copied into the folder where I store the static page created with Jekyll, that will later be uploaded into Firebase:</p>
+<pre tabindex="0"><code>`//Copy file to the kotlin-weekly project  
+Runtime.getRuntime().exec(&amp;#34;cp src/mds/&amp;#34;+filename+&amp;#34;-title.md ../kotlin-weekly/_posts/&amp;#34;)  
+
+_println_(&amp;#34;Moving to kotlin-weekly directory&amp;#34;)  
+Runtime.getRuntime().exec(&amp;#34;cd ../kotlin-weekly&amp;#34;)`
+</code></pre><p>As a nice side effect, I copy directly into the clipboard the entire HTML, so I just need to paste it into Mailchimp:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">val</span> clipboard = <span style="color:#50fa7b">Toolkit</span>.getDefaultToolkit()._systemClipboard  
+</span></span><span style="display:flex;"><span>_clipboard.setContents(StringSelection(html), <span style="color:#ff79c6">null</span>)
+</span></span></code></pre></div><p>After I commit the content from the Jekyll directory into GitHub, a hook will be triggered. This hook will build the Jekyll page, and automatically post it into Firebase.</p>
 <p><img src="/articles/2020-01-25_managing-the-kotlin-weekly/images/5.png#layoutTextWidth" alt="image">
 CircleCI doing what is supposed to do.</p>
 <p>With this mechanism, I can focus on writing the issue, rather than dealing with publishing it, fixing CSS problems (the hardest problem in Computer Science) or anything else.</p>

@@ -71,7 +71,7 @@ StackExchange Data Explorer is an open-source tool to run SQL queries against pu
 StackExchange Data Explorer is an open-source tool to run SQL queries against public data from StackOverflow. Since StackOverflow is the biggest development forum of the world, there is surely a lot of information that companies can actually retrieve from their system in order to take some business decision (this is actually a brilliant place to apply BigData)">
   <meta itemprop="datePublished" content="2019-09-08T02:20:53+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:49:29+02:00">
-  <meta itemprop="wordCount" content="913">
+  <meta itemprop="wordCount" content="1035">
   <meta itemprop="image" content="/articles/2019-09-08_repost-which-city-has-the-most-intense-android-scene-in-europe/images/1.jpeg">
   <meta itemprop="image" content="/articles/2019-09-08_repost-which-city-has-the-most-intense-android-scene-in-europe/images/2.png">
   <meta itemprop="image" content="/articles/2019-09-08_repost-which-city-has-the-most-intense-android-scene-in-europe/images/3.png">
@@ -82,7 +82,7 @@ StackExchange Data Explorer is an open-source tool to run SQL queries against pu
 StackExchange Data Explorer is an open-source tool to run SQL queries against public data from StackOverflow. Since StackOverflow is the biggest development forum of the world, there is surely a lot of information that companies can actually retrieve from their system in order to take some business decision (this is actually a brilliant place to apply BigData)">
   <meta itemprop="datePublished" content="2019-09-08T02:20:53+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:49:29+02:00">
-  <meta itemprop="wordCount" content="913">
+  <meta itemprop="wordCount" content="1035">
   <meta itemprop="image" content="/articles/2019-09-08_repost-which-city-has-the-most-intense-android-scene-in-europe/images/1.jpeg">
   <meta itemprop="image" content="/articles/2019-09-08_repost-which-city-has-the-most-intense-android-scene-in-europe/images/2.png">
   <meta itemprop="image" content="/articles/2019-09-08_repost-which-city-has-the-most-intense-android-scene-in-europe/images/3.png">
@@ -963,7 +963,35 @@ A trend that will only continue to grow.</p>
 <p><a href="http://data.stackexchange.com/"  target="_blank" rel="noopener" >StackExchange Data Explorer</a> is an open-source tool to run SQL queries against public data from <a href="http://stackoverflow.com/"  target="_blank" rel="noopener" >StackOverflow</a>. Since StackOverflow is the biggest development forum of the world, there is surely a lot of information that companies can actually retrieve from their system in order to take some business decision (this is actually a brilliant place to apply <a href="http://en.wikipedia.org/wiki/Big_data"  target="_blank" rel="noopener" >BigData</a>)</p>
 <p>Moving now to different issues: I was discussing back in time with some event organizers the possibility of bringing an Android event from the USA to Europe. Since I do live in Munich I was trying to convince them that Munich was the choice. They were resilient about it, so I needed to prove with some data that Munich would be a really nice choice.</p>
 <p>At this time, I was thinking about how could I use Data Explorer and BigData to support my thesis. I remember two times I used it before, to display the most active developers from <a href="https://twitter.com/eenriquelopez/status/384946205320437761"  target="_blank" rel="noopener" >Barcelona</a> (the city I lived before), <a href="https://twitter.com/eenriquelopez/status/384949033136955392"  target="_blank" rel="noopener" >Munich</a>, and <a href="https://twitter.com/eenriquelopez/status/384964337934163968"  target="_blank" rel="noopener" >the two cities</a> combined. Something similar could be a valid approach. In the previous SQL queries, I was clustering the top developers from each city based on their contribution to questions tagged with the token “<em>android</em>“. So I could possibly group all the developers' contribution from a certain city with questions tagged with the same token. I come over with this script:</p>
-<p><a href="https://gist.github.com/kikoso/f7900d00b34ed15a987e1e5ade475b31"  target="_blank" rel="noopener" >https://gist.github.com/kikoso/f7900d00b34ed15a987e1e5ade475b31</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-SQL" data-lang="SQL"><span style="display:flex;"><span>;<span style="color:#ff79c6">WITH</span> USER_BY_TAG
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">AS</span>
+</span></span><span style="display:flex;"><span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">SELECT</span> 
+</span></span><span style="display:flex;"><span>    ROW_NUMBER() OVER(<span style="color:#ff79c6">ORDER</span> <span style="color:#ff79c6">BY</span> <span style="color:#ff79c6">COUNT</span>(<span style="color:#ff79c6">*</span>) <span style="color:#ff79c6">DESC</span>) Rank,
+</span></span><span style="display:flex;"><span>    u.<span style="color:#ff79c6">Location</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">COUNT</span>(<span style="color:#ff79c6">*</span>) <span style="color:#ff79c6">AS</span> UpVotes
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">FROM</span> Tags t
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">INNER</span> <span style="color:#ff79c6">JOIN</span> PostTags pt <span style="color:#ff79c6">ON</span> pt.TagId <span style="color:#ff79c6">=</span> t.id
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">INNER</span> <span style="color:#ff79c6">JOIN</span> Posts     p <span style="color:#ff79c6">ON</span> p.ParentId <span style="color:#ff79c6">=</span> pt.PostId
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">INNER</span> <span style="color:#ff79c6">JOIN</span> Votes     v <span style="color:#ff79c6">ON</span> v.PostId <span style="color:#ff79c6">=</span> p.Id <span style="color:#ff79c6">and</span> VoteTypeId <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">INNER</span> <span style="color:#ff79c6">JOIN</span> Users     u <span style="color:#ff79c6">ON</span> u.Id <span style="color:#ff79c6">=</span> p.OwnerUserId
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">WHERE</span> 
+</span></span><span style="display:flex;"><span>  (<span style="color:#ff79c6">LOWER</span>(<span style="color:#ff79c6">Location</span>) <span style="color:#ff79c6">LIKE</span> <span style="color:#f1fa8c">&#39;% germany%&#39;</span> <span style="color:#ff79c6">OR</span> 
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">LOWER</span>(<span style="color:#ff79c6">Location</span>) <span style="color:#ff79c6">LIKE</span> <span style="color:#f1fa8c">&#39;% spain%&#39;</span> <span style="color:#ff79c6">OR</span> 
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">LOWER</span>(<span style="color:#ff79c6">Location</span>) <span style="color:#ff79c6">LIKE</span> <span style="color:#f1fa8c">&#39;% holland%&#39;</span> <span style="color:#ff79c6">OR</span> 
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">LOWER</span>(<span style="color:#ff79c6">Location</span>) <span style="color:#ff79c6">LIKE</span> <span style="color:#f1fa8c">&#39;% france%&#39;</span> <span style="color:#ff79c6">OR</span> 
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">LOWER</span>(<span style="color:#ff79c6">Location</span>) <span style="color:#ff79c6">LIKE</span> <span style="color:#f1fa8c">&#39;% italy% &#39;</span>) <span style="color:#ff79c6">OR</span> 
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">LOWER</span>(<span style="color:#ff79c6">Location</span>) <span style="color:#ff79c6">LIKE</span> <span style="color:#f1fa8c">&#39;% netherland%&#39;</span> <span style="color:#ff79c6">OR</span> 
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">LOWER</span>(<span style="color:#ff79c6">Location</span>) <span style="color:#ff79c6">LIKE</span> <span style="color:#f1fa8c">&#39;% united kingdom%&#39;</span> <span style="color:#ff79c6">OR</span> 
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">LOWER</span>(<span style="color:#ff79c6">Location</span>) <span style="color:#ff79c6">LIKE</span> <span style="color:#f1fa8c">&#39;% poland%&#39;</span> <span style="color:#ff79c6">OR</span> 
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">LOWER</span>(<span style="color:#ff79c6">Location</span>) <span style="color:#ff79c6">LIKE</span> <span style="color:#f1fa8c">&#39;% sweden%&#39;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#ff79c6">AND</span>  TagName <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;android&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">GROUP</span> <span style="color:#ff79c6">BY</span> u.<span style="color:#ff79c6">Location</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> USER_BY_TAG <span style="color:#ff79c6">WHERE</span> rank <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">1000</span> <span style="color:#ff79c6">ORDER</span> <span style="color:#ff79c6">BY</span> upvotes <span style="color:#ff79c6">DESC</span> ;
+</span></span></code></pre></div><p><a href="https://gist.github.com/kikoso/f7900d00b34ed15a987e1e5ade475b31"  target="_blank" rel="noopener" >https://gist.github.com/kikoso/f7900d00b34ed15a987e1e5ade475b31</a></p>
 <p>I decided to search in Germany, Spain, Holland/Netherlands, France, Italy, United Kingdom, Poland and Sweden (not that Sweden is a big country in terms of population, but at that time I used to work with a bunch of Swedish colleagues and it was perfect timing to tease them). I did some little experiments to get rid of some nomenclature errors and statistical noise. After some refining, I came with the following result:</p>
 <p><img src="/articles/2019-09-08_repost-which-city-has-the-most-intense-android-scene-in-europe/images/2.png#layoutTextWidth" alt="image"></p>
 <p><img src="/articles/2019-09-08_repost-which-city-has-the-most-intense-android-scene-in-europe/images/3.png#layoutTextWidth" alt="image"></p>
