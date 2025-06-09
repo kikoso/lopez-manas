@@ -85,7 +85,7 @@ According to the paper, both portfolios should have a one-year expected return o
 According to the paper, both portfolios should have a one-year expected return of 10%. However, the paper claims that Portfolio A wins over Portfolio B around 90% of the time at the end of a 30-year simulation. This sounds a bit too excessive to me (it means that, at the end of the entire simulation, 9 times out of 10 portfolio A wins). I was expecting this number to be lower. The author also mentioned that he was using GenAI to generate the code, and he even mentions “this process seems like magic”. Strong indications that the code is likely not correct.">
   <meta itemprop="datePublished" content="2025-04-12T05:31:11+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:43+02:00">
-  <meta itemprop="wordCount" content="753">
+  <meta itemprop="wordCount" content="776">
   <meta itemprop="image" content="/articles/2025-04-12_vibe-coding-kotlin-finance-and-data-visualization/images/1.jpeg">
   <meta itemprop="image" content="/articles/2025-04-12_vibe-coding-kotlin-finance-and-data-visualization/images/2.png">
   <meta itemprop="image" content="/articles/2025-04-12_vibe-coding-kotlin-finance-and-data-visualization/images/3.jpeg">
@@ -100,7 +100,7 @@ According to the paper, both portfolios should have a one-year expected return o
 According to the paper, both portfolios should have a one-year expected return of 10%. However, the paper claims that Portfolio A wins over Portfolio B around 90% of the time at the end of a 30-year simulation. This sounds a bit too excessive to me (it means that, at the end of the entire simulation, 9 times out of 10 portfolio A wins). I was expecting this number to be lower. The author also mentioned that he was using GenAI to generate the code, and he even mentions “this process seems like magic”. Strong indications that the code is likely not correct.">
   <meta itemprop="datePublished" content="2025-04-12T05:31:11+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:43+02:00">
-  <meta itemprop="wordCount" content="753">
+  <meta itemprop="wordCount" content="776">
   <meta itemprop="image" content="/articles/2025-04-12_vibe-coding-kotlin-finance-and-data-visualization/images/1.jpeg">
   <meta itemprop="image" content="/articles/2025-04-12_vibe-coding-kotlin-finance-and-data-visualization/images/2.png">
   <meta itemprop="image" content="/articles/2025-04-12_vibe-coding-kotlin-finance-and-data-visualization/images/3.jpeg">
@@ -999,7 +999,16 @@ A trend that will only continue to grow.</p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The following snippet uses asingle Random instance, seeded with the current time. So: no reproducibility . Results change on every run.</p>
 <p>The same random sequence is shared between portfolioA and portfolioB during each iteration. This might lead to coupled randomness (i.e., the same stream drives both portfolios). This is undesirable if you want the portfolios to evolve independently.</p>
-<p>The result? Using the first code snippet (arguably the correct approach for this simulation) makes portfolio A the winner 65% of the time, with portfolio B defeating A 35% of the time. The second code snippet reverses the results, giving portfolio A the best performance 90% of the time, compared to 10% for portfolio B. The difference, in the end, is significant.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">val</span> rng = Random(<span style="color:#50fa7b">System</span>.currentTimeMillis())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">val</span> accumulatedResults = (<span style="color:#bd93f9">1.</span>.simulations).map {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">val</span> accumulatedReturnsA = simulatePortfolioAccumulatedReturns(portfolioA, rng)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">val</span> accumulatedReturnsB = simulatePortfolioAccumulatedReturns(portfolioB, rng)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SimulationResult(<span style="color:#ff79c6">it</span>, accumulatedReturnsA, accumulatedReturnsB)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The result? Using the first code snippet (arguably the correct approach for this simulation) makes portfolio A the winner 65% of the time, with portfolio B defeating A 35% of the time. The second code snippet reverses the results, giving portfolio A the best performance 90% of the time, compared to 10% for portfolio B. The difference, in the end, is significant.</p>
 <p>Datalore file with the sources can be found here:</p>
 <p><a href="https://datalore.jetbrains.com/notebook/juj4AIqkd2CE3c9AVDs48P/CIokUJ6mIk9yOxGhD3qYd2/"  target="_blank" rel="noopener" >https://datalore.jetbrains.com/notebook/juj4AIqkd2CE3c9AVDs48P/CIokUJ6mIk9yOxGhD3qYd2/</a></p>
 <p>Here you can find one image of one run of the Montecarlo simulation using the portfolio using the random generator with a Time-Based seed (using, by the way, <a href="https://github.com/SciProgCentre/plotly.kt"  target="_blank" rel="noopener" >Plotly.kt</a>: a fantastic tool for Data Visualization).</p>
