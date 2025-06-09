@@ -76,6 +76,7 @@ val result = Yaml.default.parse(Issue.serializer(), file._readText_())
 
 _createMdFile_(result, filename)  
 
+```Kotlin
 var html = _createHeader_(result.number.toString(), result.date)  
 html += _createTitle_(result.title)  
 result.announcements?._let_ **{** html += _createAnnouncements_(result.announcements) **}  
@@ -88,17 +89,24 @@ result.announcements?._let_ **{** html += _createAnnouncements_(result.announcem
 **result.podcast?._let_ **{** html += _createPodcast_(result.podcast) **}  
 **result.conferences?._let_ **{** html += _createConferences_(result.conferences) **}  
 **result.libraries?._let_ **{** html += _createLibraries_(result.libraries) **}**`
+```
 
 The .MD file is automatically copied into the folder where I store the static page created with Jekyll, that will later be uploaded into Firebase:
+
+```
 `//Copy file to the kotlin-weekly project  
 Runtime.getRuntime().exec(&#34;cp src/mds/&#34;+filename+&#34;-title.md ../kotlin-weekly/_posts/&#34;)  
 
 _println_(&#34;Moving to kotlin-weekly directory&#34;)  
 Runtime.getRuntime().exec(&#34;cd ../kotlin-weekly&#34;)`
+```
 
 As a nice side effect, I copy directly into the clipboard the entire HTML, so I just need to paste it into Mailchimp:
-`val clipboard = Toolkit.getDefaultToolkit()._systemClipboard  
-_clipboard.setContents(StringSelection(html), null)`
+
+```Kotlin
+val clipboard = Toolkit.getDefaultToolkit()._systemClipboard  
+_clipboard.setContents(StringSelection(html), null)
+```
 
 After I commit the content from the Jekyll directory into GitHub, a hook will be triggered. This hook will build the Jekyll page, and automatically post it into Firebase.
 
