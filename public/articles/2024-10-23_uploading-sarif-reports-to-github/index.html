@@ -72,7 +72,7 @@ My first idea was to look for a GitHub action that could run ./gradlew lint and 
 My first idea was to look for a GitHub action that could run ./gradlew lint and report it as a PR comment. After asking about ideas in the Android Study Group, Carter Jernigan and Justin Brooks suggested me to upload directly the SARIF files into GitHub. I wasn’t aware this was possible.">
   <meta itemprop="datePublished" content="2024-10-23T06:08:25+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:35+02:00">
-  <meta itemprop="wordCount" content="345">
+  <meta itemprop="wordCount" content="562">
   <meta itemprop="image" content="/articles/2024-10-23_uploading-sarif-reports-to-github/images/1.jpeg">
   <meta itemprop="image" content="/articles/2024-10-23_uploading-sarif-reports-to-github/images/2.png">
   <meta itemprop="image" content="/articles/2024-10-23_uploading-sarif-reports-to-github/images/3.png">
@@ -84,7 +84,7 @@ My first idea was to look for a GitHub action that could run ./gradlew lint and 
 My first idea was to look for a GitHub action that could run ./gradlew lint and report it as a PR comment. After asking about ideas in the Android Study Group, Carter Jernigan and Justin Brooks suggested me to upload directly the SARIF files into GitHub. I wasn’t aware this was possible.">
   <meta itemprop="datePublished" content="2024-10-23T06:08:25+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:35+02:00">
-  <meta itemprop="wordCount" content="345">
+  <meta itemprop="wordCount" content="562">
   <meta itemprop="image" content="/articles/2024-10-23_uploading-sarif-reports-to-github/images/1.jpeg">
   <meta itemprop="image" content="/articles/2024-10-23_uploading-sarif-reports-to-github/images/2.png">
   <meta itemprop="image" content="/articles/2024-10-23_uploading-sarif-reports-to-github/images/3.png">
@@ -966,11 +966,94 @@ A trend that will only continue to grow.</p>
 <p>My first idea was to look for a GitHub action that could run ./gradlew lint and report it as a PR comment. After asking about ideas in the Android Study Group, <a href="https://www.linkedin.com/in/carterjernigan/"  target="_blank" rel="noopener" >Carter Jernigan</a> and <a href="https://www.linkedin.com/in/jzbrooks"  target="_blank" rel="noopener" >Justin Brooks</a> suggested me to upload directly the SARIF files into GitHub. I wasn’t aware this was possible.</p>
 <h4 id="what-is-a-sarif-file">What is a SARIF file?</h4>
 <p>SARIF is a standardized format to represent the result of static analysis. It contains some metadata regarding the static analysis tool that was used to create the report, active rules, and found violations. This is an excerpt from a SARIF file, representing a Lint violation (not targeting the latest Android version):</p>
-<p>By default, the output of ./gradlew lint does not include a report in a SARIF format, but this can be easily added with the following block in a Gradle file:</p>
-<p>After adding and syncing this line, running Lint will now generate a report in a SARIF format:</p>
+<pre tabindex="0"><code>{
+                    &#34;ruleId&#34;: &#34;OldTargetApi&#34;,
+                    &#34;ruleIndex&#34;: 5,
+                    &#34;message&#34;: {
+                        &#34;text&#34;: &#34;Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the android.os.Build.VERSION_CODES javadoc for details.&#34;,
+                        &#34;markdown&#34;: &#34;Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the `android.os.Build.VERSION_CODES` javadoc for details.&#34;
+                    },
+                    &#34;locations&#34;: [
+                        {
+                            &#34;physicalLocation&#34;: {
+                                &#34;artifactLocation&#34;: {
+                                    &#34;uriBaseId&#34;: &#34;%SRCROOT%&#34;,
+                                    &#34;uri&#34;: &#34;library/build.gradle&#34;
+                                },
+                                &#34;region&#34;: {
+                                    &#34;startLine&#34;: 33,
+                                    &#34;startColumn&#34;: 9,
+                                    &#34;endLine&#34;: 33,
+                                    &#34;endColumn&#34;: 28,
+                                    &#34;charOffset&#34;: 925,
+                                    &#34;charLength&#34;: 19,
+                                    &#34;snippet&#34;: {
+                                        &#34;text&#34;: &#34;targetSdkVersion 34&#34;
+                                    }
+                                },
+                                &#34;contextRegion&#34;: {
+                                    &#34;startLine&#34;: 31,
+                                    &#34;endLine&#34;: 36,
+                                    &#34;snippet&#34;: {
+                                        &#34;text&#34;: &#34;        compileSdk 34\n        minSdkVersion 21\n        targetSdkVersion 34\n        versionCode 1&#34;
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    &#34;fixes&#34;: [
+                        {
+                            &#34;description&#34;: {
+                                &#34;text&#34;: &#34;Update targetSdkVersion to 35&#34;
+                            },
+                            &#34;artifactChanges&#34;: [
+                                {
+                                    &#34;artifactLocation&#34;: {
+                                        &#34;uriBaseId&#34;: &#34;%SRCROOT%&#34;,
+                                        &#34;uri&#34;: &#34;library/build.gradle&#34;
+                                    },
+                                    &#34;replacements&#34;: [
+                                        {
+                                            &#34;deletedRegion&#34;: {
+                                                &#34;startLine&#34;: 33,
+                                                &#34;startColumn&#34;: 26,
+                                                &#34;charOffset&#34;: 942,
+                                                &#34;endLine&#34;: 33,
+                                                &#34;endColumn&#34;: 28,
+                                                &#34;charLength&#34;: 2
+                                            },
+                                            &#34;insertedContent&#34;: {
+                                                &#34;text&#34;: &#34;35\n&#34;
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    &#34;partialFingerprints&#34;: {
+                        &#34;sourceContext/v1&#34;: &#34;491dfb4dcd483ca0&#34;
+                    }
+                },
+</code></pre><p>By default, the output of ./gradlew lint does not include a report in a SARIF format, but this can be easily added with the following block in a Gradle file:</p>
+<pre tabindex="0"><code>  lint {
+        sarifOutput = file(&#34;$buildDir/reports/lint-results.sarif&#34;)
+    }
+</code></pre><p>After adding and syncing this line, running Lint will now generate a report in a SARIF format:</p>
 <p><img src="/articles/2024-10-23_uploading-sarif-reports-to-github/images/2.png#layoutTextWidth" alt="image"></p>
 <p>One more problem that we may find here is that, if we have a multimodule project, this can result in several SARIF files that we need to merge and unify. This can easily be done via a GitHub action, which merges and upload the SARIF files:</p>
-<p>Finally, GitHub will now post Lint violations on every PR, which you can check while reviewing it:</p>
+<pre tabindex="0"><code>      - name: Run Android Lint
+        run: ./gradlew lint
+
+      - name: Merge SARIF files
+        run: |
+          jq -s &#39;{ &#34;$schema&#34;: &#34;https://json.schemastore.org/sarif-2.1.0&#34;, &#34;version&#34;: &#34;2.1.0&#34;, &#34;runs&#34;: map(.runs) | add }&#39;  module-a/build/reports/lint-results.sarif  module-b/build/reports/lint-results.sarif  module-c/build/reports/lint-results.sarif  app/build/reports/lint-results.sarif &gt; merged.sarif
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: merged.sarif
+view raw
+</code></pre><p>Finally, GitHub will now post Lint violations on every PR, which you can check while reviewing it:</p>
 <p><img src="/articles/2024-10-23_uploading-sarif-reports-to-github/images/3.png#layoutTextWidth" alt="image"></p>
 <p>Then the code scanning section in GitHub will be activated, and all the current Lint violations will be displayed under <a href="https://github.com/googlemaps/android-maps-utils/security/code-scanning?query=pr%3A1406&#43;is%3Aopen"  target="_blank" rel="noopener" >https://github.com/ORG/REPO/security/code-scanning?query=pr%3A1406+is%3Aopen</a></p>
 <p><img src="/articles/2024-10-23_uploading-sarif-reports-to-github/images/4.png#layoutTextWidth" alt="image"></p>
