@@ -78,7 +78,7 @@ First I will present the entities that play a central role in Event-Driven progr
 An Event Bus. This is the central communication channel that connects all the other entities.">
   <meta itemprop="datePublished" content="2015-01-28T20:18:11+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:47:48+02:00">
-  <meta itemprop="wordCount" content="539">
+  <meta itemprop="wordCount" content="533">
   <meta itemprop="image" content="/articles/2015-01-28_eventdriven-programming-for-android-part-ii/images/1.png">
 
   
@@ -89,7 +89,7 @@ First I will present the entities that play a central role in Event-Driven progr
 An Event Bus. This is the central communication channel that connects all the other entities.">
   <meta itemprop="datePublished" content="2015-01-28T20:18:11+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:47:48+02:00">
-  <meta itemprop="wordCount" content="539">
+  <meta itemprop="wordCount" content="533">
   <meta itemprop="image" content="/articles/2015-01-28_eventdriven-programming-for-android-part-ii/images/1.png">
 </head>
 <body class="flex relative h-full min-h-screen"><aside
@@ -979,63 +979,46 @@ A trend that will only continue to grow.</p>
 <li>The <strong>ActionBar</strong> title will change when a new Fragment comes into scene.</li>
 </ul>
 <h4 id="the-hosting-activity">The hosting Activity</h4>
-<p>The hosting Activity will need to register in its method onCreate the EventBus.
-<code>EventBus.getDefault().register(this);</code></p>
-<p>The hosting Activity will be now ready to read data from the bus. We also need to unregister the bus in the method onDestroy</p>
+<p>The hosting Activity will need to register in its method onCreate the EventBus.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>EventBus.<span style="color:#50fa7b">getDefault</span>().<span style="color:#50fa7b">register</span>(<span style="color:#ff79c6">this</span>);`
+</span></span></code></pre></div><p>The hosting Activity will be now ready to read data from the bus. We also need to unregister the bus in the method onDestroy</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>EventBus.<span style="color:#50fa7b">getDefault</span>().<span style="color:#50fa7b">unregister</span>(<span style="color:#ff79c6">this</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>The Activity will be capturing two different events: one to update the ActionBar title and another one to load the first fragment. We will write two methods onEvent that will handle the events:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>```Java
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">onEvent</span>(ShowFragmentEvent event) {  
+</span></span></code></pre></div><p>The Activity will be capturing two different events: one to update the ActionBar title and another one to load the first fragment. We will write two methods onEvent that will handle the events:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">onEvent</span>(ShowFragmentEvent event) {  
 </span></span><span style="display:flex;"><span>    getFragmentManager().<span style="color:#50fa7b">beginTransaction</span>().<span style="color:#50fa7b">replace</span>(R.<span style="color:#50fa7b">id</span>.<span style="color:#50fa7b">container</span>, event.<span style="color:#50fa7b">getFragment</span>()).<span style="color:#50fa7b">addToBackStack</span>(<span style="color:#ff79c6">null</span>).<span style="color:#50fa7b">commit</span>();  
-</span></span><span style="display:flex;"><span> }``<span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">onEvent</span>(UpdateActionBarTitleEvent e) {  
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">onEvent</span>(UpdateActionBarTitleEvent e) {  
 </span></span><span style="display:flex;"><span>    getActionBar().<span style="color:#50fa7b">setTitle</span>(e.<span style="color:#50fa7b">getTitle</span>());   
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>#### The Events
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Each event needs to be declared in its <span style="color:#8be9fd;font-style:italic">class</span>. <span style="color:#50fa7b">The</span> events can contain variables within them.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>```Java
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">ShowFragmentEvent</span> {  
+</span></span></code></pre></div><h4 id="the-events">The Events</h4>
+<p>Each event needs to be declared in its class. The events can contain variables within them.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">ShowFragmentEvent</span> {  
 </span></span><span style="display:flex;"><span> <span style="color:#8be9fd;font-style:italic">private</span> Fragment fragment;``  <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#50fa7b">ShowFragmentEvent</span>(Fragment fragment) {  
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">this</span>.<span style="color:#50fa7b">fragment</span> <span style="color:#ff79c6">=</span> fragment;  
-</span></span><span style="display:flex;"><span>  }``  <span style="color:#8be9fd;font-style:italic">public</span> Fragment <span style="color:#50fa7b">getFragment</span>() {  
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> Fragment <span style="color:#50fa7b">getFragment</span>() {  
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> fragment;  
 </span></span><span style="display:flex;"><span>  }  
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>#### The Fragments
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>We need now to create the fragments. The first Fragment will contain a button that opens the second, and the latest will contain a button that, when pressed, updates a TextView. The fragments also need to register and de<span style="color:#ff79c6">-</span>register the EventBus, so to achieve a cleaner structure everything will be encapsulated in a BaseFragment.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Now let’s create some more action. The first Fragment will open the second one with the following function:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>```Java
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>@OnClick<span style="color:#ff79c6">]</span>(http:<span style="color:#6272a4">//twitter.com/OnClick)(R.id.first_button)  </span>
+</span></span></code></pre></div><h4 id="the-fragments">The Fragments</h4>
+<p>We need now to create the fragments. The first Fragment will contain a button that opens the second, and the latest will contain a button that, when pressed, updates a TextView. The fragments also need to register and de-register the EventBus, so to achieve a cleaner structure everything will be encapsulated in a BaseFragment.</p>
+<p>Now let’s create some more action. The first Fragment will open the second one with the following function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#ff79c6">[</span>@OnClick<span style="color:#ff79c6">]</span>(http:<span style="color:#6272a4">//twitter.com/OnClick)(R.id.first_button)  </span>
 </span></span><span style="display:flex;"><span> <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">firstButtonClick</span>() {  
 </span></span><span style="display:flex;"><span>    EventBus.<span style="color:#50fa7b">getDefault</span>().<span style="color:#50fa7b">post</span>(<span style="color:#ff79c6">new</span> ShowFragmentEvent(<span style="color:#ff79c6">new</span> SecondFragment()));  
 </span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Note that here I am using annotations from <span style="color:#ff79c6">[</span>ButterKnife<span style="color:#ff79c6">]</span>(https:<span style="color:#6272a4">//github.com/JakeWharton/butterknife). It produces a much cleaner and neater code. If you haven’t used it yet, you should start now.</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>The button of the second Fragment will send an event to the EventBus to change the TextView.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>```Java
-</span></span><span style="display:flex;"><span>EventBus.<span style="color:#50fa7b">getDefault</span>().<span style="color:#50fa7b">post</span>(<span style="color:#ff79c6">new</span> UpdateTextEvent(getString(R.<span style="color:#50fa7b">string</span>.<span style="color:#50fa7b">text_updated</span>)));
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>The second Fragment also needs to listen to <span style="color:#ff79c6">this</span> event, so when it is received it can change the text accordingly.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>```Java
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">onEvent</span>(UpdateTextEvent event) {  
+</span></span></code></pre></div><p>Note that here I am using annotations from <a href="https://github.com/JakeWharton/butterknife"  target="_blank" rel="noopener" >ButterKnife</a>. It produces a much cleaner and neater code. If you haven’t used it yet, you should start now.</p>
+<p>The button of the second Fragment will send an event to the EventBus to change the TextView.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>EventBus.<span style="color:#50fa7b">getDefault</span>().<span style="color:#50fa7b">post</span>(<span style="color:#ff79c6">new</span> UpdateTextEvent(getString(R.<span style="color:#50fa7b">string</span>.<span style="color:#50fa7b">text_updated</span>)));
+</span></span></code></pre></div><p>The second Fragment also needs to listen to this event, so when it is received it can change the text accordingly.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">onEvent</span>(UpdateTextEvent event) {  
 </span></span><span style="display:flex;"><span>    textView.<span style="color:#50fa7b">setText</span>(event.<span style="color:#50fa7b">getTitle</span>());   
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>We have a basic application with two Fragments that communicate between them with Events, and a Fragment that gets updated through Events. I have uploaded the code to <span style="color:#ff79c6">[</span>GitHub<span style="color:#ff79c6">]</span>(https:<span style="color:#6272a4">//github.com/kikoso/eventbus-sample), so you can check it out and take a look.</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>A key question is how to escalate an Event<span style="color:#ff79c6">-</span>Driven architecture. In the next article I will propose a clean and understandable architecture to support Event<span style="color:#ff79c6">-</span>Driven programming in Android.
-</span></span></code></pre></div>
+</span></span></code></pre></div><p>We have a basic application with two Fragments that communicate between them with Events, and a Fragment that gets updated through Events. I have uploaded the code to <a href="https://github.com/kikoso/eventbus-sample"  target="_blank" rel="noopener" >GitHub</a>, so you can check it out and take a look.</p>
+<p>A key question is how to escalate an Event-Driven architecture. In the next article I will propose a clean and understandable architecture to support Event-Driven programming in Android.</p>
+
     </article>
   </div>
 
