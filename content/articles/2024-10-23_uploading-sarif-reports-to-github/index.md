@@ -21,7 +21,6 @@ aliases:
 
 ---
 
-![image](/articles/2024-10-23_uploading-sarif-reports-to-github/images/1.jpeg#layoutTextWidth)
 Recently I wanted to add Lint reports to a repository on GitHub. The goal is to report potential Lint violations when new code is committed, to make sure that all the committed code is lint-warning-free and pretty.
 
 My first idea was to look for a GitHub action that could run ./gradlew lint and report it as a PR comment. After asking about ideas in the Android Study Group, [Carter Jernigan](https://www.linkedin.com/in/carterjernigan/) and [Justin Brooks](https://www.linkedin.com/in/jzbrooks) suggested me to upload directly the SARIF files into GitHub. I wasn’t aware this was possible.

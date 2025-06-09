@@ -19,7 +19,6 @@ aliases:
 
 ---
 
-![image](/articles/2021-02-11_github-actions-for-android-developers/images/1.png#layoutTextWidth)
 If you are developing Android apps, chances are you have confronted any sort of CI at some point in your career. If you thought Android fragmentation was a thing, the wide availability of CI systems will be familiar to you.
 
 GitHub Actions was released around November 2019, and since then it has proved itself to be reliable for a production environment (one of our requirements before committing to any software system). Like many other CI/CD systems, GitHub actions ultimately let us define a workflow for our apps to automatically build, test and deploy them.

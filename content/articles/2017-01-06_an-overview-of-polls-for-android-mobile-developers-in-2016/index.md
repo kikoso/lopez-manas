@@ -18,7 +18,6 @@ aliases:
 
 ---
 
-![image](/articles/2017-01-06_an-overview-of-polls-for-android-mobile-developers-in-2016/images/1.jpeg#layoutTextWidth)
 Last year I started a weekly routine consisting on posting on my Twitter a poll every Monday, with topics related to Android / Mobile / Software Engineering (in that order). It has been a total of 18 polls during the year, with an overwhelming response and engagement of the community.
 
 _(On a side note, I can_‘_t stress enough how lucky I am of being able to be a part of the Worldwide Android District. It has changed my life in so many ways)_

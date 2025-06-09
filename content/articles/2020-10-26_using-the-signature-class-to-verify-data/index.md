@@ -19,7 +19,6 @@ aliases:
 
 ---
 
-![image](/articles/2020-10-26_using-the-signature-class-to-verify-data/images/1.jpeg#layoutTextWidth)
 When there is an exchange of information happening, we often want to verify that the origin of the data is the right one. This can be used to ensure that the right clients are having access to our resources.
 
 For instance, let’s imagine that we want to ensure that an authorized device is querying a file with sensitive information from our backend. An immediate solution could be to use a X-Api-Token in our device. I wrote [previously](https://medium.com/google-developer-experts/a-follow-up-on-how-to-store-tokens-securely-in-android-e84ac5f15f17) about how we can store tokens securely in Android: ideally, the X-Api-Token should not be stored in plain text, since everything delivered as plain-text in an Android app can be considered open source. One more twist to the story could be to have a local function that generates the token, and that is understood by the server as well.

@@ -30,9 +30,6 @@ aliases:
 
 ---
 
-![image](/articles/2023-01-01_my-investing-summary-of-2022/images/1.jpeg#layoutTextWidth)
-
-
 Another solar rotation passed, and the world experienced a plethora of unexpected events. In the aftermath of the Corona epidemic that altered the course of the last couple of years, we had the unfortunate invasion of Ukraine by Russian forces, the tightening of Corona measures in China (and toward the end of the year, their withdrawal and gradual reopening of the economy), an ongoing economic recession, the rate hike by the FED and the general uncertainty of the most immediate future.
 
 The stock market is no stranger to this situation, falling almost 20% annually.

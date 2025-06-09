@@ -19,9 +19,6 @@ aliases:
 
 ---
 
-![image](/articles/2021-04-04_short-story-of-randomness-i/images/1.jpeg#layoutTextWidth)
-
-
 I have always been fascinated by the above comic strip. A discussion on randomness and determinism becomes as much a philosophical issue as it is a practical one. They are used in a variety of applications: from the obvious cryptography, gaming or gambling to the less evident politics or arts.
 
 How can we be sure that a number is random? Will observing the process mine our efforts on generating the random number, similar to the observation of a cat inside a box with a decaying radioactive atom? Despite the potential complexity of generating random numbers, we can provide an initially simple method to generate them.

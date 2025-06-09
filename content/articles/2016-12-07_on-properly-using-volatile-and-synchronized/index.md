@@ -18,7 +18,6 @@ aliases:
 
 ---
 
-![image](/articles/2016-12-07_on-properly-using-volatile-and-synchronized/images/1.jpeg#layoutTextWidth)
 In the last weeks I have been writing about the [transient](https://medium.com/google-developer-experts/diving-deeper-into-the-java-transient-modifier-3b16eff68f42#.tes59mm9a) modifier and the different [types of references](https://medium.com/google-developer-experts/finally-understanding-how-references-work-in-android-and-java-26a0d9c92f83#.ixg2oyvhj) available in Java. I want to hold the topic of underused/misused topics in Java and bring you this week the **volatile** and **synchronized** modifiers .
 
 Multithreading is an entire discipline that takes years to master and properly understand. We will keep a short introduction in this article.

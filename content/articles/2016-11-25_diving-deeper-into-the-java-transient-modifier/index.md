@@ -18,7 +18,6 @@ aliases:
 
 ---
 
-![image](/articles/2016-11-25_diving-deeper-into-the-java-transient-modifier/images/1.jpeg#layoutTextWidth)
 Nothing is tied forever. Neither are transient variables.
 
 Last week I published an article to help you understand [how references do work in Java](https://medium.com/google-developer-experts/finally-understanding-how-references-work-in-android-and-java-26a0d9c92f83). It had a great acceptance, and I got a lot of constructive feedback. That is why I love the software community.

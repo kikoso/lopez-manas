@@ -18,7 +18,6 @@ aliases:
 
 ---
 
-![image](/articles/2019-08-31_using-git-hooks-to-improve-your-development-workflow/images/1.jpeg#layoutTextWidth)
 Recently, I was contributing for the first time to a new codebase. I extended and implemented some functionality that I needed. After thorough testing on my machine, where I checked that the functionality was properly working, I committed my contribution. Minutes after, our CI environment delivered a message:
 > 4 Tests failed
 

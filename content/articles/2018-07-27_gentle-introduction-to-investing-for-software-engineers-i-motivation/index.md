@@ -18,7 +18,6 @@ aliases:
 
 ---
 
-![image](/articles/2018-07-27_gentle-introduction-to-investing-for-software-engineers-i-motivation/images/1.jpeg#layoutTextWidth)
 You can access all the articles of the series through the following links:
 
 [(I) — Motivation](https://blog.usejournal.com/a-gentle-introduction-to-investing-for-software-engineers-i-motivation-4cb968a8e634)

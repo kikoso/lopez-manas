@@ -19,7 +19,6 @@ aliases:
 
 ---
 
-![image](/articles/2021-02-18_considerations-when-creating-android-libraries/images/1.png#layoutTextWidth)
 If you are an Android developer, chances are you might have been working on your own Android libraries. A library is a useful way to create a reusable set of features that need to be integrated through different apps (or even different libraries).
 
 A library is a self-contained package including code and resources required to execute some functionality. Importing a library in our Android app is the same process as importing a .JAR file in a Java app, except that for Android the library file has the extension .AAR, which extends for Android archive (however, Android apps can also import libraries with a .JAR extension). There are detailed guides on the Internet on how to create Android libraries, but in this article I would like to focus on some aspects that are more subjective, and not always defined in every guide. We will discuss today the following aspects:

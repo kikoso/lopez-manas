@@ -19,7 +19,6 @@ aliases:
 
 ---
 
-![image](/articles/2024-10-24_treat-life-like-a-marathon-not-like-a-sprint/images/1.jpeg#layoutTextWidth)
 Like most of us, I am daily flooded with thoughts about life, my objective position in it, whether I am missing anything, or whether I need to do better. Am I providing enough for my family? Is my career on track? Am I being healthy enough? Am I just passing through life instead of aiming to strive?
 
 Those thoughts have been slowly mitigated, but they never got away. Over time, I have been slowly accepting this reality, and I came to realise that all the marathon training and long-distance running have helped me come to terms with these facts.

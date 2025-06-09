@@ -22,7 +22,6 @@ aliases:
 
 ---
 
-![image](/articles/2020-01-25_managing-the-kotlin-weekly/images/1.jpeg#layoutTextWidth)
 I just sent the issue #182 of the Kotlin Weekly. #182 means that this has been the week 182 that the Kotlin Weekly is alive. Many things have changed since [the first edition](https://us12.campaign-archive.com/?u=f39692e245b94f7fb693b6d82&amp;id=7776379469) on the 7th of August 2017, sent to over 200 initial subscribers with 5 articles.
 
 In some of the first editions, the content was so scarce that I ended up writing my own articles to include them, or adding some code snippets I posted on Twitter. Slowly and steadily, the evolution of Kotlin has followed a clear trend since then.
