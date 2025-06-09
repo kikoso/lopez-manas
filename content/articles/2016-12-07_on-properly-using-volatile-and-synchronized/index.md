@@ -28,7 +28,9 @@ In computing, a resource can be accessed from different threads concurrently. Th
 
 
 If you execute this command, the result is eclectic and non-deterministic. Each time you will end up with a different random output. That is because each thread execute in different instants.
-`Starting Thread 1 output:  
+
+```
+Starting Thread 1 output:  
 Starting Thread 2 output:  
 Selected number is: 5  
 Selected number is: 4  
@@ -41,7 +43,8 @@ Selected number is: 3
 Selected number is: 2  
 Selected number is: 1  
 Thread Thread 1 finishing.  
-Thread Thread 2 finishing.`
+Thread Thread 2 finishing.
+```
 
 Both modifiers deal with multithreading and protection of code sections from threads accesses. My gut feeling is that **synchronized** is more widely used and understood than **volatile**, so I will start my article explaining how it works. We will need it as well later to understand the differences with **volatile**.
 
@@ -53,7 +56,9 @@ The **synchronized** modifier can be applied to an statement block or a method. 
 
 
 Note that in this example we have added **synchronized** to the section where the function **printCount()** runs. If you execute now this function, the result will always be the same:
-`Starting Thread 1  
+
+```
+Starting Thread 1  
 Starting Thread 2  
 Selected number is: 5  
 Selected number is: 4  
@@ -66,7 +71,8 @@ Selected number is: 4
 Selected number is: 3  
 Selected number is: 2  
 Selected number is: 1  
-Thread Thread 2 finishing.`
+Thread Thread 2 finishing.
+```
 
 Now that **synchronized** has been explained, let´s take a look on **volatile**.
 
@@ -77,14 +83,23 @@ We have mentioned before that **synchronized** modifier could apply to blocks an
 A small note on how Java memory and multithreading work. When we are working with multithreading environments, each thread creates its own copy on a local cache of the variable they are dealing with. When this value is being updated, the update happens first in the local cache copy, and not in the real variable. Therefore, other threads are agnostic about the values that other threads are changing.
 
 Here **volatile** changes the paradigm. When a variable is declared as **volatile**, it will not be stored in the local cache of a thread. Instead, each thread will access the variable in the main memory and other threads will be able to access the updated value. Let´s compare all the methods for a proper understanding:
-``int firstVariable;  
-int getFirstVariable() {return firstVariable;}  
+
+```Java
+int firstVariable;  
+int getFirstVariable() {
+    return firstVariable;
+}  
 
 volatile int secondVariable;  
-int getSecondVariable() {return secondVariable;}  
+int getSecondVariable() {
+    return secondVariable;
+}  
 
 int thirdVariable;  
-synchronized int getThirdVariable() {return thirdVariable;}``
+synchronized int getThirdVariable() {
+    return thirdVariable;
+}
+```
 
 The first method is non-protected. A thread T1 will access the method, create its own local copy of _firstVariable_ and play with it. In the meantime, T2 and T3 can also access _firstVariable_ and modify its value. T1, T2 and T3 will have their own values of _firstVariable_, which might not be the same and that have not been copied to the Main memory of java, where the real results are hold.
 
