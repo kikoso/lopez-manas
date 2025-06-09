@@ -70,7 +70,7 @@ How can we be sure that a number is random? Will observing the process mine our 
 How can we be sure that a number is random? Will observing the process mine our efforts on generating the random number, similar to the observation of a cat inside a box with a decaying radioactive atom? Despite the potential complexity of generating random numbers, we can provide an initially simple method to generate them.">
   <meta itemprop="datePublished" content="2021-04-04T07:17:45+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:11+02:00">
-  <meta itemprop="wordCount" content="670">
+  <meta itemprop="wordCount" content="698">
   <meta itemprop="image" content="/articles/2021-04-04_short-story-of-randomness-i/images/1.jpeg">
   <meta itemprop="image" content="/articles/2021-04-04_short-story-of-randomness-i/images/2.png">
 
@@ -80,7 +80,7 @@ How can we be sure that a number is random? Will observing the process mine our 
 How can we be sure that a number is random? Will observing the process mine our efforts on generating the random number, similar to the observation of a cat inside a box with a decaying radioactive atom? Despite the potential complexity of generating random numbers, we can provide an initially simple method to generate them.">
   <meta itemprop="datePublished" content="2021-04-04T07:17:45+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:11+02:00">
-  <meta itemprop="wordCount" content="670">
+  <meta itemprop="wordCount" content="698">
   <meta itemprop="image" content="/articles/2021-04-04_short-story-of-randomness-i/images/1.jpeg">
   <meta itemprop="image" content="/articles/2021-04-04_short-story-of-randomness-i/images/2.png">
 </head>
@@ -433,8 +433,7 @@ How can we be sure that a number is random? Will observing the process mine our 
         <h3 class="text-lg font-semibold mb-0.5">KMP, iOS Developers and Production</h3>
         <div
           class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
-          <p><img src="/articles/2022-05-25_kmp-ios-developers-and-production/images/1.jpeg#layoutTextWidth" alt="image"></p>
-<p>Kotlin Multiplatform (or KMP, KMM Mobile, etc) has been widely used for a number of years in applications that are currently in production. JetBrains <a href="https://kotlinlang.org/lp/mobile/case-studies/"  target="_blank" rel="noopener" >compiled a website</a> listing some of the companies that are currently using KMP.</p>
+          <p>Kotlin Multiplatform (or KMP, KMM Mobile, etc) has been widely used for a number of years in applications that are currently in production. JetBrains <a href="https://kotlinlang.org/lp/mobile/case-studies/"  target="_blank" rel="noopener" >compiled a website</a> listing some of the companies that are currently using KMP.</p>
 <p>Since the advent of the mobile platforms we enjoy today, there has always been a certain market interest to push multiplatform technologies, such as Cordova, Xamarin, and others. With more or less success, those technologies aimed to provide a unified framework to develop multiple codebases, mostly focusing on the aspect of pricing (create code once, deploy multiple times).</p>
         </div>
       </a>
@@ -975,7 +974,17 @@ LCG generation formula</p>
 </ul>
 <p>The selection of the previous values may affect the quality or randomness of the output, so we can go down the rabbit hole and increase the entropy for those selected values (by either making them random as well or using a more convoluted process to generate them). In fact, Java generates the above parameters from rand48, so they get as random as it is acceptable for most usages.</p>
 <p>The following code excerpt is an implementation in Kotlin of a linear congruential generator:</p>
-<p>LCG is fast and apt for most computers to be used. Require minimal memory, and it can execute fast. However, its usage is not intended in every field (for instance, cryptographic applications should use secure pseudorandom number generators for salt and key generation).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>  <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">generateRandomNumber</span>(range: Int) : Int {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">val</span> random = <span style="color:#50fa7b">System</span>.currentTimeMillis()
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">val</span> multiplier = <span style="color:#bd93f9">0x9393DL</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">val</span> increment = <span style="color:#bd93f9">0x8763</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> (((random*multiplier)+increment) % range).toInt()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">main</span>() {
+</span></span><span style="display:flex;"><span>        println(generateRandomNumber(<span style="color:#bd93f9">9</span>))
+</span></span><span style="display:flex;"><span>   }
+</span></span></code></pre></div><p>LCG is fast and apt for most computers to be used. Require minimal memory, and it can execute fast. However, its usage is not intended in every field (for instance, cryptographic applications should use secure pseudorandom number generators for salt and key generation).</p>
 <h3 id="summary">Summary</h3>
 <p>Most of the randomness generators created since the early computing days use some sort of variation of the abovementioned mechanism. However, its usage is not apt for all systems. In the upcoming article, we will see which systems should use a different random numbers generator, and which algorithms are currently available for that.</p>
 <p>I write my thoughts about Software Engineering and life in general on my <a href="https://twitter.com/eenriquelopez"  target="_blank" rel="noopener" >Twitter account</a>. If you have liked this article or it did help you, feel free to share, 👏 it and/or leave a comment. This is the currency that fuels amateur writers.</p>
