@@ -303,7 +303,13 @@ class KotlinClass {
 Annotating the companion value with `@JvmField`will result again in a Java code much more comprehensive:
 
 
-Companion constant in Java
+```Java
+public final class JavaClass {
+    public static void main(String... args) {
+        System.out.println(KotlinClass.get_PI());
+    }
+}
+```
 
 
 
