@@ -30,20 +30,23 @@ Now, GitHub Actions provides thoughtful guides and documentation, although jumpi
 #### The structure of our config file
 
 GitHub Actions requires a .yml file specifying all the steps for the CI/CD. YAML files are uncomfortable, especially when they become large (indentation problems might become unnoticed, and support from IDEs is rare). The files are stored in the folder `.github/workflows/file.yml`. A minimal example of how they look is the following:
-`# Workflow name  
-name: Build``on:  
-# When it will be triggered  
-# And in which branch  
-  pull_request:  
-  push:  
-    branches:  
-      - main  
 
-``# Where will they run  
-jobs:  
-  build:  
+```
+# Workflow name
+name: Build
+on:
+# When it will be triggered
+# And in which branch
+  pull_request:
+  push:
+    branches:
+      - main
+# Where will they run
+jobs:
+  build:
 
-    runs-on: ubuntu-latest`
+    runs-on: ubuntu-latest
+```
 
 #### Actions
 
@@ -54,68 +57,80 @@ Now, here is a list of some suggestions of operations we can perform in Android.
 #### Setting up our Android app
 
 Initially, we will set up our environment, and in order to do that, we need to check out our project and set up our JDK. We will be using our first Action here, [Checkout v2](https://github.com/actions/checkout) to do a `git checkout` of our repository, and [setup-java](https://github.com/actions/setup-java) to prepare our Java environment.
-`_## Checkout our repository ###  
-_- name: Checkout  
-  uses: actions/checkout@v2.3.3  
 
-- name: Set up our JDK environment  
-  uses: actions/setup-java@v1.4.3  
-  with:  
-    java-version: 1.8`
+```
+## Checkout our repository ###
+- name: Checkout
+  uses: actions/checkout@v2.3.3
+
+- name: Set up our JDK environment
+  uses: actions/setup-java@v1.4.3
+  with:
+    java-version: 1.8
+```
 
 #### Building our artifacts
 
 The foundation of every project is to compile all our artifacts to be uploaded and/or distributed. Android has often a particularity, and is that we might generate several APKs based on our Flavor or BuildTypes. Some of them are relevant (our release artifact that might go directly to our test team), some of them less relevant (our test artifacts that are just for development use) depending on your team structure. Luckily, we can call directly Gradle commands and generate the number of artifacts that are relevant. We will use the Action [gradle-command-action](https://github.com/eskatos/gradle-command-action) to execute our Gradle command. An example can be the following:
-`_## Build all our Build Types at once ##  
-_- name: Build all artifacts  
-  id: buildAllApks  
-  uses: eskatos/gradle-command-action@v1.3.3  
-  with:  
-    gradle-version: current  
-    wrapper-cache-enabled: true  
-    dependencies-cache-enabled: true  
-    configuration-cache-enabled: true  
-    arguments: assembleRelease`
+
+```
+## Build all our Build Types at once ##
+- name: Build all artifacts
+  id: buildAllApks
+  uses: eskatos/gradle-command-action@v1.3.3
+  with:
+    gradle-version: current
+    wrapper-cache-enabled: true
+    dependencies-cache-enabled: true
+    configuration-cache-enabled: true
+    arguments: assembleRelease
+```
 
 The line `arguments: assembleRelease` is the relevant one here. We can easily substitute it with the Gradle command we want to execute.
 
 #### Testing
 
 There are several tests or analysis tool we might want to run on our CI/CD environment. Luckily, with GitHub actions we can directly run our Gradle commands. Starting for instance our tests or Lint can be done easily by directly calling the relevant Gradle command:
-``- name: Run Kotlin Linter  
+```
+- name: Run Kotlin Linter  
   run: ./gradlew ktlintStagingDebugCheck  
 
 - name: Run Unit Tests  
-  run: ./gradlew testStagingDebugUnitTest``
+  run: ./gradlew testStagingDebugUnitTest
+  ```
 
 We can also run our Espresso Tests on GitHub Actions. There are several actions that allow us to trigger them, we will showcase [android-emulator-runner](https://github.com/ReactiveCircus/android-emulator-runner) by [Reactive Circus:](https://github.com/ReactiveCircus)
-``uses: reactivecircus/android-emulator-runner@v2  
+```
+uses: reactivecircus/android-emulator-runner@v2  
     with:  
       api-level: 23  
       target: default  
       arch: x86  
       profile: Nexus 6  
-      script: ./gradlew connectedCheck --stacktrace``
+      script: ./gradlew connectedCheck --stacktrace
+```
 
 #### Signing artifacts
 
 Signing artifacts is the next natural step while creating our Android artifact, so they can be installed on a device.
-`_## Sign our artifact##  
-_- name: Sign artifact  
-  id: signArtifact  
-  uses: r0adkll/sign-android-release@v1.0.1  
-  with:  
-    releaseDirectory: app/build/outputs/apk/ourbuildtype/release  
-    alias: ${{ secrets.KEYALIAS }}  
-    signingKeyBase64: ${{ secrets.KEYSTORE }}  
-    keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}  
-    keyPassword: ${{ secrets.KEY_PASSWORD }}  
+```
+## Sign our artifact##
+- name: Sign artifact
+  id: signArtifact
+  uses: r0adkll/sign-android-release@v1.0.1
+  with:
+    releaseDirectory: app/build/outputs/apk/ourbuildtype/release
+    alias: ${{ secrets.KEYALIAS }}
+    signingKeyBase64: ${{ secrets.KEYSTORE }}
+    keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+    keyPassword: ${{ secrets.KEY_PASSWORD }}
 
-- name: Upload our APK  
-  uses: actions/upload-artifact@v2.2.0  
-  with:  
-    name: Release artifact  
-    path: app/build/outputs/apk/ourbuildtype/release/app-artifact-*.apk`
+- name: Upload our APK
+  uses: actions/upload-artifact@v2.2.0
+  with:
+    name: Release artifact
+    path: app/build/outputs/apk/ourbuildtype/release/app-artifact-*.apk
+```
 
 Some further explanation of what is going on here:
 
@@ -124,11 +139,14 @@ The task named “Sign artifact” uses the [sign-android-release](https://githu
 The task “Upload our APK” uploads artifacts from our workflow, allowing us to share data between jobs and store data once a workflow is complete. It uses the Action [upload-artifact](https://github.com/actions/upload-artifact). Note that on the path field we are using a wildcard `app-artifact-*.apk`.
 
 With Gradle we can customize our configuration file to determine the name of our resulting APK. This results in a much more readable output, rather than always using the default APK name. For instance, the following code block changes the name of our Gradle file to a more readable format (app-{flavor}-{buildName}-{versionName}.apk:
-`android.applicationVariants.all **{** variant **-&gt;  
-** variant.outputs.all **{  
-** outputFileName = &#34;app-$**{**variant.productFlavors[0].name**}**-$**{**variant.buildType.name**}**-$**{**variant.versionName**}**.apk&#34;  
-    **}  
-}**`
+
+```
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        outputFileName = "app-${variant.productFlavors[0].name}-${variant.buildType.name}-${variant.versionName}.apk"
+    }
+}
+```
 
 #### **Create Release**
 
@@ -138,7 +156,9 @@ Something interesting offered in GitHub is the possibility to create a Release i
 
 
 Each of those releases can contain a number of artifacts, source code, documentation, etc. It is also possible to publish some CHANGELOG or notes for a particular release (more on creating this automatically later). It is certainly useful to have this automatically created with the entire process. This is the relevant section that will create the release in GitHub.
-`- name: Create Release  
+
+```
+- name: Create Release  
   id: create_release  
   uses: actions/create-release@v1  
   env:  
@@ -147,19 +167,22 @@ Each of those releases can contain a number of artifacts, source code, documenta
     tag_name: ${{ github.ref }}  
     release_name: Release ${{ github.ref }}  
     draft: false  
-    prerelease: false`
+    prerelease: false
+```
 
 #### Upload our assets to GitHub
 
 With the release being created, it is time to upload our own assets. We are going to use an auxiliary task in order to gather our APK names and paths (supposing we are having custom names for them, as explored before).
-`- name: Save name of our Artifact  
-  id: set-result-artifact  
-  run: |  
-    ARTIFACT_PATHNAME_APK=$(ls app/build/outputs/apk/ourbuildtype/release/*.apk | head -n 1)  
-    ARTIFACT_NAME_APK=$(basename $ARTIFACT_PATHNAME_APK)  
-    echo &#34;ARTIFACT_NAME_APK is &#34; ${ARTIFACT_NAME_APK}  
-    echo &#34;ARTIFACT_PATHNAME_APK=${ARTIFACT_PATHNAME_APK}&#34; &gt;&gt; $GITHUB_ENV  
-    echo &#34;ARTIFACT_NAME_APK=${ARTIFACT_NAME_APK}&#34; &gt;&gt; $GITHUB_ENV`
+```
+- name: Save name of our Artifact
+  id: set-result-artifact
+  run: |
+    ARTIFACT_PATHNAME_APK=$(ls app/build/outputs/apk/ourbuildtype/release/*.apk | head -n 1)
+    ARTIFACT_NAME_APK=$(basename $ARTIFACT_PATHNAME_APK)
+    echo "ARTIFACT_NAME_APK is " ${ARTIFACT_NAME_APK}
+    echo "ARTIFACT_PATHNAME_APK=${ARTIFACT_PATHNAME_APK}" >> $GITHUB_ENV
+    echo "ARTIFACT_NAME_APK=${ARTIFACT_NAME_APK}" >> $GITHUB_ENV
+```
 
 Note a couple of relevant points in this code block:
 
@@ -167,7 +190,8 @@ Note a couple of relevant points in this code block:
 *   We are running a command to determine the name of the APK (`ls app/build/outputs/apk/ourbuildtype/release/*.apk | head -n 1`). This is highly versatile, since we can essentially use Unix/Mac commands to determine a variety of things (and later on, store them on our PATH and reuse them in other steps).
 
 With the names and PATHs already stored on an environment variable, we will now proceed to upload them to our release page. This uses the action [upload-release-asset](https://github.com/actions/upload-release-asset):
-`- name: Upload our Artifact Assets  
+```
+- name: Upload our Artifact Assets  
   id: upload-release-asset  
   uses: actions/upload-release-asset@v1  
   env:  
@@ -176,15 +200,18 @@ With the names and PATHs already stored on an environment variable, we will now 
     upload_url: ${{ steps.create_release.outputs.upload_url }}  
     asset_path: ${{ env.ARTIFACT_PATHNAME_APK }}  
     asset_name: ${{ env.ARTIFACT_NAME_APK }}  
-    asset_content_type: application/zip`
+    asset_content_type: application/zip
+```
 
 This has created our artifacts on GitHub, and we are ready to distribute them. There are a bunch of notification mechanisms we can use. For instance, if we have a Slack group we could notify a particular channel that our release is ready, using [act10ns/slack](https://github.com/act10ns/slack):
-`- name: Notify on Slack  
+```
+- name: Notify on Slack  
   uses: act10ns/slack@v1.0.9  
   with:  
     status: ${{ job.status }}  
     steps: ${{ toJson(steps) }}  
-    if: always()`
+    if: always()
+```
 
 There is a good number of options already available as GitHub actions, including notifications on [Telegram](https://github.com/appleboy/telegram-action), via [E-Mail](https://github.com/marketplace/actions/send-email) or [Discord](https://github.com/Ilshidur/action-discord). If you can think of a particular platform you need, there is likely a GitHub action that covers it.
 

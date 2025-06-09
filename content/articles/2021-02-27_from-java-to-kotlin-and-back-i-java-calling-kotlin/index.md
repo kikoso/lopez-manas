@@ -47,14 +47,23 @@ The interaction can happen in both directions: Kotlin code calling Java code, an
 Let’s take a look at the following file, declaring a class and a function in Kotlin:
 
 
-Kotlin file without JvmName annotation
+```Kotlin
+package org.example
+
+class MyClass
+
+fun myFunction() {  }
+```
 
 
 
 When this file gets accessed from Java (and since myFunction is a top-level function), the required code must be written as follows:
 
 
-Accessing code from Java
+```Kotlin
+new org.example.MyClass();
+org.example.FileKt.myFunction();
+```
 
 
 
@@ -62,7 +71,14 @@ The class can be referenced using the package name, but the function must be ref
 
 Of course, this is uncomfortable. By using the annotation **JvmName**, we can make sure that we define the name of the resulting Java file:
 
+```Kotlin
+@file:JvmName("DemoFile")
+package org.example
 
+class MyClass
+
+fun myFunction() {  }
+```
 
 
 Make sure you are properly using JvmName if you have a top-level function on a Kotlin file that will be potentially exposed to Java users.
@@ -70,15 +86,19 @@ Make sure you are properly using JvmName if you have a top-level function on a K
 JvmName is also interesting to avoid signature classes, which might happen when we are doing [type erasure](https://en.wikipedia.org/wiki/Type_erasure). For instance, check out the following piece of code:
 
 
-Kotlin signature collision
-
-
+```Kotlin
+fun List<String>.transform(): List<String>
+fun List<Int>.transform(): List<Int>
+```
 
 In Java those functions cannot be defined side by side, since the JVM signature is the same: same return type, belonging to the List class, same name (filterValid(Ljava/util/List;)Ljava/util/List;). The manual solution is to write different names, but the better solution is to use JvmName to change the name when it compiles to JVM:
 
-
-Avoiding signature collision with JvmName
-
+```Kotlin
+@JvmName("transformAString")
+fun List<String>.transform(): List<String>
+@JvmName("transformAnInt")
+fun List<Int>.transform(): List<Int>
+```
 
 
 #### Use **JvmMultifileClass**
@@ -86,15 +106,30 @@ Avoiding signature collision with JvmName
 Another issue we might face frequently is to have multiple files being generated with the same Java name (think of common names such as Utils for a class). The compiler does not like this, and will throw an error. However, the annotation **JvmMultifileClass** allows the compiler to merge multiple classes into a single one with the same name. If you are working with a class that you believe will collide with the namespace of other classes when the Java file is generated, consider using **JvmMultifileClass.**
 
 
-First class using the annotation JvmMultifileClass
+```Kotlin
+@file:JvmName("Demo")
+@file:JvmMultifileClass
+
+package org.example
+
+fun myFunction() { }
+```
 
 
+```Kotlin
+@file:JvmName("Demo")
+@file:JvmMultifileClass
 
-Another class using the annotation JvmMultifileClass
+package org.example
 
+fun anotherFunction() { }
+```
 
-
-Both will happily coexist in Java
+```Kotlin
+// calling on Java
+org.example.Demo.myFunction();
+org.example.Demo.anotherFunction();
+```
 
 
 
@@ -103,9 +138,21 @@ Both will happily coexist in Java
 Kotlin includes a few nice features that allow us to write more idiomatic code. For instance, we can define default parameters, so the user does not need to specify them. Together with the parameter naming, names of functions are now much easier to read, and less error-prone. For instance, let’s check the following and hypothetical constructor for some sort of custom HTTP service:
 
 
-Constructor without JvmOverloads
-
-
+```Kotlin
+class Service constructor(
+		private val name: String,
+		private val host: String,
+		private val clientId: String,
+		private val redirectUri: String,
+		private val basicAuth: String?,
+		private val checkSSL: Boolean,
+		private val authIntentBuilder: AuthIntentBuilder = MAuthCustomTabIntentBuilder(),
+		private val randomGenerator: RandomGenerator = MSecRandomGenerator(),
+		private val base64Coder: MBase64Coder = MBase64UrlSafeCoderImpl(),
+		private val pkce: MPKCE = MPKCEImpl(randomGenerator)
+)
+view raw
+```
 
 Fields like name, host, etc… are likely to be unique for each instantiation of the constructor, but some others might not, and they might be as well complex to initialise (and we can’t always apply Dependency Injection to solve this problem). By declaring default parameters, we just need to specify the attributes without default values.
 
@@ -114,7 +161,19 @@ However, Java does not support default parameters, so a file in Java interacting
 The annotation JvmOverloads comes here to the rescue:
 
 
-Constructor-with-JvmOverloads.kt
+```Kotlin
+class MLoginService @JvmOverloads constructor(
+		private val name: String,
+		private val host: String,
+		private val clientId: String,
+		private val redirectUri: String,
+		private val basicAuth: String?,
+		private val checkSSL: Boolean,
+		private val authIntentBuilder: MAuthIntentBuilder = MAuthCustomTabIntentBuilder(),
+		private val randomGenerator: MRandomGenerator = MSecRandomGenerator(),
+		private val base64Coder: MBase64Coder = MBase64UrlSafeCoderImpl(),
+		private val pkce: MPKCE = MPKCEImpl(randomGenerator)
+```
 
 
 
@@ -122,8 +181,11 @@ JvmOverloads orders the Kotlin compiler to generate overloads for this function 
 
 Of course, JvmOverloads works as well with functions:
 
-
-Function with JvmOverloads
+```Kotlin
+@JvmOverloads fun bar(integerVar : Int = 0, doubleVar: Double =0.0, stringVar : String = "A value"){
+    println("integerVar=$integerVar, doubleVar=$doubleVar, stringVar = $stringVar")
+}
+```
 
 
 
@@ -143,24 +205,34 @@ In my [previous article](https://medium.com/google-developer-experts/considerati
 
 Unlike Java, Kotlin does not have checked exceptions. There are no checked exceptions at the JVM level. Let’s check the following file in Kotlin:
 
+```Kotlin
+package example
 
-Exception in Kotlin
-
-
+fun myFunction() {
+    throw IOException()
+}
+```
 
 From Java, we will call with a statement similar to the following one:
 
 
-Exception in Java
-
+```Java
+try {
+  example.File.myFunction();
+} catch (IOException e) { 
+ //... 
+}
+```
 
 
 This will drop a compile error in Java. Our function, `myFunction()` , does not declare anytime a `IOException`or any other sort of exception. If we want it to work in Java, we need to use the `[@Throws](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throws/index.html)` annotation in Kotlin:
 
-
-Exception and Throw annotation
-
-
+```Kotlin
+@Throws(IOException::class)
+fun myFunction() {
+    throw IOException()
+}
+```
 
 Bonus: It could be that a Kotlin function may throw any exception types, include catched exceptions independently from the `@Throws` annotations use. Check out [this article](https://jonnyzzz.com/blog/2018/11/22/proxy/) by my rocket scientist and colleague Eugene where he explores potential side effects.
 
@@ -168,25 +240,46 @@ Bonus: It could be that a Kotlin function may throw any exception types, include
 
 We write companion functions in Kotlin when we need to write a function that can be called without requiring an instance of the class, but still having access to the internals of the same class. For instance, take a look at the following class:
 
-
+```Kotlin
+class MyKotlinClass {
+    companion object {
+        fun myFunction() {
+        }
+    }
+}
+```
 
 
 If we need to use it in Java, the result is as follows:
 
-
-Companion with no annotation in Java
-
-
+```Kotlin
+public final class MyJavaClass {
+    public static void main(String... args) {
+        MyKotlinClass.Companion.myFunction();
+    }
+}
+```
 
 If we use the `@JvmStatic` annotation, it will be exposed as a static method.
 
-
-
+```Kotlin
+class MyKotlinClass {
+    companion object {
+        @JvmStatic fun myFunction() {
+        }
+    }
+}
+```
 
 And the resulting Java code:
 
-
-Kotlin companion with annotation
+```Kotlin
+public final class MyJavaClass {
+    public static void main(String... args) {
+        MyKotlinClass.myFunction();
+    }
+}
+```
 
 
 
@@ -197,7 +290,13 @@ If you are using companion functions, remember to tag them with the `@JvmStatic`
 Related to the previous section, in the case of companion constants is better to use the annotation`@JvmField`, since `@JvmStatic`creates a weird getter. For instance, consider the following companion constant:
 
 
-Companion constant
+```Kotlin
+class KotlinClass {
+    companion object {
+        const val PI = 3.14
+    }
+}
+```
 
 
 
