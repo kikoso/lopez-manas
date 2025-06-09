@@ -967,12 +967,12 @@ A trend that will only continue to grow.</p>
 <li>The same people working on the apps are working as well on the library.</li>
 <li>The tempo for developing the library is steady, your CI process cannot guarantee a continuous delivery of new versions of the library and you need to commit them as soon as possible to the repository.</li>
 </ul>
-<p>The methodology to perform this it is straightforward. From your local git repository, you need to add your submodule:
-<code>git submodule add [y](https://XXX@bitbucket.org/YYY/ZZZ.git)our-repository.git</code></p>
-<p>And update consequently your <strong>settings.gradle</strong> and <strong>build.gradle</strong> files.</p>
-<p>Ah! There is something I always forget when I am cloning a directory with submodules. That is, you need to specify that the module you are cloning contains… submodules.
-<code>git clone --recurse-submodules</code></p>
-<p>Any human mean of having this behavior as default by Git? Not that I am aware of. I remember I always clone the repository without the submodules, and then I have to download the submodules manually. It is one of those facts that always entail an issue left aside, such as adding an Activity to an Android project and forgetting to add the same Activity to the AndroidManifest.xml.</p>
+<p>The methodology to perform this it is straightforward. From your local git repository, you need to add your submodule:</p>
+<pre tabindex="0"><code>git submodule add [y](https://XXX@bitbucket.org/YYY/ZZZ.git)our-repository.git`
+</code></pre><p>And update consequently your <strong>settings.gradle</strong> and <strong>build.gradle</strong> files.</p>
+<p>Ah! There is something I always forget when I am cloning a directory with submodules. That is, you need to specify that the module you are cloning contains… submodules.</p>
+<pre tabindex="0"><code>git clone --recurse-submodules
+</code></pre><p>Any human mean of having this behavior as default by Git? Not that I am aware of. I remember I always clone the repository without the submodules, and then I have to download the submodules manually. It is one of those facts that always entail an issue left aside, such as adding an Activity to an Android project and forgetting to add the same Activity to the AndroidManifest.xml.</p>
 <h4 id="distributing-the-new-android-library-in-a-self-contained-file">Distributing the new Android library in a self-contained file</h4>
 <p>You might be lacking the infraestructure to provide your library as a Git submodule, or you might want to choose another mean of distribution for different reasons:</p>
 <ul>
@@ -988,11 +988,22 @@ A trend that will only continue to grow.</p>
 <h4 id="distributing-through-a-nexus-repository">Distributing through a Nexus repository</h4>
 <p>You have your library ready. You have versioned it, and you are ready for deployment (this might sound more appealing for people deploying rockets into orbit, but I can ensure the alluring feeling of finally unlock your software to third-parties after a long development period is equally enchanting). Now it is time to release it through a Nexus Repository.</p>
 <p>A Nexus repository manages artifacts for download. You develop your software, upload it to a Nexus repository and make it public to the world. It is a very convenient way, and keeps every aspect of the development wheel quite framed in a domain. As I mentioned, there might exist limitations in your organisation, but this is, in my opinion, the most optimal option to release an artifact.</p>
-<p>When you add a file from a Nexus repository, you typically include the following line in your Gradle script:
-<code>implementation &amp;#39;com.android.support:support-v4:27.0.2&amp;#39;</code></p>
-<p>A Nexus repository can be public or private. As I mentioned in the case of my client, the Nexus repository was only accessible from their internal network, and it was therefore not an optimal solution. There are well-known public Nexus repositories, such as <a href="https://search.maven.org/"  target="_blank" rel="noopener" >Maven Central</a>, which you are very likely already using, or <a href="https://www.sonatype.com/nexus-repository-oss"  target="_blank" rel="noopener" >Sonatype</a>. If you are developing OSS this will be your instant choice, since the offer a free-tier and you can expose your work to the world. This can as well be automated, and therefore being uploaded automatically to a repository through a Gradle script:
-<code>uploadArchives {   repositories {   mavenDeployer {   repository(url: “[http://localhost:8081/nexus/content/repositories/snapshots](http://localhost:8081/nexus/content/repositories/snapshots)&amp;#34;) {   authentication(userName: “admin”, password: “admin123”)   }   pom.version = “1.0-SNAPSHOT”   pom.artifactId = “simple-project”   pom.groupId = “com.example”   }   }   }</code></p>
-<h3 id="conclusions">Conclusions</h3>
+<p>When you add a file from a Nexus repository, you typically include the following line in your Gradle script:</p>
+<pre tabindex="0"><code>implementation &amp;#39;com.android.support:support-v4:27.0.2&amp;#39;`
+</code></pre><p>A Nexus repository can be public or private. As I mentioned in the case of my client, the Nexus repository was only accessible from their internal network, and it was therefore not an optimal solution. There are well-known public Nexus repositories, such as <a href="https://search.maven.org/"  target="_blank" rel="noopener" >Maven Central</a>, which you are very likely already using, or <a href="https://www.sonatype.com/nexus-repository-oss"  target="_blank" rel="noopener" >Sonatype</a>. If you are developing OSS this will be your instant choice, since the offer a free-tier and you can expose your work to the world. This can as well be automated, and therefore being uploaded automatically to a repository through a Gradle script:</p>
+<pre tabindex="0"><code>uploadArchives {  
+   repositories {  
+      mavenDeployer {  
+         repository(url: “[http://localhost:8081/nexus/content/repositories/snapshots](http://localhost:8081/nexus/content/repositories/snapshots)&amp;#34;) {  
+ authentication(userName: “admin”, password: “admin123”)  
+         }  
+         pom.version = “1.0-SNAPSHOT”  
+         pom.artifactId = “simple-project”  
+         pom.groupId = “com.example”  
+      }  
+   }  
+}
+</code></pre><h3 id="conclusions">Conclusions</h3>
 <p>There will never exist an approach with no flaws to the needs of the software, organisation and product you are trying to build. For a standard OSS, the distribution through a Nexus repository (and having the obvious choice as well of cloning the library as a submodule) is an ideal alternative. For other scenarios, you need to balance all the requirements and take one decision that might mix some of the previously introduced elements.</p>
 <p>I write my thoughts about Software Engineering and life in general in my <a href="https://twitter.com/eenriquelopez"  target="_blank" rel="noopener" >Twitter account</a>. If you have liked this article or it did help you, feel free to share it, ♥ it and/or leave a comment. This is the currency that fuels amateur writers.</p>
 

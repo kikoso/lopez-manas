@@ -70,7 +70,7 @@ For instance, let’s imagine that we want to ensure that an authorized device i
 For instance, let’s imagine that we want to ensure that an authorized device is querying a file with sensitive information from our backend. An immediate solution could be to use a X-Api-Token in our device. I wrote previously about how we can store tokens securely in Android: ideally, the X-Api-Token should not be stored in plain text, since everything delivered as plain-text in an Android app can be considered open source. One more twist to the story could be to have a local function that generates the token, and that is understood by the server as well.">
   <meta itemprop="datePublished" content="2020-10-26T19:34:11+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:49:51+02:00">
-  <meta itemprop="wordCount" content="952">
+  <meta itemprop="wordCount" content="1138">
   <meta itemprop="image" content="/articles/2020-10-26_using-the-signature-class-to-verify-data/images/1.jpeg">
   <meta itemprop="image" content="/articles/2020-10-26_using-the-signature-class-to-verify-data/images/2.png">
 
@@ -80,7 +80,7 @@ For instance, let’s imagine that we want to ensure that an authorized device i
 For instance, let’s imagine that we want to ensure that an authorized device is querying a file with sensitive information from our backend. An immediate solution could be to use a X-Api-Token in our device. I wrote previously about how we can store tokens securely in Android: ideally, the X-Api-Token should not be stored in plain text, since everything delivered as plain-text in an Android app can be considered open source. One more twist to the story could be to have a local function that generates the token, and that is understood by the server as well.">
   <meta itemprop="datePublished" content="2020-10-26T19:34:11+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:49:51+02:00">
-  <meta itemprop="wordCount" content="952">
+  <meta itemprop="wordCount" content="1138">
   <meta itemprop="image" content="/articles/2020-10-26_using-the-signature-class-to-verify-data/images/1.jpeg">
   <meta itemprop="image" content="/articles/2020-10-26_using-the-signature-class-to-verify-data/images/2.png">
 </head>
@@ -962,31 +962,80 @@ A trend that will only continue to grow.</p>
 <p>I had to do this recently, and in the security field we often walk a desert realm with a few desultory StackOverflow posts, trying to join the pieces. Hence the current article — if anybody benefits from its content, mission accomplished.</p>
 <p>The <a href="https://developer.android.com/reference/java/security/Signature"  target="_blank" rel="noopener" >Signature</a> class in Android exists since its first version, although it has had a few additions through Android history. Most notably, since API Level 23 we have access to a few more encryption algorithms, including <em>SHA512withRSA/PSS</em>. SHA512withRSA/PSS is probably as secure as it gets for most commercial applications.</p>
 <p>This algorithm produces a signature from a digest length of 512 bits. PSS stands for <a href="https://web.archive.org/web/20040713140300/http://grouper.ieee.org/groups/1363/P1363a/contributions/pss-submission.pdf"  target="_blank" rel="noopener" >Probabilistic Signature Scheme</a>. RSA is itself not an encryption algorithm, but a family of permutations which obscure the code, but are not useful in isolation. PSS adds an encryption schema.</p>
-<p>Android does not really support PKCS1, so we need to generate first a PKCS key. We can easily do this using openssl:
-<code>openssl genpkey -out rsakey.pem -algorithm RSA -pkeyopt rsa_keygen_bits:2048</code></p>
-<p>With this key already generated, we need to send it to the device. One option would be to deliver the APK with the private key included in the assets folder, but everything that is delivered in the Android APK can be considered open source. A solution would be to send it via SSL — not an infallible solution, but eliminates some risk.</p>
-<p>With this already done, we need to do a few adjustments to the key. We need to strip first the <strong>BEGIN PRIVATE KEY</strong> and <strong>END PRIVATE KEY</strong> since otherwise the Signature class will not work. When we have achieved that, we can proceed to calculate the signature:
-<code>**val** signatureSHA256 = Signature.getInstance(**&amp;#34;SHA256withRSA/PSS&amp;#34;**)   signatureSHA256.setParameter(PSSParameterSpec(**&amp;#34;SHA-256&amp;#34;**, **&amp;#34;MGF1&amp;#34;**, MGF1ParameterSpec._SHA256_, 32, 1))``**val** privateKey = loadPrivateKey(**&amp;#34;MY_KEY&amp;#34;**)   signatureSHA256.initSign(privateKey)``**val** data: ByteArray = **&amp;#34;name_of_the_file&amp;#34;**._toByteArray_()   signatureSHA256.update(data)``**var** finalSignature **** = signatureSHA256.sign()</code></p>
-<p>The method that strips the irrelevant content from the key is the following:
-`<strong>private fun</strong> loadPrivateKey(key: String): PrivateKey {<br>
-<strong>val</strong> readString = key.<em>replace</em>(<strong>&quot;&mdash;&ndash;BEGIN PRIVATE KEY&mdash;&ndash;\n&quot;</strong>, <strong>&quot;&quot;</strong>).<em>replace</em>(<strong>&quot;&mdash;&ndash;END PRIVATE KEY&mdash;&ndash;&quot;</strong>, <strong>&quot;&quot;</strong>)<br>
-**}</p>
-<pre><code>val** encoded = Base64.decode(readString, Base64._DEFAULT_)  
-**return** KeyFactory.getInstance(**&amp;#34;RSA&amp;#34;**)  
-        .generatePrivate(PKCS8EncodedKeySpec(encoded))  
-</code></pre>
-<p>}`</p>
-<p>Another twist would be to convert the resulting signature into hexadecimal code. In Android, we can easily do it with a Kotlin extension:
-<code>**fun** ByteArray.toHexString() = _joinToString_(**&amp;#34;&amp;#34;**) **{ &amp;#34;%02x&amp;#34;**._format_(**it**) **}**</code></p>
-<p>Now we are ready. We can send the request to our server specifying the file we want to access, and the signature associated with it. The server needs to do the opposite procedure (convert from hexadecimal to text, and then apply the signature verification). This is how our request would look like:</p>
+<p>Android does not really support PKCS1, so we need to generate first a PKCS key. We can easily do this using openssl:</p>
+<pre tabindex="0"><code>openssl genpkey -out rsakey.pem -algorithm RSA -pkeyopt rsa_keygen_bits:2048
+</code></pre><p>With this key already generated, we need to send it to the device. One option would be to deliver the APK with the private key included in the assets folder, but everything that is delivered in the Android APK can be considered open source. A solution would be to send it via SSL — not an infallible solution, but eliminates some risk.</p>
+<p>With this already done, we need to do a few adjustments to the key. We need to strip first the <strong>BEGIN PRIVATE KEY</strong> and <strong>END PRIVATE KEY</strong> since otherwise the Signature class will not work. When we have achieved that, we can proceed to calculate the signature:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">val</span> signatureSHA256 = <span style="color:#50fa7b">Signature</span>.getInstance(<span style="color:#f1fa8c">&#34;SHA256withRSA/PSS&#34;</span>)
+</span></span><span style="display:flex;"><span>signatureSHA256.setParameter(PSSParameterSpec(<span style="color:#f1fa8c">&#34;SHA-256&#34;</span>, <span style="color:#f1fa8c">&#34;MGF1&#34;</span>, MGF1ParameterSpec.SHA256, <span style="color:#bd93f9">32</span>, <span style="color:#bd93f9">1</span>))
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">val</span> privateKey = loadPrivateKey(<span style="color:#f1fa8c">&#34;MY_KEY&#34;</span>)
+</span></span><span style="display:flex;"><span>signatureSHA256.initSign(privateKey)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">val</span> data: ByteArray = <span style="color:#f1fa8c">&#34;name_of_the_file&#34;</span>.toByteArray()
+</span></span><span style="display:flex;"><span>signatureSHA256.update(<span style="color:#ff79c6">data</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">var</span> finalSignature = signatureSHA256.sign()
+</span></span></code></pre></div><p>The method that strips the irrelevant content from the key is the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">private</span> <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">loadPrivateKey</span>(key: String): PrivateKey {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">val</span> readString = key.replace(<span style="color:#f1fa8c">&#34;-----BEGIN PRIVATE KEY-----</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>, <span style="color:#f1fa8c">&#34;&#34;</span>).replace(<span style="color:#f1fa8c">&#34;-----END PRIVATE KEY-----&#34;</span>, <span style="color:#f1fa8c">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">val</span> encoded = Base64.decode(readString, Base64.DEFAULT)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> <span style="color:#50fa7b">KeyFactory</span>.getInstance(<span style="color:#f1fa8c">&#34;RSA&#34;</span>)
+</span></span><span style="display:flex;"><span>            .generatePrivate(PKCS8EncodedKeySpec(encoded))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Another twist would be to convert the resulting signature into hexadecimal code. In Android, we can easily do it with a Kotlin extension:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">ByteArray</span>.toHexString() = joinToString(<span style="color:#f1fa8c">&#34;&#34;</span>) { <span style="color:#f1fa8c">&#34;%02x&#34;</span>.format(<span style="color:#ff79c6">it</span>) }
+</span></span></code></pre></div><p>Now we are ready. We can send the request to our server specifying the file we want to access, and the signature associated with it. The server needs to do the opposite procedure (convert from hexadecimal to text, and then apply the signature verification). This is how our request would look like:</p>
 <p><img src="/articles/2020-10-26_using-the-signature-class-to-verify-data/images/2.png#layoutTextWidth" alt="image"></p>
-<p>Now, the backend needs to do the verification, and ensure that the data is properly verified. There are a few changes to the previous code — essentially, this time we are aiming to work with the public key, and use the method <em>verify(data)</em>, which will ultimately verify that the data has been sent by the appropriate client:
-<code>**val** signatureSHA256 = Signature.getInstance(**&amp;#34;SHA256withRSA/PSS&amp;#34;**);   signatureSHA256.setParameter(PSSParameterSpec(**&amp;#34;SHA-256&amp;#34;**, **&amp;#34;MGF1&amp;#34;**, MGF1ParameterSpec._SHA256_, 32, 1));   **val** privateKey = loadPublicKey(**&amp;#34;MY_KEY&amp;#34;**)   signatureSHA256.initSign(privateKey);   **val** data: ByteArray = **&amp;#34;name_of_the_file&amp;#34;**._toByteArray_()   signatureSHA256Java.verify(data)</code></p>
-<h3 id="the-extra-mile"><strong>The extra mile</strong></h3>
-<p>The downloaded certificate can be also easily intercepted by a potential attacker using <a href="https://www.charlesproxy.com/"  target="_blank" rel="noopener" >Charles</a>. There is also a library called <a href="https://github.com/sensepost/objection"  target="_blank" rel="noopener" >Objection</a>, which totally bypasses certificate pinning. If you are not using certificate pinning in Android, this should be your next Pull Request tomorrow: it is really easy, and certainly avoid problems. You just need to add a <em>network_security_config.xml</em> file with the following content:
-<code>&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;utf-8&amp;#34;?&amp;gt;   &amp;lt;network-security-config&amp;gt;   &amp;lt;domain-config&amp;gt;   &amp;lt;domain includeSubdomains=&amp;#34;true&amp;#34;&amp;gt;example.com&amp;lt;/domain&amp;gt;   &amp;lt;pin-set expiration=&amp;#34;2018-01-01&amp;#34;&amp;gt;   &amp;lt;pin digest=&amp;#34;SHA-256&amp;#34;&amp;gt;7HIpactkIAq2Y49orFOOQKurWxmmSFZhBCoQYcRhJ3Y=&amp;lt;/pin&amp;gt;   &amp;lt;!-- backup pin --&amp;gt;   &amp;lt;pin digest=&amp;#34;SHA-256&amp;#34;&amp;gt;fwza0LRMXouZHRC8Ei+4PyuldPDcf3UKgO/04cDM1oE=&amp;lt;/pin&amp;gt;   &amp;lt;/pin-set&amp;gt;   &amp;lt;/domain-config&amp;gt;   &amp;lt;/network-security-config&amp;gt;</code></p>
-<p>Android can also generate a pair of pub/private keys on the device. This needs to be of course handled, but also adds another world of possibilities — if the keys are created in real-time, then we are slightly on the safer side. Of course, we are still handling problems with the transmission of the keys and securing them, but we have probably removed a few existential threats from the equation:</p>
-<h3 id="conclusions">Conclusions</h3>
+<p>Now, the backend needs to do the verification, and ensure that the data is properly verified. There are a few changes to the previous code — essentially, this time we are aiming to work with the public key, and use the method <em>verify(data)</em>, which will ultimately verify that the data has been sent by the appropriate client:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">val</span> signatureSHA256 = <span style="color:#50fa7b">Signature</span>.getInstance(<span style="color:#f1fa8c">&#34;SHA256withRSA/PSS&#34;</span>);
+</span></span><span style="display:flex;"><span>signatureSHA256.setParameter(PSSParameterSpec(<span style="color:#f1fa8c">&#34;SHA-256&#34;</span>, <span style="color:#f1fa8c">&#34;MGF1&#34;</span>, MGF1ParameterSpec.SHA256, <span style="color:#bd93f9">32</span>, <span style="color:#bd93f9">1</span>));
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">val</span> privateKey = loadPublicKey(<span style="color:#f1fa8c">&#34;MY_KEY&#34;</span>)
+</span></span><span style="display:flex;"><span>signatureSHA256.initSign(privateKey);
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">val</span> data: ByteArray = <span style="color:#f1fa8c">&#34;name_of_the_file&#34;</span>.toByteArray()
+</span></span><span style="display:flex;"><span>signatureSHA256Java.verify(<span style="color:#ff79c6">data</span>)
+</span></span></code></pre></div><h3 id="the-extra-mile"><strong>The extra mile</strong></h3>
+<p>The downloaded certificate can be also easily intercepted by a potential attacker using <a href="https://www.charlesproxy.com/"  target="_blank" rel="noopener" >Charles</a>. There is also a library called <a href="https://github.com/sensepost/objection"  target="_blank" rel="noopener" >Objection</a>, which totally bypasses certificate pinning. If you are not using certificate pinning in Android, this should be your next Pull Request tomorrow: it is really easy, and certainly avoid problems. You just need to add a <em>network_security_config.xml</em> file with the following content:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Xml" data-lang="Xml"><span style="display:flex;"><span><span style="color:#ff79c6">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&lt;network-security-config&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&lt;domain-config&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">&lt;domain</span> <span style="color:#50fa7b">includeSubdomains=</span><span style="color:#f1fa8c">&#34;true&#34;</span><span style="color:#ff79c6">&gt;</span>example.com<span style="color:#ff79c6">&lt;/domain&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">&lt;pin-set</span> <span style="color:#50fa7b">expiration=</span><span style="color:#f1fa8c">&#34;2018-01-01&#34;</span><span style="color:#ff79c6">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">&lt;pin</span> <span style="color:#50fa7b">digest=</span><span style="color:#f1fa8c">&#34;SHA-256&#34;</span><span style="color:#ff79c6">&gt;</span>7HIpactkIAq2Y49orFOOQKurWxmmSFZhBCoQYcRhJ3Y=<span style="color:#ff79c6">&lt;/pin&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#6272a4">&lt;!-- backup pin --&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">&lt;pin</span> <span style="color:#50fa7b">digest=</span><span style="color:#f1fa8c">&#34;SHA-256&#34;</span><span style="color:#ff79c6">&gt;</span>fwza0LRMXouZHRC8Ei+4PyuldPDcf3UKgO/04cDM1oE=<span style="color:#ff79c6">&lt;/pin&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">&lt;/pin-set&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&lt;/domain-config&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&lt;/network-security-config&gt;</span>
+</span></span></code></pre></div><p>Android can also generate a pair of pub/private keys on the device. This needs to be of course handled, but also adds another world of possibilities — if the keys are created in real-time, then we are slightly on the safer side. Of course, we are still handling problems with the transmission of the keys and securing them, but we have probably removed a few existential threats from the equation:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">private</span> <span style="color:#ff79c6">lateinit</span> <span style="color:#ff79c6">var</span> keyPair: KeyPair
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">private</span> <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">generateKey</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">val</span> startDate = GregorianCalendar()
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">val</span> endDate = GregorianCalendar()
+</span></span><span style="display:flex;"><span>    endDate.add(<span style="color:#50fa7b">Calendar</span>.YEAR, <span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">val</span> keyPairGenerator: KeyPairGenerator = <span style="color:#50fa7b">KeyPairGenerator</span>.getInstance(<span style="color:#50fa7b">KeyProperties</span>.KEY_ALGORITHM_RSA, ANDROID_KEYSTORE)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">val</span> parameterSpec: KeyGenParameterSpec = <span style="color:#50fa7b">KeyGenParameterSpec</span>.Builder(KEY_ALIAS,
+</span></span><span style="display:flex;"><span>        <span style="color:#50fa7b">KeyProperties</span>.PURPOSE_SIGN or <span style="color:#50fa7b">KeyProperties</span>.PURPOSE_VERIFY).run {
+</span></span><span style="display:flex;"><span>            setCertificateSerialNumber(<span style="color:#50fa7b">BigInteger</span>.valueOf(<span style="color:#bd93f9">777</span>))       <span style="color:#6272a4">//Serial number used for the self-signed certificate of the generated key pair, default is 1
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            setCertificateSubject(X500Principal(<span style="color:#f1fa8c">&#34;CN=</span><span style="color:#f1fa8c">$KEY</span><span style="color:#f1fa8c">_ALIAS&#34;</span>))     <span style="color:#6272a4">//Subject used for the self-signed certificate of the generated key pair, default is CN=fake
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            setDigests(<span style="color:#50fa7b">KeyProperties</span>.DIGEST_SHA256)                         <span style="color:#6272a4">//Set of digests algorithms with which the key can be used
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            setSignaturePaddings(<span style="color:#50fa7b">KeyProperties</span>.SIGNATURE_PADDING_RSA_PKCS1) <span style="color:#6272a4">//Set of padding schemes with which the key can be used when signing/verifying
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            setCertificateNotBefore(startDate.time)                         <span style="color:#6272a4">//Start of the validity period for the self-signed certificate of the generated, default Jan 1 1970
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            setCertificateNotAfter(endDate.time)                            <span style="color:#6272a4">//End of the validity period for the self-signed certificate of the generated key, default Jan 1 2048
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            setUserAuthenticationRequired(<span style="color:#ff79c6">true</span>)                             <span style="color:#6272a4">//Sets whether this key is authorized to be used only if the user has been authenticated, default false
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            setUserAuthenticationValidityDurationSeconds(<span style="color:#bd93f9">30</span>)                <span style="color:#6272a4">//Duration(seconds) for which this key is authorized to be used after the user is successfully authenticated
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            build()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">//Initialization of key generator with the parameters we have specified above
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    keyPairGenerator.initialize(parameterSpec)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">//Generates the key pair
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    keyPair = keyPairGenerator.genKeyPair()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="conclusions">Conclusions</h3>
 <p>As I stated in my previous article, absolute security does not exist. We are aiming to slow the inevitable process of a security breach, and in most economics we can’t pour unlimited resources to achieve security close to 100%. It always comes to a trade-off — invest reasonable resources to ensure a reasonable degree of protection.</p>
 <p>I write my thoughts about Software Engineering and life in general in my <a href="https://twitter.com/eenriquelopez"  target="_blank" rel="noopener" >Twitter account</a>. If you have liked this article or it did help you, feel free to share it, ♥ it and/or leave a comment. This is the currency that fuels amateur writers.</p>
 
