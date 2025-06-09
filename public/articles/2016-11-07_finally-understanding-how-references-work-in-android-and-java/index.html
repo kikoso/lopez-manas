@@ -970,26 +970,30 @@ A trend that will only continue to grow.</p>
 <p>A reference is the direction of an object that is annotated, so you can access it.</p></blockquote>
 <p>Java has by default 4 types of references: <strong>strong</strong>, <strong>soft</strong>, <strong>weak</strong> and <strong>phantom</strong>. Some people argue that there are just two types of references, strong and weak, and the weak references can present 2 degrees of weakness. We tend to classify everything in life with the taxonomic perseverance of a botanist. Whatever it works better for you, but first you do need to understand them. Then you can figure out your own classification.</p>
 <p>What does each type of reference mean?</p>
-<p><strong>Strong reference:</strong> strong references are the ordinary references in Java. Anytime we create a new object, a strong reference is by default created. For example, when we do:
-<code>MyObject object = new MyObject();</code></p>
-<p>A new object <em>MyObject</em> is created, and a strong reference to it is stored in <em>object</em>. Easy so far, are you still with me? Well, now more interesting things are coming. This <em>object</em> is <strong>strongly reachable</strong> — that means, it can be reached through a chain of strong references. That will prevent the Garbage Collector of picking it up and destroy it, which is what we mostly want. But now, let´s see an example where this can play against us.
-`public class MainActivity extends Activity {``    @Override<br>
-protected void onCreate(Bundle savedInstanceState) {  <br>
-super.onCreate(savedInstanceState);<br>
-setContentView(R.layout.main);<br>
-new MyAsyncTask().execute();<br>
-}</p>
-<pre><code>private class MyAsyncTask extends AsyncTask {``        @Override  
-    protected Object doInBackground(Object[] params) {  
-        return doSomeStuff();  
-    }``        private Object doSomeStuff() {  
-        //do something to get result  
-        return new MyObject();  
-    }   
-}  
-</code></pre>
-<p>}`</p>
-<p>Take a few minutes and try to spot any approach susceptible of problems.</p>
+<p><strong>Strong reference:</strong> strong references are the ordinary references in Java. Anytime we create a new object, a strong reference is by default created. For example, when we do:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>MyObject object <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> MyObject();`
+</span></span></code></pre></div><p>A new object <em>MyObject</em> is created, and a strong reference to it is stored in <em>object</em>. Easy so far, are you still with me? Well, now more interesting things are coming. This <em>object</em> is <strong>strongly reachable</strong> — that means, it can be reached through a chain of strong references. That will prevent the Garbage Collector of picking it up and destroy it, which is what we mostly want. But now, let´s see an example where this can play against us.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">MainActivity</span> <span style="color:#8be9fd;font-style:italic">extends</span> Activity {
+</span></span><span style="display:flex;"><span>    @Override  
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">protected</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">onCreate</span>(Bundle savedInstanceState) {     
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>.<span style="color:#50fa7b">onCreate</span>(savedInstanceState);  
+</span></span><span style="display:flex;"><span>        setContentView(R.<span style="color:#50fa7b">layout</span>.<span style="color:#50fa7b">main</span>);  
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">new</span> MyAsyncTask().<span style="color:#50fa7b">execute</span>();  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">MyAsyncTask</span> <span style="color:#8be9fd;font-style:italic">extends</span> AsyncTask {
+</span></span><span style="display:flex;"><span>        @Override  
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">protected</span> Object <span style="color:#50fa7b">doInBackground</span>(Object<span style="color:#ff79c6">[]</span> params) {  
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">return</span> doSomeStuff();  
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">private</span> Object <span style="color:#50fa7b">doSomeStuff</span>() {  
+</span></span><span style="display:flex;"><span>            <span style="color:#6272a4">//do something to get result  </span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> MyObject();  
+</span></span><span style="display:flex;"><span>        }   
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Take a few minutes and try to spot any approach susceptible of problems.</p>
 <p>No worries, take more time if you can´t.</p>
 <p>Now?</p>
 <p>The <em>AsyncTask</em> will be created and executed together with the <em>Activity</em> <em>onCreate()</em> method. But here we have a problem: the inner class needs to be accessing the outside class during its entire lifetime.</p>
@@ -998,30 +1002,43 @@ new MyAsyncTask().execute();<br>
 <p><strong>Side note</strong>: when in my previous lifes I used to conduct interviews with prospective candidates, I used to ask them how could you create a memory leak rather than asking about the theoretical aspect of what a memory leak is. It was always much more fun!</p></blockquote>
 <p>The memory leak actually happens not only when the <em>Activity</em> is destroyed <em>per-se</em>, but as well when it is forcibly destroyed by the system due to a change in the configuration or more memory is needed, etc. If the <em>AsyncTask</em> is complex (i.e., keeps references to <em>Views</em> in the <em>Activity</em>, etc) it could even lead to crashes, since the view references are null.</p>
 <p>So how can prevent this problem from ever happening again? Let´s explain the other type of references:</p>
-<p><strong>WeakReference</strong>: a weak reference is a reference not strong enough to keep the object in memory. If we try to determine if the object is strongly referenced and it happened to be through <em>WeakReferences</em>, the object will be garbage-collected. For terms of understanding, is better to kill the theory and show as a practical example how could we adapt the previous code to use a <em>WeakReference</em> and avoid a memory leak:
-`public class MainActivity extends Activity {<code>    @Override   protected void onCreate(Bundle savedInstanceState) {   super.onCreate(savedInstanceState);   new MyAsyncTask(this).execute();   }</code>    private static class MyAsyncTask extends AsyncTask {<br>
-private WeakReference&lt;MainActivity&gt; mainActivity;</p>
-<pre><code>    public MyAsyncTask(MainActivity mainActivity) {     
-        this.mainActivity = new WeakReference&amp;lt;&amp;gt;(mainActivity);              
-    }``        @Override  
-    protected Object doInBackground(Object[] params) {  
-        return doSomeStuff();  
-    }``        private Object doSomeStuff() {  
-        //do something to get result  
-        return new Object();  
-    }``        @Override  
-    protected void onPostExecute(Object object) {  
-        super.onPostExecute(object);  
-        if (mainActivity.get() != null){  
-            //adapt contents  
-        }  
-    }  
-}  
-</code></pre>
-<p>}`</p>
-<p>Note a main difference now: the Activity within the inner class is now referenced as follows:
-<code>private WeakReference&amp;lt;MainActivity&amp;gt; mainActivity;</code></p>
-<p>What will happen here? When the Activity stops existing, since it is hold through the means of a WeakReference, it can be collected. Therefore no memory leaks will happen.</p>
+<p><strong>WeakReference</strong>: a weak reference is a reference not strong enough to keep the object in memory. If we try to determine if the object is strongly referenced and it happened to be through <em>WeakReferences</em>, the object will be garbage-collected. For terms of understanding, is better to kill the theory and show as a practical example how could we adapt the previous code to use a <em>WeakReference</em> and avoid a memory leak:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">MainActivity</span> <span style="color:#8be9fd;font-style:italic">extends</span> Activity {
+</span></span><span style="display:flex;"><span>    @Override  
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">protected</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">onCreate</span>(Bundle savedInstanceState) {  
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>.<span style="color:#50fa7b">onCreate</span>(savedInstanceState);  
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">new</span> MyAsyncTask(<span style="color:#ff79c6">this</span>).<span style="color:#50fa7b">execute</span>();  
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">MyAsyncTask</span> <span style="color:#8be9fd;font-style:italic">extends</span> AsyncTask {  
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">private</span> WeakReference<span style="color:#ff79c6">&amp;</span>lt;MainActivity<span style="color:#ff79c6">&amp;</span>gt; mainActivity;      
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#50fa7b">MyAsyncTask</span>(MainActivity mainActivity) {     
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">this</span>.<span style="color:#50fa7b">mainActivity</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> WeakReference<span style="color:#ff79c6">&amp;</span>lt;<span style="color:#ff79c6">&amp;</span>gt;(mainActivity);              
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        @Override  
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">protected</span> Object <span style="color:#50fa7b">doInBackground</span>(Object<span style="color:#ff79c6">[]</span> params) {  
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">return</span> doSomeStuff();  
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">private</span> Object <span style="color:#50fa7b">doSomeStuff</span>() {  
+</span></span><span style="display:flex;"><span>            <span style="color:#6272a4">//do something to get result  </span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> Object();  
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        @Override  
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">protected</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">onPostExecute</span>(Object object) {  
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">super</span>.<span style="color:#50fa7b">onPostExecute</span>(object);  
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">if</span> (mainActivity.<span style="color:#50fa7b">get</span>() <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">null</span>){  
+</span></span><span style="display:flex;"><span>                <span style="color:#6272a4">//adapt contents  </span>
+</span></span><span style="display:flex;"><span>            }  
+</span></span><span style="display:flex;"><span>        }  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Note a main difference now: the Activity within the inner class is now referenced as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">private</span> WeakReference<span style="color:#ff79c6">&amp;</span>lt;MainActivity<span style="color:#ff79c6">&amp;</span>gt; mainActivity;
+</span></span></code></pre></div><p>What will happen here? When the Activity stops existing, since it is hold through the means of a WeakReference, it can be collected. Therefore no memory leaks will happen.</p>
 <blockquote>
 <p><strong>Side note:</strong> now that you hopefully understand what WeakReferences are a little bit better, you will find useful the class WeakHashMap. It works exactly as a HashMap, except that the keys (key, not values) are referred to using WeakReferences. This makes them very useful to implement entities such as caches.</p></blockquote>
 <p>We have mentioned however a couple of references more. Let´s see where they are useful, and how we can benefit of them:</p>
