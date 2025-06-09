@@ -56,12 +56,21 @@ val accumulatedResults = (1..simulations).map {
 
 ```
 
-
 The following snippet uses asingle Random instance, seeded with the current time. So: no reproducibility . Results change on every run.
 
 The same random sequence is shared between portfolioA and portfolioB during each iteration. This might lead to coupled randomness (i.e., the same stream drives both portfolios). This is undesirable if you want the portfolios to evolve independently.
 
+```Kotlin
 
+val rng = Random(System.currentTimeMillis())
+
+val accumulatedResults = (1..simulations).map {
+    val accumulatedReturnsA = simulatePortfolioAccumulatedReturns(portfolioA, rng)
+    val accumulatedReturnsB = simulatePortfolioAccumulatedReturns(portfolioB, rng)
+
+    SimulationResult(it, accumulatedReturnsA, accumulatedReturnsB)
+}
+```
 
 
 The result? Using the first code snippet (arguably the correct approach for this simulation) makes portfolio A the winner 65% of the time, with portfolio B defeating A 35% of the time. The second code snippet reverses the results, giving portfolio A the best performance 90% of the time, compared to 10% for portfolio B. The difference, in the end, is significant.
