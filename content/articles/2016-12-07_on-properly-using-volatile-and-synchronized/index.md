@@ -24,8 +24,62 @@ Multithreading is an entire discipline that takes years to master and properly u
 
 In computing, a resource can be accessed from different threads concurrently. This can lead to inconsistency and corrupt data. A thread _ThreadA_ accesses a resource and modifies it. In the meantime, the thread _ThreadB_ starts accessing the same resource. Data may get corrupted since it is concurrently being modified. Let´s analyze an example without any kind of protection:
 
+```Java
+class PrintDemo {
+private int i;
+   public void printCount() {
+	 
+      try {
+         for (i = 5; i > 0; i--) {
+            System.out.println("Selected number is: "  + i );
+         }
+      } catch (Exception e) {
+         System.out.println("Thread has been interrupted.");
+      }
+   }
+}
 
+class ThreadDemo implements Runnable {
+   private Thread thread;
+   private String threadName;
+   PrintDemo printDemo;
 
+   ThreadDemo(String threadName, PrintDemo printDemo) {
+      this.threadName = threadName;
+      this.printDemo = printDemo;
+   }
+   
+   public void run() {
+      printDemo.printCount();
+      System.out.println("Thread " +  threadName + " finishing.");
+   }
+
+   public void start () {
+      System.out.println("Starting " +  threadName);
+      if (thread == null) {
+         thread = new Thread (this, threadName);
+         thread.start ();
+      }
+   }
+}
+
+public class Example {
+   public static void main(String args[]) {
+
+      PrintDemo printDemo = new PrintDemo();
+
+      ThreadDemo firstThread = new ThreadDemo("Thread 1", printDemo);
+      ThreadDemo secondThread = new ThreadDemo("Thread 2", printDemo);
+
+      try {
+         firstThread.start();
+         secondThread.start();
+      } catch( Exception e) {
+         System.out.println("Interrupted");
+      }
+   }
+}
+```
 
 If you execute this command, the result is eclectic and non-deterministic. Each time you will end up with a different random output. That is because each thread execute in different instants.
 

@@ -37,12 +37,17 @@ Let’s move forward. We are assuming our client is communicating via an encrypt
 A next logical step used nowadays is to provide an authentication token or API Key to be used in the communication. It works this way. Our backend receives a petition. How do we know the petition comes from one of our verified clients, and not a random dude trying to gain access to our API? The backend will check if the client is providing a valid API Key. If the previous statement happens to be true, then we proceed with the request. Otherwise, we deny it and depending on the nature of our business we take some corrective measures (when this is happening, I particularly like to store the IP and IDs from the client to see how often this occurs. When the frequency is swelling more than it is desirable for my fine taste, I do consider a ban or observing closely what the impolite internet dude is trying to achieve).
 
 Let’s construct our castle from the ground. In our app, we will likely add a variable called API_KEY that gets automatically injected in each request (if you are using Android, probably in your Retrofit client).
-`private final static String API_KEY = “67a5af7f89ah3katf7m20fdj202”`
+```Java
+private final static String API_KEY = “67a5af7f89ah3katf7m20fdj202”
+```
 
 This is great, and works if we want to authenticate our client. The problem is that does not provide a very effective layer by itself.
 
 If you use [apktool](https://ibotpeaches.github.io/Apktool/) to decompile the application and perform a search looking for strings, you will find in one of the resulting .smali files the following:
-`const-string v1, “67a5af7f89ah3katf7m20fdj202”`
+
+```Java
+const-string v1, “67a5af7f89ah3katf7m20fdj202”
+```
 
 Yeah, sure. It does not say this is a validation Token, so we still need to go through a meticulous verification to decide how to reach this string and whether it can be used for authentication purposes or not. But you know where I am going: this is mostly a matter of time and resources.
 
