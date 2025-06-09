@@ -21,7 +21,7 @@ aliases:
 
 ---
 
-![image](/articles/2025-04-12_vibe-coding-kotlin-finance-and-data-visualization/images/1.jpeg#layoutTextWidth)
+
 Recently, I came across a paper discussing an experiment and tried to reproduce it. Here’s a brief summary:
 
 **- Portfolio A**: In a bull market, grows by 20%; in a bear market, drops by 20%.
