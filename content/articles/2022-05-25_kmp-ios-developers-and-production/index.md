@@ -24,8 +24,6 @@ aliases:
 
 ---
 
-![image](/articles/2022-05-25_kmp-ios-developers-and-production/images/1.jpeg#layoutTextWidth)
-
 
 Kotlin Multiplatform (or KMP, KMM Mobile, etc) has been widely used for a number of years in applications that are currently in production. JetBrains [compiled a website](https://kotlinlang.org/lp/mobile/case-studies/) listing some of the companies that are currently using KMP.
 
