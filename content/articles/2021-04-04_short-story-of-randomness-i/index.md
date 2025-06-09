@@ -53,8 +53,18 @@ The selection of the previous values may affect the quality or randomness of the
 
 The following code excerpt is an implementation in Kotlin of a linear congruential generator:
 
+```Kotlin
+  fun generateRandomNumber(range: Int) : Int {
+        val random = System.currentTimeMillis()
+        val multiplier = 0x9393DL
+        val increment = 0x8763
+        return (((random*multiplier)+increment) % range).toInt()
+    }
 
-
+   fun main() {
+        println(generateRandomNumber(9))
+   }
+```
 
 LCG is fast and apt for most computers to be used. Require minimal memory, and it can execute fast. However, its usage is not intended in every field (for instance, cryptographic applications should use secure pseudorandom number generators for salt and key generation).
 
