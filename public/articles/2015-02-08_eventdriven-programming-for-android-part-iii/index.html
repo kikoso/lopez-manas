@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="/favicon.ico">
+
+  <title>
+    Event-driven programming for Android (part III) - 
+  </title>
+
+  <meta name="description" content="(This is the third article in a three-part series)
+Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
+Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications." />
+  <meta name="author" content="Enrique López-Mañas" />
+  <meta name="generator" content="Hugo 0.147.2">
+
+  <link rel="stylesheet" href="/css/main.css" />
+<script type="module">
+  
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js";
+  
+  
+
+  
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyDsPJSYVBjdPXwmnG6k9or56tsbnUBRpXs",
+    authDomain: "lopez-manas.firebaseapp.com",
+    projectId: "lopez-manas",
+    storageBucket: "lopez-manas.firebasestorage.app",
+    messagingSenderId: "72774040073",
+    appId: "1:72774040073:web:ea0dae8ab519b4b6d7d6d8",
+    measurementId: "G-M37D0QHKMX"
+  };
+
+  
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+  
+  
+
+  <meta property="og:url" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/">
+  <meta property="og:title" content="Event-driven programming for Android (part III)">
+  <meta property="og:description" content="(This is the third article in a three-part series)
+Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
+Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2015-02-08T18:32:14+00:00">
+    <meta property="article:modified_time" content="2025-06-09T09:47:50+02:00">
+    <meta property="og:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
+    <meta property="og:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
+    <meta property="og:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
+
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
+  <meta name="twitter:title" content="Event-driven programming for Android (part III)">
+  <meta name="twitter:description" content="(This is the third article in a three-part series)
+Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
+Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.">
+
+
+  
+  <meta itemprop="name" content="Event-driven programming for Android (part III)">
+  <meta itemprop="description" content="(This is the third article in a three-part series)
+Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
+Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.">
+  <meta itemprop="datePublished" content="2015-02-08T18:32:14+00:00">
+  <meta itemprop="dateModified" content="2025-06-09T09:47:50+02:00">
+  <meta itemprop="wordCount" content="777">
+  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
+  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
+  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
+
+  
+  <meta itemprop="name" content="Event-driven programming for Android (part III)">
+  <meta itemprop="description" content="(This is the third article in a three-part series)
+Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
+Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.">
+  <meta itemprop="datePublished" content="2015-02-08T18:32:14+00:00">
+  <meta itemprop="dateModified" content="2025-06-09T09:47:50+02:00">
+  <meta itemprop="wordCount" content="777">
+  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
+  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
+  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
+</head>
+<body class="flex relative h-full min-h-screen"><aside
+  class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:basis-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar flex-shrink-0">
+  <p class="font-bold mb-5 flex items-center gap-2">
+    <button aria-label="Close sidebar"
+      class="md:hidden menu-trigger-close p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg></button>
+    <a href="/" class="px-2">
+      <span></span>
+    </a>
+    <button aria-label="Toggle dark mode"
+      class="dark-mode-toggle p-2 rounded border dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <circle cx="12" cy="12" r="4" />
+  <path d="M3 12h1M12 3v1M20 12h1M12 20v1M5.6 5.6l.7 .7M18.4 5.6l-.7 .7M17.7 17.7l.7 .7M6.3 17.7l-.7 .7" />
+</svg></button>
+  </p>
+
+  
+  <ul class="list-none flex flex-col gap-1">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/" >
+        <span>Home</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>Content</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles" >
+        <span>Articles</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>Links</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://bikesnyc.eu/"  target="_blank"
+        rel="noopener" >
+        <span>An Analysis with R of Bike Usage in NYC</span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+  <line x1="10" y1="14" x2="20" y2="4" />
+  <polyline points="15 4 20 4 20 9" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://kotlinweekly.net"  target="_blank"
+        rel="noopener" >
+        <span>Kotlin Weekly</span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+  <line x1="10" y1="14" x2="20" y2="4" />
+  <polyline points="15 4 20 4 20 9" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://lexiconic.de/"  target="_blank"
+        rel="noopener" >
+        <span>Lexiconic</span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+  <line x1="10" y1="14" x2="20" y2="4" />
+  <polyline points="15 4 20 4 20 9" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQOzDQQRd61shPyA98mfFLnpHQt05pUkgrbtyuXYBccQlo_ZyAodHe2K0Z-gKr5XWXCNpx5Izyarb87/pubhtml?gid=411705077&amp;single=true"  target="_blank"
+        rel="noopener" >
+        <span>Enrique&#39;s Fund</span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+  <line x1="10" y1="14" x2="20" y2="4" />
+  <polyline points="15 4 20 4 20 9" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+
+  <div class="flex-1"></div>
+
+  
+
+  <ul class="list-none flex flex-wrap justify-center gap-1 pt-2 border-t border-slate-200 dark:border-slate-600">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://kotlin.social/@eenriquelopez" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Mastodon</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M21.6,13.9c-0.3,1.5-2.6,3.2-5.3,3.5c-1.4,0.2-2.8,0.3-4.3,0.3C9.6,17.5,7.7,17,7.7,17c0,0.2,0,0.5,0,0.7 c0.3,2.4,2.4,2.5,4.3,2.6c2,0.1,3.7-0.5,3.7-0.5l0.1,1.8c0,0-1.4,0.7-3.8,0.9c-1.3,0.1-3,0-4.9-0.5c-4.2-1.1-4.9-5.6-5-10.1 C2,10.4,2,9.1,2,8c0-4.7,3-6,3-6C6.6,1.3,9.2,1,12,1H12c2.7,0,5.4,0.3,6.9,1c0,0,3,1.4,3,6C22,8,22,11.5,21.6,13.9"/>
+  <path d="M6.7,13.7c0,0,0-4.3,0-5.4c0-1.6,1.1-2.5,2.7-2.5c1.8,0,2.6,1.5,2.6,3c0,0.9,0,2.6,0,2.6"/>
+  <path d="M17.3,13.7c0,0,0-4.3,0-5.4c0-1.6-1.1-2.5-2.7-2.5c-1.8,0-2.6,1.5-2.6,3c0,0.9,0,2.6,0,2.6"/>
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://bsky.app/profile/eenriquelopez.bsky.social" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Bluesky</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.goodreads.com/author/show/7510473.Enrique_L_pez_Ma_as" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Goodreads</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.linkedin.com/in/eenriquelopez/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">LinkedIn</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+  <rect x="2" y="9" width="4" height="12" />
+  <circle cx="4" cy="4" r="2" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="mailto:eenriquelopez@gmail.com" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Email</span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+</aside>
+
+<div
+  class="fixed bg-slate-700 bg-opacity-5 transition duration-200 ease-in-out inset-0 z-10 pointer-events-auto md:hidden left-0 top-0 w-full h-full hidden menu-overlay">
+</div>
+
+<button aria-label="Toggle Sidebar"
+  class="md:hidden absolute top-3 left-3 z-10 menu-trigger p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-100"><svg class="h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="4" y1="6" x2="20" y2="6" />
+  <line x1="4" y1="12" x2="20" y2="12" />
+  <line x1="4" y1="18" x2="16" y2="18" />
+</svg></button>
+<div class="flex-1 max-w-full">
+
+
+
+
+
+<div class="flex h-screen relative">
+
+  <section
+    class="will-change-transform transform transition-transform -translate-x-[200%] absolute top-0 left-0 lg:relative
+  lg:translate-x-0 lg:min-w-[400px] lg:w-1/4 h-full bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 lg:flex flex-col py-3 overflow-y-auto scroll-area">
+    
+    
+    <a href="/articles/">
+      <h2 class="font-bold mb-5 py-1 pl-12 pr-3 md:px-3">Articles</h2>
+    </a>
+<label class="mb-2 block px-2">
+  <span></span>
+  <input type="text" placeholder="Search articles" class="searchInput bg-white rounded px-2 py-1 w-full border" />
+</label>
+<script>
+  const searchElt = document.querySelector('.searchInput')
+  if (searchElt) {
+    searchElt.addEventListener('input', evt => {
+      const value = evt.target.value || '';
+
+      const articles = document.querySelectorAll('.article')
+      if (!value) {
+        articles.forEach(article => article.classList.remove('hidden'))
+      } else {
+        articles.forEach(article => article.classList.add('hidden'))
+        Array.from(articles).filter(article => {
+          const title = article.querySelector('h3')
+          if (!title) return false;
+
+          return title.textContent.toLowerCase().includes(value.toLowerCase())
+        }).forEach(article => article.classList.remove('hidden'))
+      }
+    })
+  }
+</script>
+<div class="space-y-2.5">
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2025-04-12_vibe-coding-kotlin-finance-and-data-visualization/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2025-04-12_vibe-coding-kotlin-finance-and-data-visualization/images/1.jpeg" alt="Vibe Coding, Kotlin, Finance, and Data Visualization" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Vibe Coding, Kotlin, Finance, and Data Visualization</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>Recently, I came across a paper discussing an experiment and tried to reproduce it. Here’s a brief summary:</p>
+<p><strong>- Portfolio A</strong>: In a bull market, grows by 20%; in a bear market, drops by 20%.</p>
+<p><strong>- Portfolio B</strong>: In a bull market, grows by 25%; in a bear market, drops by 35%.</p>
+<p><strong>- Bull market probability:</strong> 75%.</p>
+<p><img src="/articles/2025-04-12_vibe-coding-kotlin-finance-and-data-visualization/images/2.png#layoutTextWidth" alt="image"></p>
+<p>According to the paper, both portfolios should have a one-year expected return of 10%. However, the paper claims that Portfolio A wins over Portfolio B around 90% of the time at the end of a 30-year simulation. This sounds a bit too excessive to me (it means that, at the end of the entire simulation, 9 times out of 10 portfolio A wins). I was expecting this number to be lower. The author also mentioned that he was using GenAI to generate the code, and he even mentions “this process seems like magic”. Strong indications that the code is likely not correct.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2024-10-24_treat-life-like-a-marathon-not-like-a-sprint/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2024-10-24_treat-life-like-a-marathon-not-like-a-sprint/images/1.jpeg" alt="Treat life like a marathon, not like a sprint" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Treat life like a marathon, not like a sprint</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>Like most of us, I am daily flooded with thoughts about life, my objective position in it, whether I am missing anything, or whether I need to do better. Am I providing enough for my family? Is my career on track? Am I being healthy enough? Am I just passing through life instead of aiming to strive?</p>
+<p>Those thoughts have been slowly mitigated, but they never got away. Over time, I have been slowly accepting this reality, and I came to realise that all the marathon training and long-distance running have helped me come to terms with these facts.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2024-10-23_uploading-sarif-reports-to-github/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2024-10-23_uploading-sarif-reports-to-github/images/1.jpeg" alt="Uploading SARIF Reports to GitHub" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Uploading SARIF Reports to GitHub</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>Recently I wanted to add Lint reports to a repository on GitHub. The goal is to report potential Lint violations when new code is committed, to make sure that all the committed code is lint-warning-free and pretty.</p>
+<p>My first idea was to look for a GitHub action that could run ./gradlew lint and report it as a PR comment. After asking about ideas in the Android Study Group, <a href="https://www.linkedin.com/in/carterjernigan/"  target="_blank" rel="noopener" >Carter Jernigan</a> and <a href="https://www.linkedin.com/in/jzbrooks"  target="_blank" rel="noopener" >Justin Brooks</a> suggested me to upload directly the SARIF files into GitHub. I wasn’t aware this was possible.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2024-05-24_kotlinconf-2024-announcements/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2024-05-24_kotlinconf-2024-announcements/images/1.jpeg" alt="KotlinConf 2024 announcements" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">KotlinConf 2024 announcements</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>The first day of the KotlinConf 2024 is over, and there has been a significant amount. After 5 years the conference happened again at The Bella Center in Copenhagen, a fantastic venue close to the historical center of the Danish capital.</p>
+<p>The last two weeks have been intense, with the Google I/O announcing another set of relevant features for Android and Kotlin developers. Most notably, Google is now supporting KMP for Android development. This is not a surprise move, since Google has been slowly pushing KMP for many of their libraries and products. Having official support is, however, a confirmation of a direction that makes Android developers happy. We are no longer relying on uncertainty. Quite the opposite, we know that putting our time and effort on Kotlin Multiplatform is likely to pay dividends over the upcoming years.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2023-05-23_http-chunk-requests-with-android-and-ktor/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2023-05-23_http-chunk-requests-with-android-and-ktor/images/1.jpeg" alt="HTTP chunk requests with Android and ktor" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">HTTP chunk requests with Android and ktor</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>In this very short article, I will explain briefly what is a chunk or streamed HTTP request, what are the benefits of using it, and how it works in Android.</p>
+<p>Android apps use HTTP requests to download data from a backend. This information is stored and processed on the app to make it functional.</p>
+<p>HTTP requests are executed using different frameworks on Android. The most common ones are Retrofit or OkHttp.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2023-01-01_my-investing-summary-of-2022/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2023-01-01_my-investing-summary-of-2022/images/1.jpeg" alt="My Investing Summary of 2022" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">My Investing Summary of 2022</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>Another solar rotation passed, and the world experienced a plethora of unexpected events. In the aftermath of the Corona epidemic that altered the course of the last couple of years, we had the unfortunate invasion of Ukraine by Russian forces, the tightening of Corona measures in China (and toward the end of the year, their withdrawal and gradual reopening of the economy), an ongoing economic recession, the rate hike by the FED and the general uncertainty of the most immediate future.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2022-05-25_kmp-ios-developers-and-production/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2022-05-25_kmp-ios-developers-and-production/images/1.jpeg" alt="KMP, iOS Developers and Production" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">KMP, iOS Developers and Production</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p><img src="/articles/2022-05-25_kmp-ios-developers-and-production/images/1.jpeg#layoutTextWidth" alt="image"></p>
+<p>Kotlin Multiplatform (or KMP, KMM Mobile, etc) has been widely used for a number of years in applications that are currently in production. JetBrains <a href="https://kotlinlang.org/lp/mobile/case-studies/"  target="_blank" rel="noopener" >compiled a website</a> listing some of the companies that are currently using KMP.</p>
+<p>Since the advent of the mobile platforms we enjoy today, there has always been a certain market interest to push multiplatform technologies, such as Cordova, Xamarin, and others. With more or less success, those technologies aimed to provide a unified framework to develop multiple codebases, mostly focusing on the aspect of pricing (create code once, deploy multiple times).</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2021-06-20_recapitulation-of-investing-in-pandemic-times/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2021-06-20_recapitulation-of-investing-in-pandemic-times/images/1.png" alt="A recapitulation of investing in pandemic times" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">A recapitulation of investing in pandemic times</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>It has been around 14 months since the pandemic started. We have all been affected by it to a greater or lesser degree, and the investing world has not been an exception (although surprisingly, the stock market is one of the winners of the pandemic).</p>
+<p>In this post I will share how the pandemic changed my investment thesis, the things I learned, and the mistakes I did. 14 months into the crisis of our generation (and with a few months to recover whatever the new normal will be), we now know that things will never be the way they used to be.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2021-04-04_short-story-of-randomness-i/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2021-04-04_short-story-of-randomness-i/images/1.jpeg" alt="A short story of randomness (I)" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">A short story of randomness (I)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>I have always been fascinated by the above comic strip. A discussion on randomness and determinism becomes as much a philosophical issue as it is a practical one. They are used in a variety of applications: from the obvious cryptography, gaming or gambling to the less evident politics or arts.</p>
+<p>How can we be sure that a number is random? Will observing the process mine our efforts on generating the random number, similar to the observation of a cat inside a box with a decaying radioactive atom? Despite the potential complexity of generating random numbers, we can provide an initially simple method to generate them.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2021-03-14_from-java-to-kotlin-and-back-iii-calling-java-from-kotlin/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2021-03-14_from-java-to-kotlin-and-back-iii-calling-java-from-kotlin/images/1.jpeg" alt="From Java to Kotlin and back (III): Calling Java from Kotlin" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">From Java to Kotlin and back (III): Calling Java from Kotlin</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>This article is part of a series. You can find the remaining article of the series here:</p>
+<p><a href="https://medium.com/google-developer-experts/from-java-to-kotlin-and-back-i-java-calling-kotlin-9abfc6496b04"  target="_blank" rel="noopener" >From Java to Kotlin and back (I) — Calling Kotlin from Java</a></p>
+<p><a href="https://medium.com/google-developer-experts/from-java-to-kotlin-and-back-ii-calling-kotlin-from-java-3bdf72da6e52"  target="_blank" rel="noopener" >From Java to Kotlin and back (II): Calling Kotlin from Java</a></p>
+<p>In this last chapter of the series, we will evaluate consideration when calling Java code from Kotlin.</p>
+<p>One could argue that even in this situation happens often, keeping considerations in mind for some code that might legacy is not that practical. Kotlin has also been designed with interoperability in mind, so Java code from Kotlin is much more “callable” than the other way around, since the design has been in mind since its conception. However, there are a few points that you can keep in mind when working on your Java code, and we would like to explain them in this article.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2021-03-07_from-java-to-kotlin-and-back-ii-calling-kotlin-from-java/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2021-03-07_from-java-to-kotlin-and-back-ii-calling-kotlin-from-java/images/1.jpeg" alt="From Java to Kotlin and back (II): Calling Kotlin from Java" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">From Java to Kotlin and back (II): Calling Kotlin from Java</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>This article is part of a series. You can find the remaining article of the series here:</p>
+<p><a href="https://medium.com/google-developer-experts/from-java-to-kotlin-and-back-ii-calling-kotlin-from-java-3bdf72da6e52"  target="_blank" rel="noopener" >From Java to Kotlin and back (II): Calling Kotlin from Java</a></p>
+<p><a href="https://enriquelopezmanas.medium.com/from-java-to-kotlin-and-back-iii-calling-java-from-kotlin-f33f5c246d69"  target="_blank" rel="noopener" >From Java to Kotlin and back (III): Calling Java from Kotlin</a></p>
+<p>In the previous article, we explored how Java and Kotlin can interact with each other, and some considerations in this regard. In this second edition, we will keep reflecting on some relevant aspects to consider when Java is calling Kotlin.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/1.jpeg" alt="From Java to Kotlin and back (I): Java calling Kotlin" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">From Java to Kotlin and back (I): Java calling Kotlin</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>This article is part of a series. You can find the remaining article of the series here:</p>
+<p><a href="https://medium.com/google-developer-experts/from-java-to-kotlin-and-back-ii-calling-kotlin-from-java-3bdf72da6e52"  target="_blank" rel="noopener" >From Java to Kotlin and back (II): Calling Kotlin from Java</a></p>
+<p><a href="https://enriquelopezmanas.medium.com/from-java-to-kotlin-and-back-iii-calling-java-from-kotlin-f33f5c246d69"  target="_blank" rel="noopener" >From Java to Kotlin and back (III): Calling Java from Kotlin</a></p>
+<p>I am currently working on a multi-module project that combines a variety of Java and Kotlin code, so I decided to publish my thought and notes as an article series. It will likely help me as a journaling practice, and hopefully can help other potential readers that end up here trying to find some tips while they are facing the same problem.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2021-02-18_considerations-when-creating-android-libraries/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2021-02-18_considerations-when-creating-android-libraries/images/1.png" alt="Considerations when creating Android libraries" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Considerations when creating Android libraries</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>If you are an Android developer, chances are you might have been working on your own Android libraries. A library is a useful way to create a reusable set of features that need to be integrated through different apps (or even different libraries).</p>
+<p>A library is a self-contained package including code and resources required to execute some functionality. Importing a library in our Android app is the same process as importing a .JAR file in a Java app, except that for Android the library file has the extension .AAR, which extends for Android archive (however, Android apps can also import libraries with a .JAR extension). There are detailed guides on the Internet on how to create Android libraries, but in this article I would like to focus on some aspects that are more subjective, and not always defined in every guide. We will discuss today the following aspects:</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2021-02-11_github-actions-for-android-developers/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2021-02-11_github-actions-for-android-developers/images/1.png" alt="GitHub Actions for Android developers" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">GitHub Actions for Android developers</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>If you are developing Android apps, chances are you have confronted any sort of CI at some point in your career. If you thought Android fragmentation was a thing, the wide availability of CI systems will be familiar to you.</p>
+<p>GitHub Actions was released around November 2019, and since then it has proved itself to be reliable for a production environment (one of our requirements before committing to any software system). Like many other CI/CD systems, GitHub actions ultimately let us define a workflow for our apps to automatically build, test and deploy them.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2020-10-26_using-the-signature-class-to-verify-data/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2020-10-26_using-the-signature-class-to-verify-data/images/1.jpeg" alt="Using the Signature class to verify data" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Using the Signature class to verify data</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>When there is an exchange of information happening, we often want to verify that the origin of the data is the right one. This can be used to ensure that the right clients are having access to our resources.</p>
+<p>For instance, let’s imagine that we want to ensure that an authorized device is querying a file with sensitive information from our backend. An immediate solution could be to use a X-Api-Token in our device. I wrote <a href="https://medium.com/google-developer-experts/a-follow-up-on-how-to-store-tokens-securely-in-android-e84ac5f15f17"  target="_blank" rel="noopener" >previously</a> about how we can store tokens securely in Android: ideally, the X-Api-Token should not be stored in plain text, since everything delivered as plain-text in an Android app can be considered open source. One more twist to the story could be to have a local function that generates the token, and that is understood by the server as well.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2020-01-25_managing-the-kotlin-weekly/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2020-01-25_managing-the-kotlin-weekly/images/1.jpeg" alt="Managing the Kotlin Weekly" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Managing the Kotlin Weekly</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>I just sent the issue #182 of the Kotlin Weekly. #182 means that this has been the week 182 that the Kotlin Weekly is alive. Many things have changed since <a href="https://us12.campaign-archive.com/?u=f39692e245b94f7fb693b6d82&amp;amp;id=7776379469"  target="_blank" rel="noopener" >the first edition</a> on the 7th of August 2017, sent to over 200 initial subscribers with 5 articles.</p>
+<p>In some of the first editions, the content was so scarce that I ended up writing my own articles to include them, or adding some code snippets I posted on Twitter. Slowly and steadily, the evolution of Kotlin has followed a clear trend since then.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2019-12-27_2019-in-retrospective/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2019-12-27_2019-in-retrospective/images/1.jpeg" alt="2019 in retrospective" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">2019 in retrospective</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>This year is over. During the last 365 days, I fulfilled some of the goals I meticulously established at the beginning of the year. In other goals, I failed without palliatives or anesthesia.</p>
+<p>During the last 9 years, I have been following a process to determine my goals for the upcoming solar rotation. I sit at a coffee place next to my home in Munich, order a ginger tea and take notes. I reflect about how the previous year went, and determine where I would like to be in the upcoming one.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2019-12-05_gentle-introduction-to-investing-for-software-engineers-ivmy-methodology-to-determine-which/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2019-12-05_gentle-introduction-to-investing-for-software-engineers-ivmy-methodology-to-determine-which/images/1.jpeg" alt="A Gentle Introduction to Investing for Software Engineers (IV) — My methodology to determine which…" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">A Gentle Introduction to Investing for Software Engineers (IV) — My methodology to determine which…</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You can access all the articles of the series through the following links:</p>
+<p><a href="https://blog.usejournal.com/a-gentle-introduction-to-investing-for-software-engineers-i-motivation-4cb968a8e634"  target="_blank" rel="noopener" >(I) — Motivation</a></p>
+<p><a href="https://enriquelopezmanas.medium.com/a-gentle-introduction-to-investing-for-software-engineers-ii-compounding-interest-and-efdfdc3dbafd"  target="_blank" rel="noopener" >(II) — Compounding interest and introducing other factors</a></p>
+<p><a href="https://enriquelopezmanas.medium.com/a-gentle-introduction-to-investing-for-software-engineers-iii-determining-a-company-value-and-9874ac49ef62"  target="_blank" rel="noopener" >(III) — Determining a company value and acquisition point</a></p>
+<p><a href="https://enriquelopezmanas.medium.com/a-gentle-introduction-to-investing-for-software-engineers-iv-my-methodology-to-determine-which-2197c19f4486"  target="_blank" rel="noopener" >(IV) — My methodology to determine which stock to buy</a></p>
+<p>In this fourth and last article of the series, I will explain my methodology to acquire individual stock in the market. Most of the guidelines I expose are thought of as a guideline that you might need to adapt depending on your circumstances (for instance, the double taxation will play a role depending on your tax residence). I hope they can serve as an inspiration, and provide ideas to any fellow investors.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2019-09-08_repost-which-city-has-the-most-intense-android-scene-in-europe/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2019-09-08_repost-which-city-has-the-most-intense-android-scene-in-europe/images/1.jpeg" alt="Re-post: Which city has the most intense Android scene in Europe?" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Re-post: Which city has the most intense Android scene in Europe?</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>I wrote this post originally 5 years ago. For a side project, I had to use the StackExchange data explorer again, so I decided to revisit it and update the numbers.</p>
+<p><a href="http://data.stackexchange.com/"  target="_blank" rel="noopener" >StackExchange Data Explorer</a> is an open-source tool to run SQL queries against public data from <a href="http://stackoverflow.com/"  target="_blank" rel="noopener" >StackOverflow</a>. Since StackOverflow is the biggest development forum of the world, there is surely a lot of information that companies can actually retrieve from their system in order to take some business decision (this is actually a brilliant place to apply <a href="http://en.wikipedia.org/wiki/Big_data"  target="_blank" rel="noopener" >BigData</a>)</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2019-08-31_using-git-hooks-to-improve-your-development-workflow/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2019-08-31_using-git-hooks-to-improve-your-development-workflow/images/1.jpeg" alt="Using Git Hooks to improve your development workflow" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Using Git Hooks to improve your development workflow</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>Recently, I was contributing for the first time to a new codebase. I extended and implemented some functionality that I needed. After thorough testing on my machine, where I checked that the functionality was properly working, I committed my contribution. Minutes after, our CI environment delivered a message:</p>
+<blockquote>
+<p>4 Tests failed</p></blockquote>
+<p>This happens so often, even on the codebases we are used to work with. We tend to focus on developing the new features, and forget that there is a test that is covering them. Or that there is a new test that needs to be done, to cover the new features. This very fact is not a tragedy, but the workflow, in this case, can surely be improved. We can use Git Hooks to ameliorate them.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2018-12-23_gentle-introduction-to-investing-for-software-engineers-iii-determining-a-company-value-and/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2018-12-23_gentle-introduction-to-investing-for-software-engineers-iii-determining-a-company-value-and/images/1.jpeg" alt="A Gentle Introduction to Investing for Software Engineers (III) —Determining a company value and…" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">A Gentle Introduction to Investing for Software Engineers (III) —Determining a company value and…</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You can access all the articles of the series through the following links:</p>
+<p><a href="https://blog.usejournal.com/a-gentle-introduction-to-investing-for-software-engineers-i-motivation-4cb968a8e634"  target="_blank" rel="noopener" >(I) — Motivation</a></p>
+<p><a href="https://enriquelopezmanas.medium.com/a-gentle-introduction-to-investing-for-software-engineers-ii-compounding-interest-and-efdfdc3dbafd"  target="_blank" rel="noopener" >(II) — Compounding interest and introducing other factors</a></p>
+<p><a href="https://enriquelopezmanas.medium.com/a-gentle-introduction-to-investing-for-software-engineers-iii-determining-a-company-value-and-9874ac49ef62"  target="_blank" rel="noopener" >(III) — Determining a company value and acquisition point</a></p>
+<p><a href="https://enriquelopezmanas.medium.com/a-gentle-introduction-to-investing-for-software-engineers-iv-my-methodology-to-determine-which-2197c19f4486"  target="_blank" rel="noopener" >(IV) — My methodology to determine which stock to buy</a></p>
+<p>In this third article of the series, I am giving an introduction to some of the factors that we commonly use to determine whether a company is apt for our investment strategy, whether it is the right moment to acquire stock, and in general to provide us some insight beneath the numbers.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2018-09-05_gentle-introduction-to-investing-for-software-engineers-ii-compounding-interest-and/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2018-09-05_gentle-introduction-to-investing-for-software-engineers-ii-compounding-interest-and/images/1.jpeg" alt="A Gentle Introduction to Investing for Software Engineers (II) — Compounding interest and…" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">A Gentle Introduction to Investing for Software Engineers (II) — Compounding interest and…</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p><img src="/articles/2018-09-05_gentle-introduction-to-investing-for-software-engineers-ii-compounding-interest-and/images/1.jpeg#layoutTextWidth" alt="image">
+You can access all the articles of the series through the following links:</p>
+<p><a href="https://blog.usejournal.com/a-gentle-introduction-to-investing-for-software-engineers-i-motivation-4cb968a8e634"  target="_blank" rel="noopener" >(I) — Motivation</a></p>
+<p><a href="https://enriquelopezmanas.medium.com/a-gentle-introduction-to-investing-for-software-engineers-ii-compounding-interest-and-efdfdc3dbafd"  target="_blank" rel="noopener" >(II) — Compounding interest and introducing other factors</a></p>
+<p><a href="https://enriquelopezmanas.medium.com/a-gentle-introduction-to-investing-for-software-engineers-iii-determining-a-company-value-and-9874ac49ef62"  target="_blank" rel="noopener" >(III) — Determining a company value and acquisition point</a></p>
+<p><a href="https://enriquelopezmanas.medium.com/a-gentle-introduction-to-investing-for-software-engineers-iv-my-methodology-to-determine-which-2197c19f4486"  target="_blank" rel="noopener" >(IV) — My methodology to determine which stock to buy</a></p>
+<p>In this second article of the series, I want to keep exploring some metrics to show the evolution of our investment keeping in mind different scenarios. This time I will be including screenshots from a Google Spreadsheet instead of displaying text tables. Some readers notify me that they do not render properly in some devices.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2018-07-27_gentle-introduction-to-investing-for-software-engineers-i-motivation/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2018-07-27_gentle-introduction-to-investing-for-software-engineers-i-motivation/images/1.jpeg" alt="A Gentle Introduction to Investing for Software Engineers (I) — Motivation" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">A Gentle Introduction to Investing for Software Engineers (I) — Motivation</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You can access all the articles of the series through the following links:</p>
+<p><a href="https://blog.usejournal.com/a-gentle-introduction-to-investing-for-software-engineers-i-motivation-4cb968a8e634"  target="_blank" rel="noopener" >(I) — Motivation</a></p>
+<p><a href="https://enriquelopezmanas.medium.com/a-gentle-introduction-to-investing-for-software-engineers-ii-compounding-interest-and-efdfdc3dbafd"  target="_blank" rel="noopener" >(II) — Compounding interest and introducing other factors</a></p>
+<p><a href="https://enriquelopezmanas.medium.com/a-gentle-introduction-to-investing-for-software-engineers-iii-determining-a-company-value-and-9874ac49ef62"  target="_blank" rel="noopener" >(III) — Determining a company value and acquisition point</a></p>
+<p><a href="https://enriquelopezmanas.medium.com/a-gentle-introduction-to-investing-for-software-engineers-iv-my-methodology-to-determine-which-2197c19f4486"  target="_blank" rel="noopener" >(IV) — My methodology to determine which stock to buy</a></p>
+<p>If you are reading this article, chances are you a Software Engineer that has ended up here looking up for saving, investment or retirement advice. Or maybe you have a different profession, but ended up here anyway. It doesn’t matter, as long as this article can provide you some value. Recently, and in informal conversations with peers, investing came as a natural topic. I realized most of the peers in the industry do not have a clear strategy for retiring or investing their savings. I am summarizing here my knowledge and experience investing, and I hope it can be of your benefit.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2018-04-12_approaching-a-methodology-to-select-speakers-for-conferences/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2018-04-12_approaching-a-methodology-to-select-speakers-for-conferences/images/1.jpeg" alt="Approaching a methodology to select speakers for conferences" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Approaching a methodology to select speakers for conferences</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p><img src="/articles/2018-04-12_approaching-a-methodology-to-select-speakers-for-conferences/images/1.jpeg#layoutTextWidth" alt="image">
+After a great first edition, this year I organised the second edition of the <a href="http://droidconvn.com"  target="_blank" rel="noopener" >Droidcon Vietnam</a> with some local folks. Before I organised a conference like this, my experience was limited to local Meetups in Munich (I am currently the organiser of the <a href="https://www.meetup.com/Kotlin-User-Group-Munich/"  target="_blank" rel="noopener" >Kotlin User Group Munich</a>, and the <a href="https://twitter.com/FUGMunich"  target="_blank" rel="noopener" >Firebase User Group Munich</a>). The latter has a different nature in terms of resources, logistics and efforts required. They are community-based events, local and — without requiring an easy trajectory — they are certainly less complex than the former.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2018-02-27_creating-a-library-for-android-the-good-the-bad-and-the-ugly/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2018-02-27_creating-a-library-for-android-the-good-the-bad-and-the-ugly/images/1.jpeg" alt="Creating a library for Android: The Good, the Bad and the Ugly" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Creating a library for Android: The Good, the Bad and the Ugly</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>Software Development is like an <a href="https://en.wikipedia.org/wiki/Ouroboros"  target="_blank" rel="noopener" >Ouroboros</a>. You end up going to the place you have previously resided, with requirements and knowledge updated and refashioned. You might have started working on an initial prototype that began the journey as a basic <em>HelloWorld</em>, and it has evolved into one of those mythological Nordic monsters. Or maybe Greek monsters are more terrifying and frightening. I do not know.</p>
+<p>At one of my projects we recently came up with the requirement of extracting some of the functionality well buried there to expose to third-party consumers. Our code connects to our API and performs some operations (authentication, managing our entities, etc…) that now were required to be used by another client. I have seen this frequently and previously at other workplaces — the need to create a MobileKit or MobileLibrary, you name it, that can be reused in different applications. Therefore, this functionality can be reused among applications at the same company, or they can be offered to third-party users to access their APIs.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2017-06-14_on-strategies-to-apply-kotlin-to-existing-java-code/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2017-06-14_on-strategies-to-apply-kotlin-to-existing-java-code/images/1.jpeg" alt="On Strategies to apply Kotlin to existing Java code" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">On Strategies to apply Kotlin to existing Java code</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>Since the latest announcement at the Google I/O, things have been crazy. At the <a href="http://www.kotlinweekly.net/"  target="_blank" rel="noopener" >Kotlin Weekly</a> Mail List we had an increase in subscribers over 20% in the last two weeks, over 200% increase in article submissions, and at a Meetup I organise (<a href="https://www.meetup.com/Kotlin-User-Group-Munich/"  target="_blank" rel="noopener" >Kotlin Users Group Munich</a>) we had a huge increase in attendees. And all this combined with the general blast in the developers community.</p>
+<p><img src="/articles/2017-06-14_on-strategies-to-apply-kotlin-to-existing-java-code/images/2.png#layoutTextWidth" alt="image">
+A trend that will only continue to grow.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2017-04-30_followup-on-how-to-store-tokens-securely-in-android/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2017-04-30_followup-on-how-to-store-tokens-securely-in-android/images/1.jpeg" alt="A follow-up on how to store tokens securely in Android" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">A follow-up on how to store tokens securely in Android</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>As a prologue to this article, I want to remark a short sentence for the notional reader. This quote will be important as we move forward.</p>
+<blockquote>
+<p>Absolute security does not exist. Security is a set of measures, being piled up and combined, trying to slow down the inevitable.</p></blockquote>
+<p>Almost three years ago, I wrote <a href="http://codetalk.de/?p=86"  target="_blank" rel="noopener" >a post</a> giving some ideas to protect String tokens from a hypothetical attacker decompiling our Android application. For the sake of remembrance, and in order to ward off the inescapable death of the Internet, I am reproducing some sections here.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2017-04-24_using-firebase-as-a-real-time-system/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2017-04-24_using-firebase-as-a-real-time-system/images/1.jpeg" alt="Using Firebase as a Real Time System" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Using Firebase as a Real Time System</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>I was captivated by exposed pictures since I was a child. Is a unique way to capture movement in a static image.</p>
+<p>I have been an avid user of Firebase since more than a year now. When <a href="https://en.wikipedia.org/wiki/Parse_%28company%29"  target="_blank" rel="noopener" >Parse.com</a> announced it would be shutting off, I was attending a Google Launchpad in Mountain View as a mentor. If you haven’t heard of the <a href="https://developers.google.com/startups/"  target="_blank" rel="noopener" >Google Launchpads</a>, they are great. Not only for the startups, which get a fair amount of advising and mentoring from people in different fields (UX, Tech, Marketing, Monetizing and Fund raising…) but also for mentors itself! Besides getting to know what top-notch startups are doing around the world and helping them, we also get to talk with each other and get to know first hand what other folks are experiencing too. It ressembles a swinging party where knowledge is the currency to be exchanged. It has always been one of those events where you wake up early and excited, just thinking of following up with all the people you have met the previous day.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2017-01-30_learning-to-use-and-abuse-mutability/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2017-01-30_learning-to-use-and-abuse-mutability/images/1.jpeg" alt="Learning to use and abuse Mutability" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Learning to use and abuse Mutability</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>I am an old Java man, I never allocated many of my thoughts to reflect on the philosophy of mutability. In Java, unlike in other languages, there is no precise control over what is mutable and immutable. I never thought of Java objects as having this feature. Instead, I would always refer to them as <em>“that Java class that has no setter”</em>. <em>“That Java class that cannot be modified once the value has been set up”</em>. A very non-scientific wording in an almost scientific world. Mutability is the default in imperative languages, and we just do not think a lot about it. There is a lack of awareness, and our minds work inertially on the paradigm we have learned.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2017-01-06_an-overview-of-polls-for-android-mobile-developers-in-2016/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2017-01-06_an-overview-of-polls-for-android-mobile-developers-in-2016/images/1.jpeg" alt="An Overview of Polls for (Android) (Mobile) Developers in 2016" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">An Overview of Polls for (Android) (Mobile) Developers in 2016</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>Last year I started a weekly routine consisting on posting on my Twitter a poll every Monday, with topics related to Android / Mobile / Software Engineering (in that order). It has been a total of 18 polls during the year, with an overwhelming response and engagement of the community.</p>
+<p><em>(On a side note, I can</em>‘<em>t stress enough how lucky I am of being able to be a part of the Worldwide Android District. It has changed my life in so many ways)</em></p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2016-12-07_on-properly-using-volatile-and-synchronized/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2016-12-07_on-properly-using-volatile-and-synchronized/images/1.jpeg" alt="On properly using volatile and synchronized" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">On properly using volatile and synchronized</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>In the last weeks I have been writing about the <a href="https://medium.com/google-developer-experts/diving-deeper-into-the-java-transient-modifier-3b16eff68f42#.tes59mm9a"  target="_blank" rel="noopener" >transient</a> modifier and the different <a href="https://medium.com/google-developer-experts/finally-understanding-how-references-work-in-android-and-java-26a0d9c92f83#.ixg2oyvhj"  target="_blank" rel="noopener" >types of references</a> available in Java. I want to hold the topic of underused/misused topics in Java and bring you this week the <strong>volatile</strong> and <strong>synchronized</strong> modifiers .</p>
+<p>Multithreading is an entire discipline that takes years to master and properly understand. We will keep a short introduction in this article.</p>
+<p>In computing, a resource can be accessed from different threads concurrently. This can lead to inconsistency and corrupt data. A thread <em>ThreadA</em> accesses a resource and modifies it. In the meantime, the thread <em>ThreadB</em> starts accessing the same resource. Data may get corrupted since it is concurrently being modified. Let´s analyze an example without any kind of protection:</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2016-11-25_diving-deeper-into-the-java-transient-modifier/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2016-11-25_diving-deeper-into-the-java-transient-modifier/images/1.jpeg" alt="Diving deeper into the Java transient modifier" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Diving deeper into the Java transient modifier</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>Nothing is tied forever. Neither are transient variables.</p>
+<p>Last week I published an article to help you understand <a href="https://medium.com/google-developer-experts/finally-understanding-how-references-work-in-android-and-java-26a0d9c92f83"  target="_blank" rel="noopener" >how references do work in Java</a>. It had a great acceptance, and I got a lot of constructive feedback. That is why I love the software community.</p>
+<p>Today I want to present you another article diving into a topic that it is not widely used: the <strong>transient</strong> modifier. Personally, when I started using it I recall I was able to quickly grasp the theoretical aspect of it, although applying was a question of a different nature. Let´s gonna check closer</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2016-11-07_finally-understanding-how-references-work-in-android-and-java/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2016-11-07_finally-understanding-how-references-work-in-android-and-java/images/1.jpeg" alt="Finally understanding how references work in Android and Java" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Finally understanding how references work in Android and Java</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>A few weeks ago I attended <a href="http://2016.mobiconf.org/"  target="_blank" rel="noopener" >Mobiconf</a>, one of the best conferences for Mobile Developers I had the pleasure to attend in Poland. During his eclectic presentation “The best (good) practices”, my friend and colleague <a href="https://github.com/flipper83"  target="_blank" rel="noopener" >Jorge Barroso</a> came up with a statement that made me reflect after hearing it:</p>
+<blockquote>
+<p>If you are an Android developer and you do not use WeakReferences, you have a problem.</p></blockquote>
+<p>On an example of good timing, a couple of months ago I did publish my last book, “Android High Performance”, co-authored with <a href="https://www.linkedin.com/in/diegograncini"  target="_blank" rel="noopener" >Diego Grancini</a>. One of the most passionate chapters is the one talking about Memory Management in Android. In this chapter, we talk about how the memory works in a mobile device, how memory leaks happen, why this is important and which techniques we can apply to avoid them. Since I did start developing for Android, I have always observed a tendency to involuntarily avoid or give a low priority to everything related with memory leaks and memory management. If the functional criteria are fulfilled, why bothering? We are always in a rush to develop new features, and we would rather present something visual in our next Sprint demo rather than caring about something that nobody will see at a first glance.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2016-07-29_you-live-in-a-better-world-today/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2016-07-29_you-live-in-a-better-world-today/images/1.jpeg" alt="You live in a better world today" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">You live in a better world today</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>This has been a very tragic week in Germany. In less than five days, four attacks happened in the southern provinces of Bayern and Baden-Württemberg (the motivation of some of them being disputed, but being mostly assigned to the refugee crisis and open-borders policy of Merkel). After the attacks followed the classical harangue from certain civil and political sectors drawing attention on the rapidly deteriorating social peace in Germany and Europe. Warnings on Europe´s islamization are now in the mouth of most of the European citizens. If you put the news of any media, it smells like fear. Even <a href="http://www.telegraph.co.uk/news/2016/07/24/donald-trump-says-french-and-germans-to-face-extreme-vetting-ent/"  target="_blank" rel="noopener" >Trump wants to prevent Germans and French</a> of traveling to the US!</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2016-06-21_theoretical-animal/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2016-06-21_theoretical-animal/images/1.png" alt="The theoretical animal" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">The theoretical animal</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>We are theoretical animals. We spend our entire lives analyzing our immediate environment, theorising on how to solve our most immediate problems or improve processes. We think of having conversations with beloved people, we think of carrying out actions we have planned for a while with relatives and friends, and we think of starting new projects. Yet we do little to implement them and put all this knowledge into practice.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/1.png" alt="A Comprehensive Introduction to Perform an Efficient Android Code Review" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">A Comprehensive Introduction to Perform an Efficient Android Code Review</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You are working in a team that cares about code quality. You have been doing -or thinking of doing- some code pairing. Your team regularly carry out hacking events to talk and present new technologies, or to talk about the personal discoveries of each member. And you are trying to devise the perfect code review process for your organisation. Is this situation familiar to you?</p>
+<p>Code reviews are hard to implement. A team is composed of <strong>N</strong> people, each of them having its own agenda and priorities. Some people might be more perfectionist and might have a different acceptance criteria for the code reviews. Some others truly believe the reviews should be something at the top of each new feature or fix, and completely voluntary. As in any team, convincing needs to be done rather than imposing.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2015-05-05_automating-android-development/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2015-05-05_automating-android-development/images/1.png" alt="Automating Android development" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Automating Android development</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>I have been recently talking at the <a href="http://es.droidcon.com/2015/"  target="_blank" rel="noopener" >DroidCon Spain</a> and <a href="http://it.droidcon.com/2015/"  target="_blank" rel="noopener" >DroidCon Italy</a> about how to automate a traditional Android workflow. To my surprise, there are still many organisations that do lack a Continuous Integration (CI) strategy. This is a big mistake! I decided to put down in words my thoughts about how to efficiently implement CI.</p>
+<p>As a software engineer, your aim is to automate as many processes as possible. Machines are more efficient than people: they do not need food neither sleep, they perform tasks errorless and they make your life easier. <em>Work hard in order to work less</em>.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  bg-slate-900 dark:bg-slate-700 text-slate-50 "
+        href="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png" alt="Event-driven programming for Android (part III)" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Event-driven programming for Android (part III)</h3>
+        <div
+          class="text-sm  text-slate-400  line-clamp-2">
+          <p>(This is the third article in a three-part series)</p>
+<p>Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a <em>HelloWorld Event-Driven</em> application.</p>
+<p>Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2015-01-28_eventdriven-programming-for-android-part-ii/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2015-01-28_eventdriven-programming-for-android-part-ii/images/1.png" alt="Event-driven programming for Android (part II)" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Event-driven programming for Android (part II)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>(This is the second article in a three-part series)</p>
+<p>In the previous article we had a short introduction into Event-Driven programming. Now let’s see some actual code and how to perform the basics with EventBus.</p>
+<p>First I will present the entities that play a central role in Event-Driven programming. Refer to the following image taken from the EventBus repository.</p>
+<p><img src="/articles/2015-01-28_eventdriven-programming-for-android-part-ii/images/1.png#layoutTextWidth" alt="image"></p>
+<p>An <strong>Event Bus</strong>. This is the central communication channel that connects all the other entities.</p>
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2015-01-25_eventdriven-programming-for-android-part-i/">
+        
+        
+        <img class="rounded max-w-full mb-4" src="/articles/2015-01-25_eventdriven-programming-for-android-part-i/images/1.png" alt="Event-driven programming for Android (part I)" />
+        
+        <h3 class="text-lg font-semibold mb-0.5">Event-driven programming for Android (part I)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>(This is the first article in a three-part series)</p>
+<p>Although Android includes some event-driven features in its development, it is far away from being a pure event-driven architecture. Is this something good or bad? As in every issue with software development the answer is not easy: it depends.</p>
+<p>First, let’s establish a definition for event-driven development. This is a programming paradigm where the flow of execution is determined by events triggered by actions (such user interaction, messaging from other threads, etc). In this sense, Android is partially event-driven: we all can think of the onClick listeners or the Activity lifecycle, which are events able to trigger actions in an application. Why I said it is not a pure event-driven system? By default, each event is bound to a particular controller, and it is difficult to operate besides it (for example, the onClick events are defined for a view, having a limited scope).</p>
+        </div>
+      </a>
+      </div>
+    </section>
+
+  <div class="overflow-y-auto h-screen w-full">
+    <article class="px-6 py-20 w-full mx-auto prose lg:prose-lg h-fit dark:prose-invert prose-img:mx-auto">
+
+      
+      <h1 class="!mb-2">Event-driven programming for Android (part III)</h1>
+
+	  
+      <p class="text-sm text-slate-500 !mb-8"> Planted February 8, 2015
+		
+			<br/> Pruned June 9, 2025
+        
+	  </p>
+      
+
+      
+      <img class="rounded max-w-full mx-auto mb-4" src="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png" alt="Event-driven programming for Android (part III)" />
+      
+
+      <p>(This is the third article in a three-part series)</p>
+<p>Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a <em>HelloWorld Event-Driven</em> application.</p>
+<p>Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.</p>
+<p>I have been using this architecture for a while, and it has made a change. Using Events and an MVP pattern ensures that I can easily add features to an application. I have also reduced the period between refactoring and rewriting, so the software I write can actually live longer and with a better quality.</p>
+<h3 id="a-first-term-mvp">A first term: MVP</h3>
+<p>MVP stands for Model View Presenter, and is a programming pattern that defines three basic entities to be implemented within a software system:</p>
+<p>The <strong>Model</strong>: what to render</p>
+<p>The <strong>View</strong>: how to render</p>
+<p>The <strong>Presenter</strong>: handles the communication between the model and the view. The presenter updates the view with content from the model, abstracting the view of any complexity underneath.</p>
+<p><img src="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png#layoutTextWidth" alt="image">
+Courtesy of WikiMedia</p>
+<p>MVP (as well as other programming patterns) is a concept rather than a concept solid framework, so there are no strict rules about it. Android does not implement a pure MVP pattern, but contains some elements:</p>
+<ul>
+<li>The user interface (Views) are defined in XML files.</li>
+<li>We extend classes (Activity, Fragment) that inflate the views, and update them.</li>
+</ul>
+<p>From all the components of the MVP pattern, the <em>presenter</em> has no direct representation in Android. This is however an important component: imagine that tomorrow we need to retrieve our data from a web service rather than a database. If we have followed a MVP approach, this change would be rather trivial to implement.</p>
+<h3 id="an-event-driven-supporting-architecture">An Event-Driven supporting architecture</h3>
+<p>The following architecture aims to make easier the implementation of an Event-Driven based applications. It also has some other advantages, such as a high modularity and easiness for testing.</p>
+<p>We are going to create our own instance of <em>Application</em>. This instance will host an EventBus Registry, which is a class that contains a comprehensive list of all the subscribers to the bus (more on this later). Our <em>Application</em> will register all the subscribers and de-register them when it has been terminated.</p>
+<h4 id="the-eventbusregistry">The EventBusRegistry</h4>
+<p>This class is basically a register containing all the subscribers to the bus. I ended up naming my subscribers as PluginControllers, since you can plug them in and out and the application will keep working (of course, if they are not plug in they will not listen to events). I understand this naming can confuse the reader, so I will name then as Subscribers in this article.</p>
+<p>The EventBus Registry keeps a reference to the EventBus (which is a static class), so it can register the subscribers.</p>
+<p><img src="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png#layoutTextWidth" alt="image">
+Conceptually: the Application will contain a EventBus Registry with references to the different subscribers, so they can be registered or unregistered. The EventBus is a static instance in the application.</p>
+<h4 id="the-subscribers">The Subscribers</h4>
+<p>The Subscribers will be the only class able to listen to events. This classes will always contain one or more <em>OnEvent()</em> method. The Subscribers will perform actions after they received an Event. A basic example: you can have a subscriber that performs a call when receives the “PerformCallEvent”.</p>
+<p>Subscribers can also post events into the EventBus as a response to an incoming Event.</p>
+<h4 id="presenters">Presenters</h4>
+<p>The presenters take actions. The Views give them orders, and they act in consequence. They can also post events into the EventBus.</p>
+<p>This architecture uses a single Activity. There are arguments in favour and against this, but since we will be using different Fragments to represent the screens, using a single Activity makes things easier (and remember, as a developer your main target should be to program less).</p>
+<p>I have uploaded to <a href="https://github.com/kikoso/Event-Bus-Architecture"  target="_blank" rel="noopener" >GitHub</a> a sample project that includes a login screen, that triggers event to perform the login and loads a different fragment after it. Take a look at the project structure:</p>
+<p><img src="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png#layoutTextWidth" alt="image"></p>
+<p>There are base classes for the EventBus Registry, the Activities and the Subscriber (you might want to add a base Fragment class depending on your project needs). The Application, EventBus and EventBus registry have been customized for the project (thus the ED prefix).</p>
+<p>Extending this application into new features will basically require new events, subscribers and a presenter and view per feature. Following this pattern ensures that the application is scalable, the code is decoupled and therefore easy to test and understand.</p>
+
+    </article>
+  </div>
+
+</div>
+
+
+  </div>
+<script type="text/javascript" src="/main.js" defer></script>
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-M37D0QHKMX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-M37D0QHKMX');
+        }
+      </script>
+</body>
+
+</html>
