@@ -32,28 +32,42 @@ The [Signature](https://developer.android.com/reference/java/security/Signature)
 This algorithm produces a signature from a digest length of 512 bits. PSS stands for [Probabilistic Signature Scheme](https://web.archive.org/web/20040713140300/http://grouper.ieee.org/groups/1363/P1363a/contributions/pss-submission.pdf). RSA is itself not an encryption algorithm, but a family of permutations which obscure the code, but are not useful in isolation. PSS adds an encryption schema.
 
 Android does not really support PKCS1, so we need to generate first a PKCS key. We can easily do this using openssl:
-``openssl genpkey -out rsakey.pem -algorithm RSA -pkeyopt rsa_keygen_bits:2048``
+```
+openssl genpkey -out rsakey.pem -algorithm RSA -pkeyopt rsa_keygen_bits:2048
+```
 
 With this key already generated, we need to send it to the device. One option would be to deliver the APK with the private key included in the assets folder, but everything that is delivered in the Android APK can be considered open source. A solution would be to send it via SSL — not an infallible solution, but eliminates some risk.
 
 With this already done, we need to do a few adjustments to the key. We need to strip first the **BEGIN PRIVATE KEY** and **END PRIVATE KEY** since otherwise the Signature class will not work. When we have achieved that, we can proceed to calculate the signature:
-`**val** signatureSHA256 = Signature.getInstance(**&#34;SHA256withRSA/PSS&#34;**)  
-signatureSHA256.setParameter(PSSParameterSpec(**&#34;SHA-256&#34;**, **&#34;MGF1&#34;**, MGF1ParameterSpec._SHA256_, 32, 1))``**val** privateKey = loadPrivateKey(**&#34;MY_KEY&#34;**)  
-signatureSHA256.initSign(privateKey)``**val** data: ByteArray = **&#34;name_of_the_file&#34;**._toByteArray_()  
-signatureSHA256.update(data)``**var** finalSignature **** = signatureSHA256.sign()`
+
+```Kotlin
+val signatureSHA256 = Signature.getInstance("SHA256withRSA/PSS")
+signatureSHA256.setParameter(PSSParameterSpec("SHA-256", "MGF1", MGF1ParameterSpec.SHA256, 32, 1))
+val privateKey = loadPrivateKey("MY_KEY")
+signatureSHA256.initSign(privateKey)
+val data: ByteArray = "name_of_the_file".toByteArray()
+signatureSHA256.update(data)
+var finalSignature = signatureSHA256.sign()
+```
 
 The method that strips the irrelevant content from the key is the following:
-`**private fun** loadPrivateKey(key: String): PrivateKey {  
-    **val** readString = key._replace_(**&#34;-----BEGIN PRIVATE KEY-----\n&#34;**, **&#34;&#34;**)._replace_(**&#34;-----END PRIVATE KEY-----&#34;**, **&#34;&#34;**)  
-    **}  
+```Kotlin
+private fun loadPrivateKey(key: String): PrivateKey {
+    val readString = key.replace("-----BEGIN PRIVATE KEY-----\n", "").replace("-----END PRIVATE KEY-----", "")
+    }
 
-    val** encoded = Base64.decode(readString, Base64._DEFAULT_)  
-    **return** KeyFactory.getInstance(**&#34;RSA&#34;**)  
-            .generatePrivate(PKCS8EncodedKeySpec(encoded))  
-}`
+    val encoded = Base64.decode(readString, Base64.DEFAULT)
+    return KeyFactory.getInstance("RSA")
+            .generatePrivate(PKCS8EncodedKeySpec(encoded))
+}
+```
+
 
 Another twist would be to convert the resulting signature into hexadecimal code. In Android, we can easily do it with a Kotlin extension:
-`**fun** ByteArray.toHexString() = _joinToString_(**&#34;&#34;**) **{ &#34;%02x&#34;**._format_(**it**) **}**`
+
+```Kotlin
+fun ByteArray.toHexString() = joinToString("") { "%02x".format(it) }
+```
 
 Now we are ready. We can send the request to our server specifying the file we want to access, and the signature associated with it. The server needs to do the opposite procedure (convert from hexadecimal to text, and then apply the signature verification). This is how our request would look like:
 
@@ -61,32 +75,68 @@ Now we are ready. We can send the request to our server specifying the file we w
 
 
 Now, the backend needs to do the verification, and ensure that the data is properly verified. There are a few changes to the previous code — essentially, this time we are aiming to work with the public key, and use the method _verify(data)_, which will ultimately verify that the data has been sent by the appropriate client:
-`**val** signatureSHA256 = Signature.getInstance(**&#34;SHA256withRSA/PSS&#34;**);  
-signatureSHA256.setParameter(PSSParameterSpec(**&#34;SHA-256&#34;**, **&#34;MGF1&#34;**, MGF1ParameterSpec._SHA256_, 32, 1));  
-**val** privateKey = loadPublicKey(**&#34;MY_KEY&#34;**)  
-signatureSHA256.initSign(privateKey);  
-**val** data: ByteArray = **&#34;name_of_the_file&#34;**._toByteArray_()  
-signatureSHA256Java.verify(data)`
+
+```Kotlin
+val signatureSHA256 = Signature.getInstance("SHA256withRSA/PSS");
+signatureSHA256.setParameter(PSSParameterSpec("SHA-256", "MGF1", MGF1ParameterSpec.SHA256, 32, 1));
+val privateKey = loadPublicKey("MY_KEY")
+signatureSHA256.initSign(privateKey);
+val data: ByteArray = "name_of_the_file".toByteArray()
+signatureSHA256Java.verify(data)
+```
+
 
 ### **The extra mile**
 
 The downloaded certificate can be also easily intercepted by a potential attacker using [Charles](https://www.charlesproxy.com/). There is also a library called [Objection](https://github.com/sensepost/objection), which totally bypasses certificate pinning. If you are not using certificate pinning in Android, this should be your next Pull Request tomorrow: it is really easy, and certainly avoid problems. You just need to add a _network_security_config.xml_ file with the following content:
-`&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;  
-&lt;network-security-config&gt;  
-    &lt;domain-config&gt;  
-        &lt;domain includeSubdomains=&#34;true&#34;&gt;example.com&lt;/domain&gt;  
-        &lt;pin-set expiration=&#34;2018-01-01&#34;&gt;  
-            &lt;pin digest=&#34;SHA-256&#34;&gt;7HIpactkIAq2Y49orFOOQKurWxmmSFZhBCoQYcRhJ3Y=&lt;/pin&gt;  
-            &lt;!-- backup pin --&gt;  
-            &lt;pin digest=&#34;SHA-256&#34;&gt;fwza0LRMXouZHRC8Ei+4PyuldPDcf3UKgO/04cDM1oE=&lt;/pin&gt;  
-        &lt;/pin-set&gt;  
-    &lt;/domain-config&gt;  
-&lt;/network-security-config&gt;`
+
+```Xml
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config>
+        <domain includeSubdomains="true">example.com</domain>
+        <pin-set expiration="2018-01-01">
+            <pin digest="SHA-256">7HIpactkIAq2Y49orFOOQKurWxmmSFZhBCoQYcRhJ3Y=</pin>
+            <!-- backup pin -->
+            <pin digest="SHA-256">fwza0LRMXouZHRC8Ei+4PyuldPDcf3UKgO/04cDM1oE=</pin>
+        </pin-set>
+    </domain-config>
+</network-security-config>
+```
 
 Android can also generate a pair of pub/private keys on the device. This needs to be of course handled, but also adds another world of possibilities — if the keys are created in real-time, then we are slightly on the safer side. Of course, we are still handling problems with the transmission of the keys and securing them, but we have probably removed a few existential threats from the equation:
 
 
+```Kotlin
+private lateinit var keyPair: KeyPair
 
+private fun generateKey() {
+    val startDate = GregorianCalendar()
+    val endDate = GregorianCalendar()
+    endDate.add(Calendar.YEAR, 1)
+    
+    val keyPairGenerator: KeyPairGenerator = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_RSA, ANDROID_KEYSTORE)
+
+    val parameterSpec: KeyGenParameterSpec = KeyGenParameterSpec.Builder(KEY_ALIAS,
+        KeyProperties.PURPOSE_SIGN or KeyProperties.PURPOSE_VERIFY).run {
+            setCertificateSerialNumber(BigInteger.valueOf(777))       //Serial number used for the self-signed certificate of the generated key pair, default is 1
+            setCertificateSubject(X500Principal("CN=$KEY_ALIAS"))     //Subject used for the self-signed certificate of the generated key pair, default is CN=fake
+            setDigests(KeyProperties.DIGEST_SHA256)                         //Set of digests algorithms with which the key can be used
+            setSignaturePaddings(KeyProperties.SIGNATURE_PADDING_RSA_PKCS1) //Set of padding schemes with which the key can be used when signing/verifying
+            setCertificateNotBefore(startDate.time)                         //Start of the validity period for the self-signed certificate of the generated, default Jan 1 1970
+            setCertificateNotAfter(endDate.time)                            //End of the validity period for the self-signed certificate of the generated key, default Jan 1 2048
+            setUserAuthenticationRequired(true)                             //Sets whether this key is authorized to be used only if the user has been authenticated, default false
+            setUserAuthenticationValidityDurationSeconds(30)                //Duration(seconds) for which this key is authorized to be used after the user is successfully authenticated
+            build()
+    }
+
+    //Initialization of key generator with the parameters we have specified above
+    keyPairGenerator.initialize(parameterSpec)
+
+    //Generates the key pair
+    keyPair = keyPairGenerator.genKeyPair()
+}
+```
 
 ### Conclusions
 

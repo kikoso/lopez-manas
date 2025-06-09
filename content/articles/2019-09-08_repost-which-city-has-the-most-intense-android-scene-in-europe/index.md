@@ -28,7 +28,36 @@ Moving now to different issues: I was discussing back in time with some event or
 
 At this time, I was thinking about how could I use Data Explorer and BigData to support my thesis. I remember two times I used it before, to display the most active developers from [Barcelona](https://twitter.com/eenriquelopez/status/384946205320437761) (the city I lived before), [Munich](https://twitter.com/eenriquelopez/status/384949033136955392), and [the two cities](https://twitter.com/eenriquelopez/status/384964337934163968) combined. Something similar could be a valid approach. In the previous SQL queries, I was clustering the top developers from each city based on their contribution to questions tagged with the token “_android_“. So I could possibly group all the developers&#39; contribution from a certain city with questions tagged with the same token. I come over with this script:
 
-
+```SQL
+;WITH USER_BY_TAG
+AS
+(
+  SELECT 
+    ROW_NUMBER() OVER(ORDER BY COUNT(*) DESC) Rank,
+    u.Location,
+    COUNT(*) AS UpVotes
+  FROM Tags t
+      INNER JOIN PostTags pt ON pt.TagId = t.id
+      INNER JOIN Posts     p ON p.ParentId = pt.PostId
+      INNER JOIN Votes     v ON v.PostId = p.Id and VoteTypeId = 2
+      INNER JOIN Users     u ON u.Id = p.OwnerUserId
+  WHERE 
+  (LOWER(Location) LIKE '% germany%' OR 
+   LOWER(Location) LIKE '% spain%' OR 
+   LOWER(Location) LIKE '% holland%' OR 
+   LOWER(Location) LIKE '% france%' OR 
+   LOWER(Location) LIKE '% italy% ') OR 
+   LOWER(Location) LIKE '% netherland%' OR 
+   LOWER(Location) LIKE '% united kingdom%' OR 
+   LOWER(Location) LIKE '% poland%' OR 
+   LOWER(Location) LIKE '% sweden%'
+       AND  TagName = 'android'
+  GROUP BY u.Location
+ 
+)
+ 
+SELECT * FROM USER_BY_TAG WHERE rank <= 1000 ORDER BY upvotes DESC ;
+```
 [https://gist.github.com/kikoso/f7900d00b34ed15a987e1e5ade475b31](https://gist.github.com/kikoso/f7900d00b34ed15a987e1e5ade475b31)
 
 

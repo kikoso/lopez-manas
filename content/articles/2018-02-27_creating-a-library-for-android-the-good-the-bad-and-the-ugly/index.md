@@ -42,12 +42,18 @@ Git Android library project as a sub-module as a submodule means that you will b
 *   The tempo for developing the library is steady, your CI process cannot guarantee a continuous delivery of new versions of the library and you need to commit them as soon as possible to the repository.
 
 The methodology to perform this it is straightforward. From your local git repository, you need to add your submodule:
-`git submodule add [y](https://XXX@bitbucket.org/YYY/ZZZ.git)our-repository.git`
+
+```
+git submodule add [y](https://XXX@bitbucket.org/YYY/ZZZ.git)our-repository.git`
+```
 
 And update consequently your **settings.gradle** and **build.gradle** files.
 
 Ah! There is something I always forget when I am cloning a directory with submodules. That is, you need to specify that the module you are cloning contains… submodules.
-``git clone --recurse-submodules``
+
+```
+git clone --recurse-submodules
+```
 
 Any human mean of having this behavior as default by Git? Not that I am aware of. I remember I always clone the repository without the submodules, and then I have to download the submodules manually. It is one of those facts that always entail an issue left aside, such as adding an Activity to an Android project and forgetting to add the same Activity to the AndroidManifest.xml.
 
@@ -74,10 +80,12 @@ You have your library ready. You have versioned it, and you are ready for deploy
 A Nexus repository manages artifacts for download. You develop your software, upload it to a Nexus repository and make it public to the world. It is a very convenient way, and keeps every aspect of the development wheel quite framed in a domain. As I mentioned, there might exist limitations in your organisation, but this is, in my opinion, the most optimal option to release an artifact.
 
 When you add a file from a Nexus repository, you typically include the following line in your Gradle script:
-`implementation &#39;com.android.support:support-v4:27.0.2&#39;`
-
+```
+implementation &#39;com.android.support:support-v4:27.0.2&#39;`
+```
 A Nexus repository can be public or private. As I mentioned in the case of my client, the Nexus repository was only accessible from their internal network, and it was therefore not an optimal solution. There are well-known public Nexus repositories, such as [Maven Central](https://search.maven.org/), which you are very likely already using, or [Sonatype](https://www.sonatype.com/nexus-repository-oss). If you are developing OSS this will be your instant choice, since the offer a free-tier and you can expose your work to the world. This can as well be automated, and therefore being uploaded automatically to a repository through a Gradle script:
-`uploadArchives {  
+```
+uploadArchives {  
    repositories {  
       mavenDeployer {  
          repository(url: “[http://localhost:8081/nexus/content/repositories/snapshots](http://localhost:8081/nexus/content/repositories/snapshots)&#34;) {  
@@ -88,7 +96,8 @@ A Nexus repository can be public or private. As I mentioned in the case of my cl
          pom.groupId = “com.example”  
       }  
    }  
-}`
+}
+```
 
 ### Conclusions
 

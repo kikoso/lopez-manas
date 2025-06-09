@@ -59,12 +59,45 @@ What about saving this String in one of the other mechanisms provided by Android
 
 I am going to refresh here the initial model I proposed, and how we can as well iterate through it to provide a more secure alternative. Let’s image two functions that could serve to encrypt and decrypt our data:
 
+```Java
+    private static byte[] encrypt(byte[] raw, byte[] clear) throws Exception {
+        SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
+        byte[] encrypted = cipher.doFinal(clear);
+        return encrypted;
+    }
 
+    private static byte[] decrypt(byte[] raw, byte[] encrypted) throws Exception {
+        SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, skeySpec);
+        byte[] decrypted = cipher.doFinal(encrypted);
+        return decrypted;
+    }
+```
 
 
 Nothing fancy here. These two functions will take a key value and a string to be encoded or decoded. They will return the encrypted or the decrypted token, respectively. We would call the following function as follows:
 
+```Java
+ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+bm.compress(Bitmap.CompressFormat.PNG, 100, baos); 
+byte[] b = baos.toByteArray();  
 
+byte[] keyStart = "encryption key".getBytes();
+KeyGenerator kgen = KeyGenerator.getInstance("AES");
+SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+sr.setSeed(keyStart);
+kgen.init(128, sr); 
+SecretKey skey = kgen.generateKey();
+byte[] key = skey.getEncoded();    
+
+// encrypt
+byte[] encryptedData = encrypt(key,b);
+// decrypt
+byte[] decryptedData = decrypt(key,encryptedData);
+```
 
 
 Are you guessing the direction? That is right. We could encrypt and decrypt our token on demand. This provides an additional layer of security: when the code gets obfuscated, it is not anymore as straightforward as performing a String search and check the environment surrounding that String. But can you still figure out a problem that needs to be solved?
@@ -81,17 +114,31 @@ NDK allows us to access a C++ code base from our Android code. As a first approa
 
 Our C++ function would look like follows:
 
-
+```Java
+Java_com_example_exampleApp_ExampleClass_getSecretKey( JNIEnv* env,
+                                                  jobject thiz )
+{
+    return (*env)->NewStringUTF(env, "mySecretKey".");
+}
+```
 
 
 It will be called easily in your Java code:
 
+```Java
+static {
+        System.loadLibrary("library-name");
+    }
 
+public native String getSecretKey();
+```
 
 
 And the encryption/decryption function will be called as in the next snippet:
 
-
+```Java
+byte[] keyStart = getSecretKey().getBytes();
+```
 
 
 If we know generate an APK, obfuscate it, decompile it and try to access the string contained in the native function getSecretKey(), we will not be able to find it! Victory?

@@ -28,7 +28,10 @@ This happens so often, even on the codebases we are used to work with. We tend t
 Let’s consider the previous scenario. The modern tech world tends to move into solving problems into early stages of development. For instance, the entire Nullability promise is about delivering the error during the compiling process, rather than during the runtime. That has indubious positive consequences over the quality output. Analogously, if we can fail the tests on our machine, we will surely improve our workflow rather than having the test failing on the CI environment, with all the side implications (fixing the test on our machine, testing, re-pushing, running CI).
 
 Let’s assume we are having an Android app running with Gradle — although any app running on Gradle will work out. When we are running the tests, we are basically running a command similar to the following one:
-> ./gradlew clean test
+ 
+```
+./gradlew clean test
+```
 
 We want this command to be executed before we actually push our code. In order to do that, we need to do the following:
 
@@ -36,7 +39,18 @@ We want this command to be executed before we actually push our code. In order t
 2.  Create a file called _pre-push_
 3.  Copy the following snippet:
 
-
+```
+#!/bin/bash
+command="./gradlew clean test"
+echo "Executing tests before commit"
+$command
+result=$?
+if [ "$result" -ne 0 ]; then
+ echo "Failed execution of tests"
+ exit 1
+fi
+exit 0
+```
 
 Right now, any time before you push your code, tests will run locally. If there is any error, there will be no push (when the script is returning 1).
 
@@ -44,6 +58,22 @@ Note that you could decided to do this on each commit, instead of on each push. 
 
 There are some interesting ideas of aspects that we could automate using Git Hooks. For instance, one of those tasks that we might want to run is the static analysis with tools such as [lint](https://en.wikipedia.org/wiki/Lint_%28software%29) or [detekt](https://github.com/arturbosch/detekt). For this example, let’s use the former, and let’s store it on a _pre-commit_ file.
 
+```
+#!/bin/sh
+
+echo "Running detekt"
+
+./gradlew detektCheck
+result=$?
+if [ "$result" = 0 ] ; then    
+   echo "Detekt found no problems"     
+   exit 0
+else
+   echo
+   "Problems found, files will not be committed."     
+   exit 1
+fi
+```
 
 Full gist: [https://gist.github.com/kikoso/a46e6a2efd07ab66ed049b5f7b76ace5](https://gist.github.com/kikoso/a46e6a2efd07ab66ed049b5f7b76ace5)
 
@@ -52,13 +82,60 @@ Full gist: [https://gist.github.com/kikoso/a46e6a2efd07ab66ed049b5f7b76ace5](htt
 We can actually combine both of them, if we want to execute them together on a _pre-push_ hook:
 
 
+```
+#!/bin/sh
+
+echo "Running detekt"
+
+./gradlew detektCheck
+result=$?
+if [ "$result" = 0 ] ; then    
+   echo "Detekt found no problems"     
+   exit 0
+else
+   echo
+   "Problems found, files will not be committed."     
+   exit 1
+fi
+
+
+echo "Executing tests before commit"
+./gradlew clean test
+result=$?
+if [ "$result" = 0 ]; then
+ echo "Failed execution of tests"
+ exit 1
+fi
+exit 0
+```
+
 Full gist: [https://gist.github.com/kikoso/0a79740c7cde9174ffbafe19caa39306](https://gist.github.com/kikoso/0a79740c7cde9174ffbafe19caa39306)
 
 
 
 In any process, there are some manual tasks we need to perform, and that are easy to forget. A Git Hook could ensure (or at least remind the user) that those taks should be performed before the commits are actually pushed:
 
-
+```
+#!/bin/sh
+read -p "Have the feature been tested? (y/N):" answer
+   if [[ "$answer" != "y" ]]; then
+      exit 1
+   fi
+read -p "Have you updated your Jira? (y/N):" answer
+   if [[ "$answer" != "y" ]]; then
+      exit 1
+   fi
+read -p "Have you created a test version? (y/N):" answer
+   if [[ "$answer" != "y" ]]; then
+      exit 1
+   fi
+read -p "Have you done that task you should have done? (y/N):" answer
+   if [[ "$answer" != "y" ]]; then
+      exit 1
+   fi
+  
+exit 0
+```
 Full gist: [https://gist.github.com/kikoso/d6024e455c733fb91798621ae487a375](https://gist.github.com/kikoso/d6024e455c733fb91798621ae487a375)
 
 
