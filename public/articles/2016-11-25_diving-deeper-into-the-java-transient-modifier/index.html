@@ -966,49 +966,49 @@ A trend that will only continue to grow.</p>
 <p>A <strong>transient</strong> modifier applied to a field tells Java that this attribute should be excluded when the object is being serialized. When the object is being deserialized, the field will be initialized with its default value (this will typically be a <em>null</em> value for a reference type, or <em>zero</em>/<em>false</em> if the object is a primitive type).</p></blockquote>
 <p>You will agree with me: the theory is quite easy, but we initially fail to see the practical aspect. Where should we apply a transient modifier? When it will be useful? Is hard to come up with a factual example unless you have used it before. Like a dog chasing its tail, we fail to find a use case and therefore we cannot apply <a href="https://medium.com/@enriquelopezmanas/the-theoretical-animal-4f6901aaf571#.w9db0bi8k"  target="_blank" rel="noopener" >practice to the theory</a>.</p>
 <p>My intention with this article is to help you break this vicious cycle. Let´s check a few practical examples.</p>
-<p>Think of an <strong>User</strong> object. This <strong>User</strong> contains among all its properties <em>login</em>, <em>email</em> and <em>password</em>. When the data is being serialized and transmitted through the network, we can think of a few security reasons why we would not like to send the field <em>password</em> altogether with the entire object. In this case, marking the field as <strong>transient</strong> will solve this security problem. How would this look like in code?
-``@Data   <br>
-@NoArgsConstructor<br>
-@AllArgsConstructor<br>
-public class User implements Serializable {</p>
-<pre><code>private static final long serialVersionUID = 123456789L;  
-
-private String login;  
-private String email;  
-private transient String password;  
-
-public void printInfo() {  
-    System.out.println(&amp;#34;Login is: &amp;#34; + login);  
-    System.out.println(&amp;#34;Email is: &amp;#34; + email);  
-    System.out.println(&amp;#34;Password is: &amp;#34; + password);  
-}  
-</code></pre>
-<p>}``</p>
-<p>Note that this object is implementing the Interface <em>Serializable</em>, which is compulsory when you intend to serialize an object. If this interface is not implemented, you will receive a <em>NotSerializableException</em>. Note as well the declared field <em>serialVersionUID</em>. If you use any of the major Development Environments or Eclipse it will generally be recreated automatically.</p>
+<p>Think of an <strong>User</strong> object. This <strong>User</strong> contains among all its properties <em>login</em>, <em>email</em> and <em>password</em>. When the data is being serialized and transmitted through the network, we can think of a few security reasons why we would not like to send the field <em>password</em> altogether with the entire object. In this case, marking the field as <strong>transient</strong> will solve this security problem. How would this look like in code?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>@Data      
+</span></span><span style="display:flex;"><span>@NoArgsConstructor  
+</span></span><span style="display:flex;"><span>@AllArgsConstructor  
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">User</span> <span style="color:#8be9fd;font-style:italic">implements</span> Serializable {  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd">long</span> serialVersionUID <span style="color:#ff79c6">=</span> 123456789L;  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> String login;  
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> String email;  
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">transient</span> String password;  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">printInfo</span>() {  
+</span></span><span style="display:flex;"><span>        System.<span style="color:#50fa7b">out</span>.<span style="color:#50fa7b">println</span>(<span style="color:#ff79c6">&amp;</span>#34;Login is: <span style="color:#ff79c6">&amp;</span>#34; <span style="color:#ff79c6">+</span> login);  
+</span></span><span style="display:flex;"><span>        System.<span style="color:#50fa7b">out</span>.<span style="color:#50fa7b">println</span>(<span style="color:#ff79c6">&amp;</span>#34;Email is: <span style="color:#ff79c6">&amp;</span>#34; <span style="color:#ff79c6">+</span> email);  
+</span></span><span style="display:flex;"><span>        System.<span style="color:#50fa7b">out</span>.<span style="color:#50fa7b">println</span>(<span style="color:#ff79c6">&amp;</span>#34;Password is: <span style="color:#ff79c6">&amp;</span>#34; <span style="color:#ff79c6">+</span> password);  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Note that this object is implementing the Interface <em>Serializable</em>, which is compulsory when you intend to serialize an object. If this interface is not implemented, you will receive a <em>NotSerializableException</em>. Note as well the declared field <em>serialVersionUID</em>. If you use any of the major Development Environments or Eclipse it will generally be recreated automatically.</p>
 <p>If you serialise and then deserialize now an object of type User, the value password will be <em>null</em> afterwards, since it has been marked as <strong>transient</strong>.</p>
 <blockquote>
 <p>See the annotations @Data, @NoArgsConstructor and @AllArgsConstructor? They are provided by <a href="https://projectlombok.org/"  target="_blank" rel="noopener" >Lombok</a>, a Java library that makes things easier. Although in 2016 Lombok is not as useful as it was before (now languages like Kotlin generate setters and getters automatically, and you can do it with two clicks in any major Development Environment and Eclipse) I still like to use it in certain domains to keep a clean collection of Domain Models.</p></blockquote>
 <p>There is another use case I can think of when using <strong>transient</strong> modifiers: when an object is being derived of another. In that case, we can make our code more efficient by making the derived field <strong>transient</strong>.</p>
-<p>Let´s take a look at this piece of code:
-``@Data   <br>
-@NoArgsConstructor<br>
-@AllArgsConstructor<br>
-public class GalleryImage implements Serializable {````    private static final long serialVersionUID = 123456789L;</p>
-<pre><code>private Image image;  
-private transient Image thumbnailImage;  
-
-private void generateThumbnail() {  
-    // This method will derive the thumbnail from the main image  
-}  
-
-private void readObject(ObjectInputStream inputStream)  
-        throws IOException, ClassNotFoundException {  
-    inputStream.defaultReadObject();  
-    generateThumbnail();  
-}      
-</code></pre>
-<p>}``</p>
-<p>In this case, the class contains a main <em>image</em> and a <em>thumbnailImage</em> field. The latest field will derive from the former. If we can make the <em>thumbnailImage</em> <strong>transient</strong> our code we will be more efficient: a field that derives from another one will not be conveyed when the object has been serialized.</p>
+<p>Let´s take a look at this piece of code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>@Data      
+</span></span><span style="display:flex;"><span>@NoArgsConstructor  
+</span></span><span style="display:flex;"><span>@AllArgsConstructor  
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">GalleryImage</span> <span style="color:#8be9fd;font-style:italic">implements</span> Serializable {````    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd">long</span> serialVersionUID <span style="color:#ff79c6">=</span> 123456789L;  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> Image image;  
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">transient</span> Image thumbnailImage;  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">generateThumbnail</span>() {  
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// This method will derive the thumbnail from the main image  </span>
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">readObject</span>(ObjectInputStream inputStream)  
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">throws</span> IOException, ClassNotFoundException {  
+</span></span><span style="display:flex;"><span>        inputStream.<span style="color:#50fa7b">defaultReadObject</span>();  
+</span></span><span style="display:flex;"><span>        generateThumbnail();  
+</span></span><span style="display:flex;"><span>    }      
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In this case, the class contains a main <em>image</em> and a <em>thumbnailImage</em> field. The latest field will derive from the former. If we can make the <em>thumbnailImage</em> <strong>transient</strong> our code we will be more efficient: a field that derives from another one will not be conveyed when the object has been serialized.</p>
 <p>A minor point at the end of the article: as you can imagine, a <strong>transient</strong> variable cannot be <strong>static</strong> (or it does not make a lot of sense if it is). <strong>static</strong> fields are implicitly <strong>transient</strong> and will not be serialized.</p>
 <blockquote>
 <p>Summary: use <strong>transient</strong> when an object contains sensitive-data that you do not want to transmit, or when it contains data that you can derive from other elements. <strong>static</strong> fields are implicitly <strong>transient</strong>.</p></blockquote>

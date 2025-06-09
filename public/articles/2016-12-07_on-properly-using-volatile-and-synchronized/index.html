@@ -73,7 +73,7 @@ Multithreading is an entire discipline that takes years to master and properly u
 In computing, a resource can be accessed from different threads concurrently. This can lead to inconsistency and corrupt data. A thread ThreadA accesses a resource and modifies it. In the meantime, the thread ThreadB starts accessing the same resource. Data may get corrupted since it is concurrently being modified. Let´s analyze an example without any kind of protection:">
   <meta itemprop="datePublished" content="2016-12-07T09:53:03+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:48:26+02:00">
-  <meta itemprop="wordCount" content="1011">
+  <meta itemprop="wordCount" content="1017">
   <meta itemprop="image" content="/articles/2016-12-07_on-properly-using-volatile-and-synchronized/images/1.jpeg">
 
   
@@ -83,7 +83,7 @@ Multithreading is an entire discipline that takes years to master and properly u
 In computing, a resource can be accessed from different threads concurrently. This can lead to inconsistency and corrupt data. A thread ThreadA accesses a resource and modifies it. In the meantime, the thread ThreadB starts accessing the same resource. Data may get corrupted since it is concurrently being modified. Let´s analyze an example without any kind of protection:">
   <meta itemprop="datePublished" content="2016-12-07T09:53:03+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:48:26+02:00">
-  <meta itemprop="wordCount" content="1011">
+  <meta itemprop="wordCount" content="1017">
   <meta itemprop="image" content="/articles/2016-12-07_on-properly-using-volatile-and-synchronized/images/1.jpeg">
 </head>
 <body class="flex relative h-full min-h-screen"><aside
@@ -961,25 +961,59 @@ A trend that will only continue to grow.</p>
       <p>In the last weeks I have been writing about the <a href="https://medium.com/google-developer-experts/diving-deeper-into-the-java-transient-modifier-3b16eff68f42#.tes59mm9a"  target="_blank" rel="noopener" >transient</a> modifier and the different <a href="https://medium.com/google-developer-experts/finally-understanding-how-references-work-in-android-and-java-26a0d9c92f83#.ixg2oyvhj"  target="_blank" rel="noopener" >types of references</a> available in Java. I want to hold the topic of underused/misused topics in Java and bring you this week the <strong>volatile</strong> and <strong>synchronized</strong> modifiers .</p>
 <p>Multithreading is an entire discipline that takes years to master and properly understand. We will keep a short introduction in this article.</p>
 <p>In computing, a resource can be accessed from different threads concurrently. This can lead to inconsistency and corrupt data. A thread <em>ThreadA</em> accesses a resource and modifies it. In the meantime, the thread <em>ThreadB</em> starts accessing the same resource. Data may get corrupted since it is concurrently being modified. Let´s analyze an example without any kind of protection:</p>
-<p>If you execute this command, the result is eclectic and non-deterministic. Each time you will end up with a different random output. That is because each thread execute in different instants.
-<code>Starting Thread 1 output:   Starting Thread 2 output:   Selected number is: 5   Selected number is: 4   Selected number is: 3   Selected number is: 2   Selected number is: 5   Selected number is: 4   Selected number is: 1   Selected number is: 3   Selected number is: 2   Selected number is: 1   Thread Thread 1 finishing.   Thread Thread 2 finishing.</code></p>
-<p>Both modifiers deal with multithreading and protection of code sections from threads accesses. My gut feeling is that <strong>synchronized</strong> is more widely used and understood than <strong>volatile</strong>, so I will start my article explaining how it works. We will need it as well later to understand the differences with <strong>volatile</strong>.</p>
+<p>If you execute this command, the result is eclectic and non-deterministic. Each time you will end up with a different random output. That is because each thread execute in different instants.</p>
+<pre tabindex="0"><code>Starting Thread 1 output:  
+Starting Thread 2 output:  
+Selected number is: 5  
+Selected number is: 4  
+Selected number is: 3  
+Selected number is: 2  
+Selected number is: 5  
+Selected number is: 4  
+Selected number is: 1  
+Selected number is: 3  
+Selected number is: 2  
+Selected number is: 1  
+Thread Thread 1 finishing.  
+Thread Thread 2 finishing.
+</code></pre><p>Both modifiers deal with multithreading and protection of code sections from threads accesses. My gut feeling is that <strong>synchronized</strong> is more widely used and understood than <strong>volatile</strong>, so I will start my article explaining how it works. We will need it as well later to understand the differences with <strong>volatile</strong>.</p>
 <h3 id="synchronized-modifier">synchronized modifier</h3>
 <p>The <strong>synchronized</strong> modifier can be applied to an statement block or a method. <strong>synchronized</strong> provides protection by ensuring that a crucial section of the code is never executed concurrently by two different threads, ensuring data consistency. Let´s apply the modifier <strong>synchronized</strong> in the previous example to see how it would be protected:</p>
-<p>Note that in this example we have added <strong>synchronized</strong> to the section where the function <strong>printCount()</strong> runs. If you execute now this function, the result will always be the same:
-<code>Starting Thread 1   Starting Thread 2   Selected number is: 5   Selected number is: 4   Selected number is: 3   Selected number is: 2   Selected number is: 1   Thread Thread 1 finishing.   Selected number is: 5   Selected number is: 4   Selected number is: 3   Selected number is: 2   Selected number is: 1   Thread Thread 2 finishing.</code></p>
-<p>Now that <strong>synchronized</strong> has been explained, let´s take a look on <strong>volatile</strong>.</p>
+<p>Note that in this example we have added <strong>synchronized</strong> to the section where the function <strong>printCount()</strong> runs. If you execute now this function, the result will always be the same:</p>
+<pre tabindex="0"><code>Starting Thread 1  
+Starting Thread 2  
+Selected number is: 5  
+Selected number is: 4  
+Selected number is: 3  
+Selected number is: 2  
+Selected number is: 1  
+Thread Thread 1 finishing.  
+Selected number is: 5  
+Selected number is: 4  
+Selected number is: 3  
+Selected number is: 2  
+Selected number is: 1  
+Thread Thread 2 finishing.
+</code></pre><p>Now that <strong>synchronized</strong> has been explained, let´s take a look on <strong>volatile</strong>.</p>
 <h3 id="volatile-modifier">volatile modifier</h3>
 <p>We have mentioned before that <strong>synchronized</strong> modifier could apply to blocks and methods. The first difference between them is that <strong>volatile</strong> is a modifier that can be applied to fields.</p>
 <p>A small note on how Java memory and multithreading work. When we are working with multithreading environments, each thread creates its own copy on a local cache of the variable they are dealing with. When this value is being updated, the update happens first in the local cache copy, and not in the real variable. Therefore, other threads are agnostic about the values that other threads are changing.</p>
-<p>Here <strong>volatile</strong> changes the paradigm. When a variable is declared as <strong>volatile</strong>, it will not be stored in the local cache of a thread. Instead, each thread will access the variable in the main memory and other threads will be able to access the updated value. Let´s compare all the methods for a proper understanding:
-``int firstVariable;<br>
-int getFirstVariable() {return firstVariable;}</p>
-<p>volatile int secondVariable;<br>
-int getSecondVariable() {return secondVariable;}</p>
-<p>int thirdVariable;<br>
-synchronized int getThirdVariable() {return thirdVariable;}``</p>
-<p>The first method is non-protected. A thread T1 will access the method, create its own local copy of <em>firstVariable</em> and play with it. In the meantime, T2 and T3 can also access <em>firstVariable</em> and modify its value. T1, T2 and T3 will have their own values of <em>firstVariable</em>, which might not be the same and that have not been copied to the Main memory of java, where the real results are hold.</p>
+<p>Here <strong>volatile</strong> changes the paradigm. When a variable is declared as <strong>volatile</strong>, it will not be stored in the local cache of a thread. Instead, each thread will access the variable in the main memory and other threads will be able to access the updated value. Let´s compare all the methods for a proper understanding:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd">int</span> firstVariable;  
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">getFirstVariable</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> firstVariable;
+</span></span><span style="display:flex;"><span>}  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">volatile</span> <span style="color:#8be9fd">int</span> secondVariable;  
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">getSecondVariable</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> secondVariable;
+</span></span><span style="display:flex;"><span>}  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> thirdVariable;  
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">synchronized</span> <span style="color:#8be9fd">int</span> <span style="color:#50fa7b">getThirdVariable</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> thirdVariable;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The first method is non-protected. A thread T1 will access the method, create its own local copy of <em>firstVariable</em> and play with it. In the meantime, T2 and T3 can also access <em>firstVariable</em> and modify its value. T1, T2 and T3 will have their own values of <em>firstVariable</em>, which might not be the same and that have not been copied to the Main memory of java, where the real results are hold.</p>
 <p><em>getSecondVariable()</em>, on the other hand, accesses a variable that has been declared as <strong>volatile</strong>. That means, each thread is still able to access the method or block since it has not been protected with <strong>synchronized</strong>, but they will all access the same variable from the main memory, and will not create their own local copy. Each thread will be accessing the same value.</p>
 <p>And as we can imagine from the previous examples, getThirdVariable() will only be accessed from one thread at a time. That ensures that the variable will remained synchronized throughout all the threads executions.</p>
 <h3 id="usefulness-of-volatile-and-synchronized">Usefulness of volatile and synchronized</h3>
