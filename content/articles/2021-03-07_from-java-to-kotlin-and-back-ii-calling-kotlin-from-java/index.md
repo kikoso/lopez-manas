@@ -31,16 +31,29 @@ In the previous article, we explored how Java and Kotlin can interact with each 
 Likely the first Kotlin feature highlighted when we heard about the language, data classes. Data classes are mainly thought to hold data with some extra functionality allowed, and hence called Data classes. We like them because they automatically generate some functions (getters, setters, `toString()`, `copy()`, `equals()` and `hashCode()`), which otherwise we need to manually create. For instance, a data class containing just `var name : String` will compile into the following in Java:
 
 
-Data class compiled in Java
+```Java
+private String name;
 
+public String getName() {
+    return name;
+}
+
+public void setName(String name) {
+    this.name = name;
+}
+```
 
 
 If the name of the var starts with is, then the resulting getter will start with the prefix is. For instance. if we have `var isYoung: Boolean`, the resulting setter will be:
 
 
-Resulting setter of an “is” attribute
+```Java
+private boolean isYoung;
 
-
+public bool isYoung() {
+    return isYoung;
+}
+```
 
 Keep in mind that this does not only work for boolean types, but for any type.
 
@@ -51,16 +64,30 @@ We explored in the previous article some usages for `@JvmName`, and I would like
 For instance, whereas Kotlin supports Optional values, in Java we do not really name it that way. So if we are designing extension functions that might be called for Java, we might want to provide them a different name so they are idiomatic enough for our Java code. Let’s check the following code:
 
 
-Kotlin class with idiomatic naming
+```Kotlin
+sealed class Optional
+data class Some(val value: T): Optional()
+object None : Optional()
+
+@JvmName("ofNullable")
+fun  T?.asOptional() = if (this == null) {
+                         None 
+                      } else {
+                         Some(this)
+                      }
+```
 
 
 
 `asOptional `will likely confuse our Java peers, and what they are looking for underneath is whether a variable is potentially nullable or not. Hence, we specify `@JvmName(“ofNullable”)`, to change the resulting JVM name. This will be called as follows in Java:
 
 
-Java calling JvmName function
-
-
+```Kotlin
+public void getNullable {
+    String nullableString = "myNullableString";
+    Optional optionalString = Optionals.ofNullable(nullableString);
+}
+```
 
 Note also that Java can access the different types of the sealed class.
 
@@ -70,27 +97,45 @@ Since Java 1.8, Java interfaces can contain default methods. Without getting too
 
 If we want to make all non-abstract members of a Kotlin interface becoming default for any Java class that implements them, we need to compile the code with the following option:
 
-`-Xjvm-default=all`
+```
+-Xjvm-default=all
+```
 
 Let’s see this in practice. Consider the following interface with a default method and that we are compiling with `-Xjvm-default=all`:
 
 
-Default interface Kotlin
+```Kotlin
+// We have used -Xjvm-default=all to compile this class.
+
+interface MyInterface {
+    fun functionA() { println("This function is default") }
+    fun functionB(): Unit
+}
+```
 
 
 
 This will be implemented in a Java class as follows:
 
 
-Java class implementing default interface
-
-
+```Kotlin
+public class MyClass implements MyInterface {
+    // functionA() is implicitly available
+    
+    @Override
+    public void functionB() {
+        System.out.println("I am the functionB, overriding the one in the interface");
+    }
+}
+```
 
 And of course, Java will be able to call all the functions of the interface:
 
-
-Java class calling default methods
-
+```Java
+MyClass myClass = new MyClass();
+myClass.functionA(); // This function is the default implementation contained in the Kotlin interface
+myClass.functionB();
+```
 
 
 An interesting tweak is that, of course, Java can also override all the default functions. So if in our example, `functionA()`needs to have a custom implementation in the class implementing it, we can safely override it.
@@ -99,10 +144,11 @@ An interesting tweak is that, of course, Java can also override all the default 
 
 Occasionally we might want to rename our getters and setters. A typical case is when returning an attribute can be composed by operations on some other attributes (for instance, something like returning a name with `getName()` that adds some sort of prefix or evaluation to determine the complete string being returned). We can easily do it with the annotations `@get:JvmName` and `@set:JvmName`as follows:
 
-
-Changing getters and setters
-
-
+```Kotlin
+@get:JvmName("name")
+@set:JvmName("getFullName")
+var name: String
+```
 
 ### Null-safety
 
@@ -113,7 +159,13 @@ Kotlin is null-safe, Java is not null safe. When we are calling Kotlin functions
 Or technically, not using it, since there is no natural counterpart in the Java world. In fact, it is interesting because java Void accepts null, but Nothing doesn’t. It is in fact a complex problem in Computer Science that we can philosophically tackle in another tackle, since we are trying to represent nothing with something, and we are biological creatures that deal with physical manifestation of items in our world. Leaving nothingness aside, the Nothing type gets represented with a raw type in Java, so keep this in mind when working with Nothing:
 
 
-Nothing in Java
+```Java
+fun emptyList(): List<Nothing> = listOf()
+
+// translates to
+
+List emptyList()
+```
 
 
 

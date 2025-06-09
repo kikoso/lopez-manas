@@ -30,7 +30,19 @@ HTTP requests are executed using different frameworks on Android. The most commo
 Simplifying the underlying network operations, and after identifying the IP address of the computer hosting the requested URL, an HTTP request looks like follows:
 
 
-
+```
+OkHttpClient: --> GET https://api.yourserver.com/sandbox/v1/example/23aa13d2-b161-432d-a67e-c50e8783f7dd http/1.1
+OkHttpClient: X-apikey: AATR1oqYAZzp6o6ndALfIk6GG1dOcDED
+OkHttpClient: Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRw...
+OkHttpClient: Accept-Language: en-US
+OkHttpClient: Connection: close
+OkHttpClient: Accept: application/json
+OkHttpClient: Accept-Charset: UTF-8
+OkHttpClient: User-Agent: Ktor client
+OkHttpClient: Host: api.yourserver.com
+OkHttpClient: Accept-Encoding: gzip
+OkHttpClient: --> END GET
+```
 
 The HTTP request contains (among others) the following fields:
 
@@ -64,12 +76,36 @@ However, there might be cases where it is more convenient to use an HTTP Streame
 
 Ktor supports this relatively out-of-the-box. The following snippet is able to execute a streamed request from a given API:
 
+```Kotlin
+fun main() {
+    val client = HttpClient(CIO)
+    val file = File.createTempFile("files", "index")
 
+
+    runBlocking {
+        client.prepareGet("https://api.example.com").execute { httpResponse ->
+            val channel: ByteReadChannel = httpResponse.body()
+            while (!channel.isClosedForRead) {
+                val packet = channel.readRemaining(DEFAULT_BUFFER_SIZE.toLong())
+                while (!packet.isEmpty) {
+                    val bytes = packet.readBytes()
+                    file.appendBytes(bytes)
+                    println("Received ${file.length()} bytes from ${httpResponse.contentLength()}")
+                }
+            }
+            println("A file saved to ${file.path}")
+        }
+    }
+}
+```
 
 
 To verify that this is working, you can execute a cURL against the streaming API, using a command similar to the one below:
 
+```
+curl --location --request GET 'https://api.example.com' --header 'X-apikey: yourAPIkey' --raw
 
+```
 
 
 When you execute this, there is an interesting twist in the story. You will be able to see the response from the backend as you normally see it, but this time each chunk will be separated by a number, specifying the size of the next chunk:

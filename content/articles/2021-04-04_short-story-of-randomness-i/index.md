@@ -25,7 +25,10 @@ How can we be sure that a number is random? Will observing the process mine our 
 
 When I participate in meetups or conferences as an organizer, there is one simple game I like to practice at the end of the session, and it is developing a script together with the audience that selects a random participant eligible for a gift (a cup, a t-shirt, etc… any swag generally provided by the hosting organization). The list of participants usually comes in a .CSV file, and coming from the Java world live-coding this can be a daunting task: opening streams, closing them… Damn, I am myself scared of even trying this on stage. However, in Kotlin the solution is rather simple:
 
-
+```Kotlin
+File("path/to/file.csv").readLines().
+                         get(Random.nextInt(File("path/to/file.csv").readLines().size)
+```
 
 
 (except the part of guessing how to specify the path, which is impossible to get right at the first try).

@@ -43,7 +43,18 @@ The following sample uses two separate random generators, both seeded with the s
 
 Because the seeds are the same, both random number generators will generate the same sequence of random numbers (at least initially). But since they’re passed independently to different portfolio simulations, they stay in sync but separate. Good for a fair comparison.
 
+```Kotlin
+val rng1 = Random(123)
+val rng2 = Random(123)
 
+val accumulatedResults = (1..simulations).map {
+    val accumulatedReturnsA = simulatePortfolioAccumulatedReturns(portfolioA, rng1)
+    val accumulatedReturnsB = simulatePortfolioAccumulatedReturns(portfolioB, rng2)
+
+    SimulationResult(it, accumulatedReturnsA, accumulatedReturnsB)
+}
+
+```
 
 
 The following snippet uses asingle Random instance, seeded with the current time. So: no reproducibility . Results change on every run.
