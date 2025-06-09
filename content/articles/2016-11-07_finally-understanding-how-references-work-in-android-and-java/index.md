@@ -35,25 +35,34 @@ Java has by default 4 types of references: **strong**, **soft**, **weak** and **
 What does each type of reference mean?
 
 **Strong reference:** strong references are the ordinary references in Java. Anytime we create a new object, a strong reference is by default created. For example, when we do:
-`MyObject object = new MyObject();`
+```Java
+MyObject object = new MyObject();`
+```
 
 A new object _MyObject_ is created, and a strong reference to it is stored in _object_. Easy so far, are you still with me? Well, now more interesting things are coming. This _object_ is **strongly reachable** — that means, it can be reached through a chain of strong references. That will prevent the Garbage Collector of picking it up and destroy it, which is what we mostly want. But now, let´s see an example where this can play against us.
-`public class MainActivity extends Activity {``    @Override  
+
+```Java
+public class MainActivity extends Activity {
+    @Override  
     protected void onCreate(Bundle savedInstanceState) {     
         super.onCreate(savedInstanceState);  
         setContentView(R.layout.main);  
         new MyAsyncTask().execute();  
     }  
 
-    private class MyAsyncTask extends AsyncTask {``        @Override  
+    private class MyAsyncTask extends AsyncTask {
+        @Override  
         protected Object doInBackground(Object[] params) {  
             return doSomeStuff();  
-        }``        private Object doSomeStuff() {  
+        }
+        
+        private Object doSomeStuff() {  
             //do something to get result  
             return new MyObject();  
         }   
     }  
-}`
+}
+```
 
 Take a few minutes and try to spot any approach susceptible of problems.
 
@@ -71,22 +80,33 @@ The memory leak actually happens not only when the _Activity_ is destroyed _per-
 So how can prevent this problem from ever happening again? Let´s explain the other type of references:
 
 **WeakReference**: a weak reference is a reference not strong enough to keep the object in memory. If we try to determine if the object is strongly referenced and it happened to be through _WeakReferences_, the object will be garbage-collected. For terms of understanding, is better to kill the theory and show as a practical example how could we adapt the previous code to use a _WeakReference_ and avoid a memory leak:
-`public class MainActivity extends Activity {``    @Override  
+
+```Java
+public class MainActivity extends Activity {
+    @Override  
     protected void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
         new MyAsyncTask(this).execute();  
-    }``    private static class MyAsyncTask extends AsyncTask {  
+    }
+    
+        private static class MyAsyncTask extends AsyncTask {  
         private WeakReference&lt;MainActivity&gt; mainActivity;      
 
         public MyAsyncTask(MainActivity mainActivity) {     
             this.mainActivity = new WeakReference&lt;&gt;(mainActivity);              
-        }``        @Override  
+        }
+        
+        @Override  
         protected Object doInBackground(Object[] params) {  
             return doSomeStuff();  
-        }``        private Object doSomeStuff() {  
+        }
+        
+        private Object doSomeStuff() {  
             //do something to get result  
             return new Object();  
-        }``        @Override  
+        }
+        
+        @Override  
         protected void onPostExecute(Object object) {  
             super.onPostExecute(object);  
             if (mainActivity.get() != null){  
@@ -94,10 +114,13 @@ So how can prevent this problem from ever happening again? Let´s explain the ot
             }  
         }  
     }  
-}`
+}
+```
 
 Note a main difference now: the Activity within the inner class is now referenced as follows:
-`private WeakReference&lt;MainActivity&gt; mainActivity;`
+```Java
+private WeakReference&lt;MainActivity&gt; mainActivity;
+```
 
 What will happen here? When the Activity stops existing, since it is hold through the means of a WeakReference, it can be collected. Therefore no memory leaks will happen.
 > **Side note:** now that you hopefully understand what WeakReferences are a little bit better, you will find useful the class WeakHashMap. It works exactly as a HashMap, except that the keys (key, not values) are referred to using WeakReferences. This makes them very useful to implement entities such as caches.

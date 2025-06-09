@@ -32,7 +32,8 @@ You will agree with me: the theory is quite easy, but we initially fail to see t
 My intention with this article is to help you break this vicious cycle. Let´s check a few practical examples.
 
 Think of an **User** object. This **User** contains among all its properties _login_, _email_ and _password_. When the data is being serialized and transmitted through the network, we can think of a few security reasons why we would not like to send the field _password_ altogether with the entire object. In this case, marking the field as **transient** will solve this security problem. How would this look like in code?
-``@Data      
+```Java
+@Data      
 @NoArgsConstructor  
 @AllArgsConstructor  
 public class User implements Serializable {  
@@ -48,7 +49,8 @@ public class User implements Serializable {
         System.out.println(&#34;Email is: &#34; + email);  
         System.out.println(&#34;Password is: &#34; + password);  
     }  
-}``
+}
+```
 
 Note that this object is implementing the Interface _Serializable_, which is compulsory when you intend to serialize an object. If this interface is not implemented, you will receive a _NotSerializableException_. Note as well the declared field _serialVersionUID_. If you use any of the major Development Environments or Eclipse it will generally be recreated automatically.
 
@@ -58,7 +60,9 @@ If you serialise and then deserialize now an object of type User, the value pass
 There is another use case I can think of when using **transient** modifiers: when an object is being derived of another. In that case, we can make our code more efficient by making the derived field **transient**.
 
 Let´s take a look at this piece of code:
-``@Data      
+
+```Java
+@Data      
 @NoArgsConstructor  
 @AllArgsConstructor  
 public class GalleryImage implements Serializable {````    private static final long serialVersionUID = 123456789L;  
@@ -75,7 +79,8 @@ public class GalleryImage implements Serializable {````    private static final 
         inputStream.defaultReadObject();  
         generateThumbnail();  
     }      
-}``
+}
+```
 
 In this case, the class contains a main _image_ and a _thumbnailImage_ field. The latest field will derive from the former. If we can make the _thumbnailImage_ **transient** our code we will be more efficient: a field that derives from another one will not be conveyed when the object has been serialized.
 
