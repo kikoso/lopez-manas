@@ -54,6 +54,11 @@ Part of the magic of how Firebase achieves this is also the simplicity in the co
 
 For the sake of simplicity, this tutorial will provide the code for Android. As you may know, Firebase do provide SDKs for iOS and the web with an equal plethora of simplicity. Let’s see (configuration and setup of our application aside) how could we write a value in the Real Time Database (RTD from now on)
 
+```Java
+FirebaseDatabase database = FirebaseDatabase.getInstance();
+DatabaseReference myRef = database.getReference("message");
+myRef.setValue("Hello, World!");
+```
 
 
 
@@ -65,7 +70,10 @@ If we execute this code in our client, the RTD will reflect the changes in its s
 With Firebase we can also push nodes into our RTD. That way, the RTD generates a unique key:
 
 
-
+```Java
+FirebaseDatabase database = FirebaseDatabase.getInstance();
+database.getReference().push().setValue("Hello world");
+```
 
 Which also creates the result in RTD, this time with a unique key as an ID:
 
@@ -75,12 +83,26 @@ Which also creates the result in RTD, this time with a unique key as an ID:
 I have previously mentioned that apps get notified wherever data has been changed in the RTD out of the box. With the following code, we will subscribe to any value that is changed in the specified node (in this case, the node “message”):
 
 
+```Java
+FirebaseDatabase database = FirebaseDatabase.getInstance();
+DatabaseReference myRef = database.getReference("message");
+myRef.addValueEventListener(new ValueEventListener() {
+  @Override
+	public void onDataChange(DataSnapshot dataSnapshot) {
+	  Log.i("MyApp","Data changed");
+	}
 
+	@Override
+	public void onCancelled(DatabaseError databaseError) {
+	  Log.i("MyApp","Data canceled");
+	}
+});
+```
 
 As you can see in the following video, the app gets automatically notified when a value has been changed:
 
 
-
+{{< youtube 5cSNT_7Mw6Q >}}
 
 
 

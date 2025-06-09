@@ -51,7 +51,35 @@ Easy peasy. If you are in the Java arena, now you can come up with a few clues o
 
 Check in this example how it can look like:
 
+```Java
+public final class Star {
 
+  /**
+   * Final and private attributes
+   */
+  private final double mass;
+  private final String name;
+  private final Date dateOfDiscovery;
+    
+  public Star (double aMass, String aName, Date aDateOfDiscovery) {
+     mass = aMass;
+     name = aName;
+     dateOfDiscovery = new Date(aDateOfDiscovery.getTime());
+  }
+
+  public double getMass() {
+    return mass;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public Date getDateOfDiscovery() {
+    return new Date(dateOfDiscovery.getTime());
+  }
+}
+```
 
 
 We have covered the theoretical part. Now we have formally put the knowledge in paper. What can we do now with this?
