@@ -70,7 +70,7 @@ How can we be sure that a number is random? Will observing the process mine our 
 How can we be sure that a number is random? Will observing the process mine our efforts on generating the random number, similar to the observation of a cat inside a box with a decaying radioactive atom? Despite the potential complexity of generating random numbers, we can provide an initially simple method to generate them.">
   <meta itemprop="datePublished" content="2021-04-04T07:17:45+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:11+02:00">
-  <meta itemprop="wordCount" content="668">
+  <meta itemprop="wordCount" content="670">
   <meta itemprop="image" content="/articles/2021-04-04_short-story-of-randomness-i/images/1.jpeg">
   <meta itemprop="image" content="/articles/2021-04-04_short-story-of-randomness-i/images/2.png">
 
@@ -80,7 +80,7 @@ How can we be sure that a number is random? Will observing the process mine our 
 How can we be sure that a number is random? Will observing the process mine our efforts on generating the random number, similar to the observation of a cat inside a box with a decaying radioactive atom? Despite the potential complexity of generating random numbers, we can provide an initially simple method to generate them.">
   <meta itemprop="datePublished" content="2021-04-04T07:17:45+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:11+02:00">
-  <meta itemprop="wordCount" content="668">
+  <meta itemprop="wordCount" content="670">
   <meta itemprop="image" content="/articles/2021-04-04_short-story-of-randomness-i/images/1.jpeg">
   <meta itemprop="image" content="/articles/2021-04-04_short-story-of-randomness-i/images/2.png">
 </head>
@@ -959,7 +959,9 @@ A trend that will only continue to grow.</p>
       <p>I have always been fascinated by the above comic strip. A discussion on randomness and determinism becomes as much a philosophical issue as it is a practical one. They are used in a variety of applications: from the obvious cryptography, gaming or gambling to the less evident politics or arts.</p>
 <p>How can we be sure that a number is random? Will observing the process mine our efforts on generating the random number, similar to the observation of a cat inside a box with a decaying radioactive atom? Despite the potential complexity of generating random numbers, we can provide an initially simple method to generate them.</p>
 <p>When I participate in meetups or conferences as an organizer, there is one simple game I like to practice at the end of the session, and it is developing a script together with the audience that selects a random participant eligible for a gift (a cup, a t-shirt, etc… any swag generally provided by the hosting organization). The list of participants usually comes in a .CSV file, and coming from the Java world live-coding this can be a daunting task: opening streams, closing them… Damn, I am myself scared of even trying this on stage. However, in Kotlin the solution is rather simple:</p>
-<p>(except the part of guessing how to specify the path, which is impossible to get right at the first try).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>File(<span style="color:#f1fa8c">&#34;path/to/file.csv&#34;</span>).readLines().
+</span></span><span style="display:flex;"><span>                         <span style="color:#ff79c6">get</span>(<span style="color:#50fa7b">Random</span>.nextInt(File(<span style="color:#f1fa8c">&#34;path/to/file.csv&#34;</span>).readLines().size)
+</span></span></code></pre></div><p>(except the part of guessing how to specify the path, which is impossible to get right at the first try).</p>
 <p>While playing this little game, very often the name of a participant comes up twice, so we jokingly express our doubts on whether the process is being truly random, or the randomness algorithm has been tweaked to favor one individual and let him/her go back home with all the swag. Developing on stage an algorithm that is able to provide a random number might require more time than using <em>java.util.Random</em>. However, we can dive into it before the stage event, and understand how randomness is implemented in Java.</p>
 <p><a href="https://hg.openjdk.java.net/jdk8/jdk8/jdk/file/tip/src/share/classes/java/util/Random.java"  target="_blank" rel="noopener" >OpenJDK</a> provides the open-source code of <em>java.util.Random</em>, and it is quite interesting to see how it works. It uses a <a href="https://en.wikipedia.org/wiki/Linear_congruential_generator"  target="_blank" rel="noopener" >48-bit LCG generator</a>, based on the chapter of <a href="https://www.informit.com/articles/article.aspx?p=2221790"  target="_blank" rel="noopener" >The Art of Computer Programming</a> by Donald Knuth. An LCG generator uses a formula similar to the following one:</p>
 <p><img src="/articles/2021-04-04_short-story-of-randomness-i/images/2.png#layoutTextWidth" alt="image">
