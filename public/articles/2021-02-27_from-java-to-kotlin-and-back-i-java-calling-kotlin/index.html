@@ -78,7 +78,7 @@ From Java to Kotlin and back (III): Calling Java from Kotlin
 I am currently working on a multi-module project that combines a variety of Java and Kotlin code, so I decided to publish my thought and notes as an article series. It will likely help me as a journaling practice, and hopefully can help other potential readers that end up here trying to find some tips while they are facing the same problem.">
   <meta itemprop="datePublished" content="2021-02-27T14:15:22+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:00+02:00">
-  <meta itemprop="wordCount" content="1681">
+  <meta itemprop="wordCount" content="1691">
   <meta itemprop="image" content="/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/1.jpeg">
   <meta itemprop="image" content="/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/2.png">
 
@@ -90,7 +90,7 @@ From Java to Kotlin and back (III): Calling Java from Kotlin
 I am currently working on a multi-module project that combines a variety of Java and Kotlin code, so I decided to publish my thought and notes as an article series. It will likely help me as a journaling practice, and hopefully can help other potential readers that end up here trying to find some tips while they are facing the same problem.">
   <meta itemprop="datePublished" content="2021-02-27T14:15:22+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:00+02:00">
-  <meta itemprop="wordCount" content="1681">
+  <meta itemprop="wordCount" content="1691">
   <meta itemprop="image" content="/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/1.jpeg">
   <meta itemprop="image" content="/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/2.png">
 </head>
@@ -1120,8 +1120,12 @@ Converting from Java to Kotlin in IntelliJ-based IDEs.</p>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Annotating the companion value with <code>@JvmField</code>will result again in a Java code much more comprehensive:</p>
-<p>Companion constant in Java</p>
-<p>If you wonder how this looks like if we use the <code>@JvmStatic</code>annotation, this is the generated access for Java:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">JavaClass</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">main</span>(String... args) {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#50fa7b">out</span>.<span style="color:#50fa7b">println</span>(KotlinClass.<span style="color:#50fa7b">get_PI</span>());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>If you wonder how this looks like if we use the <code>@JvmStatic</code>annotation, this is the generated access for Java:</p>
 <p>Companion constant using JvmStatic annotation</p>
 <h4 id="summary">Summary</h4>
 <p>The following article presents some tips for interoperability between Java and Kotlin from the Kotlin perspective (i.e., how Kotlin code must prepare itself in order to facilitate efficient access to the Java side of things. In the upcoming article we will keep exploring what do we need to do on our Kotlin code.</p>
