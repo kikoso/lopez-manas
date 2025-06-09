@@ -44,7 +44,8 @@ Library structure including a module using an internal model
 You could name the package of the model as internal (for instance, **my.package.internal.models**). This is a common industry practice, and it *should* discourage the usage of those classes. For instance, [Retrofit] (https://github.com/square/retrofit/search?q=internal)or [OkHttp] (https://github.com/square/okhttp/search?q=internal)have the same naming for their internal classes.
 
 Since Kotlin 1.4 there is an Explicit API mode, that enforces to operate on a short of library mode. In order to activate it, write the following on your Gradle file:
-`kotlin {      
+```Gradle
+kotlin {      
     // for strict mode       
     explicitApi()       
     // or     
@@ -54,7 +55,8 @@ Since Kotlin 1.4 there is an Explicit API mode, that enforces to operate on a sh
      explicitApiWarning()       
     // or  
    explicitApi = **&#39;warning&#39;**   
-}`
+}
+```
 
 The setup is fairly straightforward: one mode will be strict and trigger errors, and the less strict mode will trigger warnings.
 
@@ -67,19 +69,26 @@ Kotlin should not be a strange word for you anymore. And this means that you sho
 #### Package level functions
 
 Since Java does not allow standalone functions outside classes, all the standalone functions or properties that you declare in a file **file.kt** will be compiled as static methods of a class called org.file.FileKt:
-`// file.kt  
+```Kotlin
+// file.kt  
 package org.file``class MyUtils``fun getLocale()`
 
 This would compile in a Java class like the following:
-`new org.file.MyUtils();  
-org.file.AppKt.getLocale();`
+
+```Java
+new org.file.MyUtils();  
+org.file.AppKt.getLocale();
+```
 
 Of course, having the classes automatically named is something that we want to avoid. By using the annotation `[@JvmName](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html) `we can specify the name of the destination class:
 
-
-Using JvmName annotation
-
-
+```Kotlin
+@file:JvmName("ClassName")
+ 
+ package org.file
+ class MyUtils
+ fun getLocale()
+```
 
 You can also use `file:JvmMultifileClass` to combine the top-level members from multiple files into a single class.
 
@@ -95,15 +104,27 @@ Java does not support default parameters, so what happens when we call these fun
 
 Let’s consider the following fictional function in Kotlin:
 
-
-Using JvmOverloads annotation
+```Kotlin
+ @JvmOverloads
+     fun getStops(
+        latitude: Double,
+        longitude: Double = 0.0,
+        radiusInMeters: Int = 100
+    ) 
+```
 
 
 
 The function is using the annotation `@JvmOverloads,`and it also has two default parameters as arguments. From a Java point of view, this function will compile as follows:
 
 
-How the function compiles in Java when using JvmOverloads
+```Java
+void getStops(double latitude, double longitude, int radiusInMeters)
+ 
+void getStops(double latitude, double longitude)
+  
+void getStops(double latitude)
+```
 
 
 
@@ -116,39 +137,56 @@ A Kotlin type with a generic parameter `Nothing` is exposed as a raw type in Jav
 #### Companion functions and constants
 
 When Companion functions and constants are rawly compiled and accessed from Java, they are only available as instance methods on a static Companion field. For instance, the following Kotlin class:
-`class KotlinClass {  
+
+```Kotlin
+class KotlinClass {  
     companion object {  
-        fun function() {``        }  
+        fun function() {
+
+        }  
     }  
-}`
+}
+```
 
 is exposed as follows in Java:
-`public final class JavaClass {  
+
+```public final class JavaClass {  
     public static void main(String... args) {  
         KotlinClass.Companion.function();  
     }  
-}`
+}
+```
 
 Using a `@JvmStatic` annotation for the function makes the compiled code cleaner:
-`public final class JavaClass {  
+
+```Java
+public final class JavaClass {  
     public static void main(String... args) {  
         KotlinClass.function();  
     }  
-}`
+}
+```
 
 For companion constants, is better to use the annotation`@JvmField`, since `@JvmStatic`creates a weird getter. For instance, consider the following companion constant:
-`class KotlinClass {  
+
+```Kotlin
+class KotlinClass {  
     companion object {  
         const val PI = 3.14  
     }  
-}`
+}
+```
 
 Annotating the companion value with `@JvmField`will result again in a Java code much more comprehensive:
-`public final class JavaClass {  
+
+
+```Java
+public final class JavaClass {  
     public static void main(String... args) {  
         System.out.println(KotlinClass.PI);  
     }  
-}`
+}
+```
 
 ### Exposing resources
 
@@ -157,7 +195,11 @@ Something that some folks are not aware of is that, by default, all the resource
 A good practice is to make public only a string specifying the library name. Do this when you start developing your app, and you will not have to worry about the external visibility of your resources anymore (that is, unless you really want to make them public).
 
 
-Exposing resources via XML
+```Xml
+<resources>
+    <public name="lib_app_name" type="string"/>
+</resources>
+```
 
 
 
@@ -174,10 +216,13 @@ There is no silver bullet here, and a few strategies to solve this issue.
 A. AAR file can be generated including all the dependencies it needs. This is not done automatically out of the box by the .AAR file, and needs to be somehow hacked.
 
 You can add and call a Gradle task that copies all the dependencies into the .AAR when this is packed:
-``task copyLibs(type: Copy) {  
+
+```
+task copyLibs(type: Copy) {  
     from configurations.compile  
     into &#39;libs&#39;  
-}``
+}
+```
 
 There is a facilitation plugin, [fat-aar](https://github.com/kezong/fat-aar-android), that ameliorates this task. It does a few more things, but I found it a bit unstable (by the time I have to release a new library version, a new Gradle version is also available that generally breaks the plugin).
 
@@ -186,9 +231,11 @@ There is a facilitation plugin, [fat-aar](https://github.com/kezong/fat-aar-andr
 Also known as hell. Let’s say that your main app includes a **RandomLibrary** version 2.1. The app needs to include your **FancyLibrary**, which includes the version 3.1 of **RandomLibrary**, with a lot of breaking changes. You might need to force the resolution of a particular version, or remove some libraries from the build. In projects heavily modularised this can exponentially increase the complexity of your build script.
 
 The following Gradle lines can exclude a library from the build:
-``implementation(&#39;com.package.fancylibrary:1.0.0&#39;) {  
-  exclude group: &#39;com.package.randomlibrary&#39;, module: &#39;randommodule&#39;  
-}``
+```
+implementation('com.package.fancylibrary:1.0.0') {
+  exclude group: 'com.package.randomlibrary', module: 'randommodule'
+}
+```
 
 **Summary**
 
