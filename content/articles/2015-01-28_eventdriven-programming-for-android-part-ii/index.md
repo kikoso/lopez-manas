@@ -44,21 +44,27 @@ Everything is clear with a practical view, so let’s see how this fits a basic 
 #### The hosting Activity
 
 The hosting Activity will need to register in its method onCreate the EventBus.
-`EventBus.getDefault().register(this);`
+```Java
+EventBus.getDefault().register(this);`
+```
 
 The hosting Activity will be now ready to read data from the bus. We also need to unregister the bus in the method onDestroy
 
 ```Java
 EventBus.getDefault().unregister(this);
+```
 
 The Activity will be capturing two different events: one to update the ActionBar title and another one to load the first fragment. We will write two methods onEvent that will handle the events:
 
 ```Java
 public void onEvent(ShowFragmentEvent event) {  
     getFragmentManager().beginTransaction().replace(R.id.container, event.getFragment()).addToBackStack(null).commit();  
- }``public void onEvent(UpdateActionBarTitleEvent e) {  
+ }
+ 
+ public void onEvent(UpdateActionBarTitleEvent e) {  
     getActionBar().setTitle(e.getTitle());   
 }
+```
 
 #### The Events
 
@@ -68,10 +74,13 @@ Each event needs to be declared in its class. The events can contain variables w
 public final class ShowFragmentEvent {  
  private Fragment fragment;``  public ShowFragmentEvent(Fragment fragment) {  
     this.fragment = fragment;  
-  }``  public Fragment getFragment() {  
+  }
+
+public Fragment getFragment() {  
     return fragment;  
   }  
 }
+```
 
 #### The Fragments
 
@@ -84,6 +93,7 @@ Now let’s create some more action. The first Fragment will open the second one
  public void firstButtonClick() {  
     EventBus.getDefault().post(new ShowFragmentEvent(new SecondFragment()));  
  }
+```
 
 Note that here I am using annotations from [ButterKnife](https://github.com/JakeWharton/butterknife). It produces a much cleaner and neater code. If you haven’t used it yet, you should start now.
 
@@ -91,6 +101,7 @@ The button of the second Fragment will send an event to the EventBus to change t
 
 ```Java
 EventBus.getDefault().post(new UpdateTextEvent(getString(R.string.text_updated)));
+```
 
 The second Fragment also needs to listen to this event, so when it is received it can change the text accordingly.
 
@@ -98,6 +109,7 @@ The second Fragment also needs to listen to this event, so when it is received i
 public void onEvent(UpdateTextEvent event) {  
     textView.setText(event.getTitle());   
 }
+```
 
 We have a basic application with two Fragments that communicate between them with Events, and a Fragment that gets updated through Events. I have uploaded the code to [GitHub](https://github.com/kikoso/eventbus-sample), so you can check it out and take a look.
 
