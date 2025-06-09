@@ -73,7 +73,7 @@ I have been an avid user of Firebase since more than a year now. When Parse.com 
 I have been an avid user of Firebase since more than a year now. When Parse.com announced it would be shutting off, I was attending a Google Launchpad in Mountain View as a mentor. If you haven’t heard of the Google Launchpads, they are great. Not only for the startups, which get a fair amount of advising and mentoring from people in different fields (UX, Tech, Marketing, Monetizing and Fund raising…) but also for mentors itself! Besides getting to know what top-notch startups are doing around the world and helping them, we also get to talk with each other and get to know first hand what other folks are experiencing too. It ressembles a swinging party where knowledge is the currency to be exchanged. It has always been one of those events where you wake up early and excited, just thinking of following up with all the people you have met the previous day.">
   <meta itemprop="datePublished" content="2017-04-24T01:58:31+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:48:43+02:00">
-  <meta itemprop="wordCount" content="1561">
+  <meta itemprop="wordCount" content="1607">
   <meta itemprop="image" content="/articles/2017-04-24_using-firebase-as-a-real-time-system/images/1.jpeg">
   <meta itemprop="image" content="/articles/2017-04-24_using-firebase-as-a-real-time-system/images/2.png">
   <meta itemprop="image" content="/articles/2017-04-24_using-firebase-as-a-real-time-system/images/3.png">
@@ -86,7 +86,7 @@ I have been an avid user of Firebase since more than a year now. When Parse.com 
 I have been an avid user of Firebase since more than a year now. When Parse.com announced it would be shutting off, I was attending a Google Launchpad in Mountain View as a mentor. If you haven’t heard of the Google Launchpads, they are great. Not only for the startups, which get a fair amount of advising and mentoring from people in different fields (UX, Tech, Marketing, Monetizing and Fund raising…) but also for mentors itself! Besides getting to know what top-notch startups are doing around the world and helping them, we also get to talk with each other and get to know first hand what other folks are experiencing too. It ressembles a swinging party where knowledge is the currency to be exchanged. It has always been one of those events where you wake up early and excited, just thinking of following up with all the people you have met the previous day.">
   <meta itemprop="datePublished" content="2017-04-24T01:58:31+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:48:43+02:00">
-  <meta itemprop="wordCount" content="1561">
+  <meta itemprop="wordCount" content="1607">
   <meta itemprop="image" content="/articles/2017-04-24_using-firebase-as-a-real-time-system/images/1.jpeg">
   <meta itemprop="image" content="/articles/2017-04-24_using-firebase-as-a-real-time-system/images/2.png">
   <meta itemprop="image" content="/articles/2017-04-24_using-firebase-as-a-real-time-system/images/3.png">
@@ -984,13 +984,35 @@ A trend that will only continue to grow.</p>
 </ol>
 <p>Part of the magic of how Firebase achieves this is also the simplicity in the code. You do not need to spend hours coding. This can literally be achieved within minutes.</p>
 <p>For the sake of simplicity, this tutorial will provide the code for Android. As you may know, Firebase do provide SDKs for iOS and the web with an equal plethora of simplicity. Let’s see (configuration and setup of our application aside) how could we write a value in the Real Time Database (RTD from now on)</p>
-<p>If we execute this code in our client, the RTD will reflect the changes in its structure:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>FirebaseDatabase database <span style="color:#ff79c6">=</span> FirebaseDatabase.<span style="color:#50fa7b">getInstance</span>();
+</span></span><span style="display:flex;"><span>DatabaseReference myRef <span style="color:#ff79c6">=</span> database.<span style="color:#50fa7b">getReference</span>(<span style="color:#f1fa8c">&#34;message&#34;</span>);
+</span></span><span style="display:flex;"><span>myRef.<span style="color:#50fa7b">setValue</span>(<span style="color:#f1fa8c">&#34;Hello, World!&#34;</span>);
+</span></span></code></pre></div><p>If we execute this code in our client, the RTD will reflect the changes in its structure:</p>
 <p><img src="/articles/2017-04-24_using-firebase-as-a-real-time-system/images/3.png#layoutTextWidth" alt="image"></p>
 <p>With Firebase we can also push nodes into our RTD. That way, the RTD generates a unique key:</p>
-<p>Which also creates the result in RTD, this time with a unique key as an ID:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>FirebaseDatabase database <span style="color:#ff79c6">=</span> FirebaseDatabase.<span style="color:#50fa7b">getInstance</span>();
+</span></span><span style="display:flex;"><span>database.<span style="color:#50fa7b">getReference</span>().<span style="color:#50fa7b">push</span>().<span style="color:#50fa7b">setValue</span>(<span style="color:#f1fa8c">&#34;Hello world&#34;</span>);
+</span></span></code></pre></div><p>Which also creates the result in RTD, this time with a unique key as an ID:</p>
 <p><img src="/articles/2017-04-24_using-firebase-as-a-real-time-system/images/4.png#layoutTextWidth" alt="image"></p>
 <p>I have previously mentioned that apps get notified wherever data has been changed in the RTD out of the box. With the following code, we will subscribe to any value that is changed in the specified node (in this case, the node “message”):</p>
-<p>As you can see in the following video, the app gets automatically notified when a value has been changed:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>FirebaseDatabase database <span style="color:#ff79c6">=</span> FirebaseDatabase.<span style="color:#50fa7b">getInstance</span>();
+</span></span><span style="display:flex;"><span>DatabaseReference myRef <span style="color:#ff79c6">=</span> database.<span style="color:#50fa7b">getReference</span>(<span style="color:#f1fa8c">&#34;message&#34;</span>);
+</span></span><span style="display:flex;"><span>myRef.<span style="color:#50fa7b">addValueEventListener</span>(<span style="color:#ff79c6">new</span> ValueEventListener() {
+</span></span><span style="display:flex;"><span>  @Override
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">onDataChange</span>(DataSnapshot dataSnapshot) {
+</span></span><span style="display:flex;"><span>	  Log.<span style="color:#50fa7b">i</span>(<span style="color:#f1fa8c">&#34;MyApp&#34;</span>,<span style="color:#f1fa8c">&#34;Data changed&#34;</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	@Override
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">onCancelled</span>(DatabaseError databaseError) {
+</span></span><span style="display:flex;"><span>	  Log.<span style="color:#50fa7b">i</span>(<span style="color:#f1fa8c">&#34;MyApp&#34;</span>,<span style="color:#f1fa8c">&#34;Data canceled&#34;</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>As you can see in the following video, the app gets automatically notified when a value has been changed:</p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/5cSNT_7Mw6Q?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
 <p>We have now some code snippets and some basic fundamentals. The first approach to RTD is “cool, a database where I can store data and share it with other devices”. But there is much more than can be done.</p>
 <p>You can probably take from here a few ideas on how to save time and resources to implement a Real Time system with Firebase. How can we use this creatively?</p>
 <h4 id="real-time-chat-with-firebase">Real Time Chat with Firebase</h4>
