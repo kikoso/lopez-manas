@@ -19,7 +19,6 @@ aliases:
 
 ---
 
-![image](/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/1.jpeg#layoutTextWidth)
 This article is part of a series. You can find the remaining article of the series here:
 
 [From Java to Kotlin and back (II): Calling Kotlin from Java](https://medium.com/google-developer-experts/from-java-to-kotlin-and-back-ii-calling-kotlin-from-java-3bdf72da6e52)

@@ -19,7 +19,6 @@ aliases:
 
 ---
 
-![image](/articles/2017-04-30_followup-on-how-to-store-tokens-securely-in-android/images/1.jpeg#layoutTextWidth)
 As a prologue to this article, I want to remark a short sentence for the notional reader. This quote will be important as we move forward.
 > Absolute security does not exist. Security is a set of measures, being piled up and combined, trying to slow down the inevitable.
 

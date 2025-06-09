@@ -27,7 +27,7 @@ aliases:
 
 ---
 
-![image](/articles/2019-12-05_gentle-introduction-to-investing-for-software-engineers-ivmy-methodology-to-determine-which/images/1.jpeg#layoutTextWidth)
+
 You can access all the articles of the series through the following links:
 
 [(I) — Motivation](https://blog.usejournal.com/a-gentle-introduction-to-investing-for-software-engineers-i-motivation-4cb968a8e634)

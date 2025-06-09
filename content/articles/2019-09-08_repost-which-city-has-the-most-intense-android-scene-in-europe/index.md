@@ -20,7 +20,6 @@ aliases:
 
 ---
 
-![image](/articles/2019-09-08_repost-which-city-has-the-most-intense-android-scene-in-europe/images/1.jpeg#layoutTextWidth)
 I wrote this post originally 5 years ago. For a side project, I had to use the StackExchange data explorer again, so I decided to revisit it and update the numbers.
 
 [StackExchange Data Explorer](http://data.stackexchange.com/) is an open-source tool to run SQL queries against public data from [StackOverflow](http://stackoverflow.com/). Since StackOverflow is the biggest development forum of the world, there is surely a lot of information that companies can actually retrieve from their system in order to take some business decision (this is actually a brilliant place to apply [BigData](http://en.wikipedia.org/wiki/Big_data))

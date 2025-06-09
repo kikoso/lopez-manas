@@ -20,8 +20,6 @@ aliases:
 
 ---
 
-![image](/articles/2023-05-23_http-chunk-requests-with-android-and-ktor/images/1.jpeg#layoutTextWidth)
-
 
 In this very short article, I will explain briefly what is a chunk or streamed HTTP request, what are the benefits of using it, and how it works in Android.
 

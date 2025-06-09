@@ -20,7 +20,7 @@ aliases:
 
 ---
 
-![image](/articles/2017-06-14_on-strategies-to-apply-kotlin-to-existing-java-code/images/1.jpeg#layoutTextWidth)
+
 Since the latest announcement at the Google I/O, things have been crazy. At the [Kotlin Weekly](http://www.kotlinweekly.net/) Mail List we had an increase in subscribers over 20% in the last two weeks, over 200% increase in article submissions, and at a Meetup I organise ([Kotlin Users Group Munich](https://www.meetup.com/Kotlin-User-Group-Munich/)) we had a huge increase in attendees. And all this combined with the general blast in the developers community.
 
 ![image](/articles/2017-06-14_on-strategies-to-apply-kotlin-to-existing-java-code/images/2.png#layoutTextWidth)

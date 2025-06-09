@@ -22,7 +22,6 @@ aliases:
 
 ---
 
-![image](/articles/2017-04-24_using-firebase-as-a-real-time-system/images/1.jpeg#layoutTextWidth)
 I was captivated by exposed pictures since I was a child. Is a unique way to capture movement in a static image.
 
 I have been an avid user of Firebase since more than a year now. When [Parse.com](https://en.wikipedia.org/wiki/Parse_%28company%29) announced it would be shutting off, I was attending a Google Launchpad in Mountain View as a mentor. If you haven’t heard of the [Google Launchpads](https://developers.google.com/startups/), they are great. Not only for the startups, which get a fair amount of advising and mentoring from people in different fields (UX, Tech, Marketing, Monetizing and Fund raising…) but also for mentors itself! Besides getting to know what top-notch startups are doing around the world and helping them, we also get to talk with each other and get to know first hand what other folks are experiencing too. It ressembles a swinging party where knowledge is the currency to be exchanged. It has always been one of those events where you wake up early and excited, just thinking of following up with all the people you have met the previous day.

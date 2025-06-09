@@ -19,7 +19,6 @@ aliases:
 
 ---
 
-![image](/articles/2017-01-30_learning-to-use-and-abuse-mutability/images/1.jpeg#layoutTextWidth)
 I am an old Java man, I never allocated many of my thoughts to reflect on the philosophy of mutability. In Java, unlike in other languages, there is no precise control over what is mutable and immutable. I never thought of Java objects as having this feature. Instead, I would always refer to them as _“that Java class that has no setter”_. _“That Java class that cannot be modified once the value has been set up”_. A very non-scientific wording in an almost scientific world. Mutability is the default in imperative languages, and we just do not think a lot about it. There is a lack of awareness, and our minds work inertially on the paradigm we have learned.
 
 ![image](/articles/2017-01-30_learning-to-use-and-abuse-mutability/images/2.jpeg#layoutTextWidth)

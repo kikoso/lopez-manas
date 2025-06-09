@@ -26,7 +26,6 @@ aliases:
 
 ---
 
-![image](/articles/2019-12-27_2019-in-retrospective/images/1.jpeg#layoutTextWidth)
 This year is over. During the last 365 days, I fulfilled some of the goals I meticulously established at the beginning of the year. In other goals, I failed without palliatives or anesthesia.
 
 During the last 9 years, I have been following a process to determine my goals for the upcoming solar rotation. I sit at a coffee place next to my home in Munich, order a ginger tea and take notes. I reflect about how the previous year went, and determine where I would like to be in the upcoming one.

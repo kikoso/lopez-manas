@@ -18,7 +18,6 @@ aliases:
 
 ---
 
-![image](/articles/2016-11-07_finally-understanding-how-references-work-in-android-and-java/images/1.jpeg#layoutTextWidth)
 A few weeks ago I attended [Mobiconf](http://2016.mobiconf.org/), one of the best conferences for Mobile Developers I had the pleasure to attend in Poland. During his eclectic presentation “The best (good) practices”, my friend and colleague [Jorge Barroso](https://github.com/flipper83) came up with a statement that made me reflect after hearing it:
 > If you are an Android developer and you do not use WeakReferences, you have a problem.
 

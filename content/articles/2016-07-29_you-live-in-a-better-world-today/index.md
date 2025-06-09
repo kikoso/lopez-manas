@@ -25,7 +25,6 @@ aliases:
 
 ---
 
-![image](/articles/2016-07-29_you-live-in-a-better-world-today/images/1.jpeg#layoutTextWidth)
 This has been a very tragic week in Germany. In less than five days, four attacks happened in the southern provinces of Bayern and Baden-Württemberg (the motivation of some of them being disputed, but being mostly assigned to the refugee crisis and open-borders policy of Merkel). After the attacks followed the classical harangue from certain civil and political sectors drawing attention on the rapidly deteriorating social peace in Germany and Europe. Warnings on Europe´s islamization are now in the mouth of most of the European citizens. If you put the news of any media, it smells like fear. Even [Trump wants to prevent Germans and French](http://www.telegraph.co.uk/news/2016/07/24/donald-trump-says-french-and-germans-to-face-extreme-vetting-ent/) of traveling to the US!
 
 The only problem is that everything is a **deception**.

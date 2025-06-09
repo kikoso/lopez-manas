@@ -18,7 +18,7 @@ aliases:
 
 ---
 
-![image](/articles/2018-02-27_creating-a-library-for-android-the-good-the-bad-and-the-ugly/images/1.jpeg#layoutTextWidth)
+
 Software Development is like an [Ouroboros](https://en.wikipedia.org/wiki/Ouroboros). You end up going to the place you have previously resided, with requirements and knowledge updated and refashioned. You might have started working on an initial prototype that began the journey as a basic _HelloWorld_, and it has evolved into one of those mythological Nordic monsters. Or maybe Greek monsters are more terrifying and frightening. I do not know.
 
 At one of my projects we recently came up with the requirement of extracting some of the functionality well buried there to expose to third-party consumers. Our code connects to our API and performs some operations (authentication, managing our entities, etc…) that now were required to be used by another client. I have seen this frequently and previously at other workplaces — the need to create a MobileKit or MobileLibrary, you name it, that can be reused in different applications. Therefore, this functionality can be reused among applications at the same company, or they can be offered to third-party users to access their APIs.
