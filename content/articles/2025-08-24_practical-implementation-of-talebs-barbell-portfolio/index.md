@@ -20,7 +20,7 @@ aliases:
 
 ---
 
-![image](/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/1.jpeg#layoutTextWidth)
+
 > Where the author teaches himself about the details of an anti-fragile investing strategy
 
 Taleb advocates for an anti-fragile approach to investing and life. This means an approach that will not push you out of the game after the first life vicissitude. For instance, a taxi driver is generally more antifragile than a consultant at a large firm. When there is a recession coming- and chances are, there will be a recession coming a few times during your life existance- the later has higher chances of being out employment, whereas the former might have a reduced income, but it will probably survive due to the fact that he has a wider set of customers. This approach advocates for survival to extreme events that can wipe out an entire life of savings and construction.
