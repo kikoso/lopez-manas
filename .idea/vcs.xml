@@ -4,5 +4,7 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/themes/LoveIt" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/themes/ananke" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/digitalgarden" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/mini" vcs="Git" />
   </component>
 </project>
