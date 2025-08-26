@@ -8,12 +8,13 @@
   <link rel="icon" href="/favicon.ico">
 
   <title>
-    Event-driven programming for Android (part III) - 
+    A practical implementation of Taleb’s Barbell portfolio - 
   </title>
 
-  <meta name="description" content="(This is the third article in a three-part series)
-Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
-Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications." />
+  <meta name="description" content="
+
+Where the author teaches himself about the details of an anti-fragile investing strategy
+Taleb advocates for an anti-fragile approach to investing and life. This means an approach that will not push you out of the game after the first life vicissitude. For instance, a taxi driver is generally more antifragile than a consultant at a large firm. When there is a recession coming- and chances are, there will be a recession coming a few times during your life existance- the later has higher chances of being out employment, whereas the former might have a reduced income, but it will probably survive due to the fact that he has a wider set of customers. This approach advocates for survival to extreme events that can wipe out an entire life of savings and construction." />
   <meta name="author" content="Enrique López-Mañas" />
   <meta name="generator" content="Hugo 0.147.2">
 
@@ -44,53 +45,49 @@ Now we are likely facing another problem: how can we easily scale an application
   
   
 
-  <meta property="og:url" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/">
-  <meta property="og:title" content="Event-driven programming for Android (part III)">
-  <meta property="og:description" content="(This is the third article in a three-part series)
-Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
-Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.">
+  <meta property="og:url" content="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/">
+  <meta property="og:title" content="A practical implementation of Taleb’s Barbell portfolio">
+  <meta property="og:description" content="Where the author teaches himself about the details of an anti-fragile investing strategy
+Taleb advocates for an anti-fragile approach to investing and life. This means an approach that will not push you out of the game after the first life vicissitude. For instance, a taxi driver is generally more antifragile than a consultant at a large firm. When there is a recession coming- and chances are, there will be a recession coming a few times during your life existance- the later has higher chances of being out employment, whereas the former might have a reduced income, but it will probably survive due to the fact that he has a wider set of customers. This approach advocates for survival to extreme events that can wipe out an entire life of savings and construction.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2015-02-08T18:32:14+00:00">
-    <meta property="article:modified_time" content="2025-06-09T09:47:50+02:00">
-    <meta property="og:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
-    <meta property="og:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
-    <meta property="og:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
+    <meta property="article:published_time" content="2025-08-24T20:32:24+00:00">
+    <meta property="article:modified_time" content="2025-08-26T09:00:03+02:00">
+    <meta property="og:image" content="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/1.jpeg">
+    <meta property="og:image" content="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/2.png">
+    <meta property="og:image" content="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/3.png">
 
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
-  <meta name="twitter:title" content="Event-driven programming for Android (part III)">
-  <meta name="twitter:description" content="(This is the third article in a three-part series)
-Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
-Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.">
+  <meta name="twitter:image" content="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/1.jpeg">
+  <meta name="twitter:title" content="A practical implementation of Taleb’s Barbell portfolio">
+  <meta name="twitter:description" content="Where the author teaches himself about the details of an anti-fragile investing strategy
+Taleb advocates for an anti-fragile approach to investing and life. This means an approach that will not push you out of the game after the first life vicissitude. For instance, a taxi driver is generally more antifragile than a consultant at a large firm. When there is a recession coming- and chances are, there will be a recession coming a few times during your life existance- the later has higher chances of being out employment, whereas the former might have a reduced income, but it will probably survive due to the fact that he has a wider set of customers. This approach advocates for survival to extreme events that can wipe out an entire life of savings and construction.">
 
 
   
-  <meta itemprop="name" content="Event-driven programming for Android (part III)">
-  <meta itemprop="description" content="(This is the third article in a three-part series)
-Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
-Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.">
-  <meta itemprop="datePublished" content="2015-02-08T18:32:14+00:00">
-  <meta itemprop="dateModified" content="2025-06-09T09:47:50+02:00">
-  <meta itemprop="wordCount" content="777">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
+  <meta itemprop="name" content="A practical implementation of Taleb’s Barbell portfolio">
+  <meta itemprop="description" content="Where the author teaches himself about the details of an anti-fragile investing strategy
+Taleb advocates for an anti-fragile approach to investing and life. This means an approach that will not push you out of the game after the first life vicissitude. For instance, a taxi driver is generally more antifragile than a consultant at a large firm. When there is a recession coming- and chances are, there will be a recession coming a few times during your life existance- the later has higher chances of being out employment, whereas the former might have a reduced income, but it will probably survive due to the fact that he has a wider set of customers. This approach advocates for survival to extreme events that can wipe out an entire life of savings and construction.">
+  <meta itemprop="datePublished" content="2025-08-24T20:32:24+00:00">
+  <meta itemprop="dateModified" content="2025-08-26T09:00:03+02:00">
+  <meta itemprop="wordCount" content="1508">
+  <meta itemprop="image" content="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/1.jpeg">
+  <meta itemprop="image" content="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/2.png">
+  <meta itemprop="image" content="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/3.png">
 
   
-  <meta itemprop="name" content="Event-driven programming for Android (part III)">
-  <meta itemprop="description" content="(This is the third article in a three-part series)
-Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
-Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.">
-  <meta itemprop="datePublished" content="2015-02-08T18:32:14+00:00">
-  <meta itemprop="dateModified" content="2025-06-09T09:47:50+02:00">
-  <meta itemprop="wordCount" content="777">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
+  <meta itemprop="name" content="A practical implementation of Taleb’s Barbell portfolio">
+  <meta itemprop="description" content="Where the author teaches himself about the details of an anti-fragile investing strategy
+Taleb advocates for an anti-fragile approach to investing and life. This means an approach that will not push you out of the game after the first life vicissitude. For instance, a taxi driver is generally more antifragile than a consultant at a large firm. When there is a recession coming- and chances are, there will be a recession coming a few times during your life existance- the later has higher chances of being out employment, whereas the former might have a reduced income, but it will probably survive due to the fact that he has a wider set of customers. This approach advocates for survival to extreme events that can wipe out an entire life of savings and construction.">
+  <meta itemprop="datePublished" content="2025-08-24T20:32:24+00:00">
+  <meta itemprop="dateModified" content="2025-08-26T09:00:03+02:00">
+  <meta itemprop="wordCount" content="1508">
+  <meta itemprop="image" content="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/1.jpeg">
+  <meta itemprop="image" content="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/2.png">
+  <meta itemprop="image" content="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/3.png">
 </head>
 <body class="flex relative h-full min-h-screen"><aside
   class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:basis-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar flex-shrink-0">
@@ -344,7 +341,7 @@ Now we are likely facing another problem: how can we easily scale an application
 </script>
 <div class="space-y-2.5">
       
-      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+      <a class="article block px-3 py-4  bg-slate-900 dark:bg-slate-700 text-slate-50 "
         href="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/">
         
         
@@ -352,7 +349,7 @@ Now we are likely facing another problem: how can we easily scale an application
         
         <h3 class="text-lg font-semibold mb-0.5">A practical implementation of Taleb’s Barbell portfolio</h3>
         <div
-          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          class="text-sm  text-slate-400  line-clamp-2">
           <p><img src="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/1.jpeg#layoutTextWidth" alt="image"></p>
 <blockquote>
 <p>Where the author teaches himself about the details of an anti-fragile investing strategy</p></blockquote>
@@ -912,7 +909,7 @@ A trend that will only continue to grow.</p>
         </div>
       </a>
       
-      <a class="article block px-3 py-4  bg-slate-900 dark:bg-slate-700 text-slate-50 "
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/">
         
         
@@ -920,7 +917,7 @@ A trend that will only continue to grow.</p>
         
         <h3 class="text-lg font-semibold mb-0.5">Event-driven programming for Android (part III)</h3>
         <div
-          class="text-sm  text-slate-400  line-clamp-2">
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
           <p>(This is the third article in a three-part series)</p>
 <p>Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a <em>HelloWorld Event-Driven</em> application.</p>
 <p>Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.</p>
@@ -965,55 +962,56 @@ A trend that will only continue to grow.</p>
     <article class="px-6 py-20 w-full mx-auto prose lg:prose-lg h-fit dark:prose-invert prose-img:mx-auto">
 
       
-      <h1 class="!mb-2">Event-driven programming for Android (part III)</h1>
+      <h1 class="!mb-2">A practical implementation of Taleb’s Barbell portfolio</h1>
 
 	  
-      <p class="text-sm text-slate-500 !mb-8"> Planted February 8, 2015
+      <p class="text-sm text-slate-500 !mb-8"> Planted August 24, 2025
 		
-			<br/> Pruned June 9, 2025
+			<br/> Pruned August 26, 2025
         
 	  </p>
       
 
       
-      <img class="rounded max-w-full mx-auto mb-4" src="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png" alt="Event-driven programming for Android (part III)" />
+      <img class="rounded max-w-full mx-auto mb-4" src="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/1.jpeg" alt="A practical implementation of Taleb’s Barbell portfolio" />
       
 
-      <p>(This is the third article in a three-part series)</p>
-<p>Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a <em>HelloWorld Event-Driven</em> application.</p>
-<p>Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.</p>
-<p>I have been using this architecture for a while, and it has made a change. Using Events and an MVP pattern ensures that I can easily add features to an application. I have also reduced the period between refactoring and rewriting, so the software I write can actually live longer and with a better quality.</p>
-<h3 id="a-first-term-mvp">A first term: MVP</h3>
-<p>MVP stands for Model View Presenter, and is a programming pattern that defines three basic entities to be implemented within a software system:</p>
-<p>The <strong>Model</strong>: what to render</p>
-<p>The <strong>View</strong>: how to render</p>
-<p>The <strong>Presenter</strong>: handles the communication between the model and the view. The presenter updates the view with content from the model, abstracting the view of any complexity underneath.</p>
-<p><img src="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png#layoutTextWidth" alt="image">
-Courtesy of WikiMedia</p>
-<p>MVP (as well as other programming patterns) is a concept rather than a concept solid framework, so there are no strict rules about it. Android does not implement a pure MVP pattern, but contains some elements:</p>
+      <p><img src="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/1.jpeg#layoutTextWidth" alt="image"></p>
+<blockquote>
+<p>Where the author teaches himself about the details of an anti-fragile investing strategy</p></blockquote>
+<p>Taleb advocates for an anti-fragile approach to investing and life. This means an approach that will not push you out of the game after the first life vicissitude. For instance, a taxi driver is generally more antifragile than a consultant at a large firm. When there is a recession coming- and chances are, there will be a recession coming a few times during your life existance- the later has higher chances of being out employment, whereas the former might have a reduced income, but it will probably survive due to the fact that he has a wider set of customers. This approach advocates for survival to extreme events that can wipe out an entire life of savings and construction.</p>
+<p><img src="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/2.png#layoutTextWidth" alt="image">
+Chart with the recessions during the last century. If you, like me, belong to the Millenial Generation, this is the third or forth recession that happens during your professional life.</p>
+<p>As I want to understand also anti-fragility, it means to embrace volatility, instead of fearing it. And this does not apply only to the realm of investing. For instance, walking and sprinting could be preferable, in terms of health, to jogging. Jogging is a moderate chronic stressor, whereas sprinting is intense but short, followed by some rest (walking). This advocates also for intermittent fasting: long breaks between meals stress the body beneficially vs. constant eating (one of the rare areas that enjoys near-universal consensus is the benefit of fasting).</p>
+<p>In investing terms, this translates into (among others) a strategy called Barbell. The Barbell strategy has, on one side, extreme conservatism, and on the other side, extreme risk-taking. Nothing in the middle. There are two core consequences of this:</p>
 <ul>
-<li>The user interface (Views) are defined in XML files.</li>
-<li>We extend classes (Activity, Fragment) that inflate the views, and update them.</li>
+<li>Very limited risk: the safe part caps all the downside of the risky one.</li>
+<li>The risky part has an unlimited upside.</li>
 </ul>
-<p>From all the components of the MVP pattern, the <em>presenter</em> has no direct representation in Android. This is however an important component: imagine that tomorrow we need to retrieve our data from a web service rather than a database. If we have followed a MVP approach, this change would be rather trivial to implement.</p>
-<h3 id="an-event-driven-supporting-architecture">An Event-Driven supporting architecture</h3>
-<p>The following architecture aims to make easier the implementation of an Event-Driven based applications. It also has some other advantages, such as a high modularity and easiness for testing.</p>
-<p>We are going to create our own instance of <em>Application</em>. This instance will host an EventBus Registry, which is a class that contains a comprehensive list of all the subscribers to the bus (more on this later). Our <em>Application</em> will register all the subscribers and de-register them when it has been terminated.</p>
-<h4 id="the-eventbusregistry">The EventBusRegistry</h4>
-<p>This class is basically a register containing all the subscribers to the bus. I ended up naming my subscribers as PluginControllers, since you can plug them in and out and the application will keep working (of course, if they are not plug in they will not listen to events). I understand this naming can confuse the reader, so I will name then as Subscribers in this article.</p>
-<p>The EventBus Registry keeps a reference to the EventBus (which is a static class), so it can register the subscribers.</p>
-<p><img src="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png#layoutTextWidth" alt="image">
-Conceptually: the Application will contain a EventBus Registry with references to the different subscribers, so they can be registered or unregistered. The EventBus is a static instance in the application.</p>
-<h4 id="the-subscribers">The Subscribers</h4>
-<p>The Subscribers will be the only class able to listen to events. This classes will always contain one or more <em>OnEvent()</em> method. The Subscribers will perform actions after they received an Event. A basic example: you can have a subscriber that performs a call when receives the “PerformCallEvent”.</p>
-<p>Subscribers can also post events into the EventBus as a response to an incoming Event.</p>
-<h4 id="presenters">Presenters</h4>
-<p>The presenters take actions. The Views give them orders, and they act in consequence. They can also post events into the EventBus.</p>
-<p>This architecture uses a single Activity. There are arguments in favour and against this, but since we will be using different Fragments to represent the screens, using a single Activity makes things easier (and remember, as a developer your main target should be to program less).</p>
-<p>I have uploaded to <a href="https://github.com/kikoso/Event-Bus-Architecture"  target="_blank" rel="noopener" >GitHub</a> a sample project that includes a login screen, that triggers event to perform the login and loads a different fragment after it. Take a look at the project structure:</p>
-<p><img src="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png#layoutTextWidth" alt="image"></p>
-<p>There are base classes for the EventBus Registry, the Activities and the Subscriber (you might want to add a base Fragment class depending on your project needs). The Application, EventBus and EventBus registry have been customized for the project (thus the ED prefix).</p>
-<p>Extending this application into new features will basically require new events, subscribers and a presenter and view per feature. Following this pattern ensures that the application is scalable, the code is decoupled and therefore easy to test and understand.</p>
+<p>Now, there is a lot of pontification about anti-fragile portfolios and less realization. With the present article, the author clarifies his own ideas and comes up with a practical implementation of an anti-fragile approach to investing.</p>
+<p>As a reminder, this is what works for me and my life circumstances. You need to see what suits you, your lifestyle and circumstances. The beauty of investing is that it is partly technical, partly data-driven, partly based on your interpretation of that data, and partly gut feeling. Different people will choose different methods, they will reach different outputs and they both might be happy with the process that leads them there. Even benchmarks might not always be relevant for everybody. If you are mostly using the dividends of your portfolio, you might not care if the portfolio is not growing that much.</p>
+<p>On a related note, comparison is the thief of joy. Do not compare yourself with others when it comes to investing or to anything else in that regard. See if the situation is acceptable for you, see if you can do it better and take decisions to move in one direction or another.</p>
+<p>A Barbell portfolio could have 90% of its allocation to a very conservative part, and another 10% to a high-risk/high-reward part. Let’s check them in detail.</p>
+<h3 id="the-conservative-part">The conservative part</h3>
+<p>Generally, as a very conservative part, the instruments that are generally proposed are short-term Treasuries, bonds, maybe physical cash, and gold if you’re paranoid. The advantage of those instruments is (generally) a predictive evolution, low risk, and low volatility. There are some disadvantages that can be talked about, like the risk of inflation eating up any profit from those instruments, the lack of liquidity for some bonds, etc. But generally, it is correct to assume that they will be safer than other alternatives in the market.</p>
+<p>I have written a few articles <a href="https://enriquelopezmanas.medium.com/a-gentle-introduction-to-investing-for-software-engineers-i-motivation-4cb968a8e634"  target="_blank" rel="noopener" >with my views</a> <a href="https://enriquelopezmanas.medium.com/a-recapitulation-of-investing-in-pandemic-times-976566b0b6cc"  target="_blank" rel="noopener" >on investing</a>. I hold most of my eggs in a basket that includes mostly companies that have been paying an increasing dividend for a number of years. According to a canonical view of risk management, this is not safe. Companies can cut the dividend anytime, and maintaining or increasing it during a period of economic downturn, regardless of how the company is performing, can be a recipe for a financial tragedy. Exxon was notably an exception during the COVID pandemic: despite the dividend not being sustainable under any metric, they increased it and they made it out well of that scenario. It could also have failed.</p>
+<p>For me, the risk/award trade-off from investing in this companies is acceptable for my life circumstances. I am not going to say it is optimal, since the definition of optimal slides constantly, but it keeps me satisfied. This is my current portfolio distribution:
+<img src="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/images/3.png#layoutTextWidth" alt="image">
+Enrique’s Fund, June 2025</p>
+<p>Not every company is a dividend king or aristocrat; about 73% of them. I have been overtime incorporating other instruments, like CEFs, which focus on income without a constant appreciation of the principal (namely, DNP Select Income Fund, Blackrock Science &amp; Technology or Reaves Utility Income Fund). Overall, this is a portfolio that, for me has been stable over the years. Price fluctuates similarly to the S&amp;P500, income grows steadily, and the risk is acceptable for me.</p>
+<h3 id="the-risky-part">The risky part</h3>
+<p>The risk part is that one that has a large risk, and a large potential upside. For me, one of the interpretations of the anti-fragility is that I can’t be using leverage, or any instrument that will kick me out of the game when an extreme situation happens. I am assuming there will be a few Black Swans from today until the day I die, and my resistance to them must be 100%, not 99%. In the same way, I would not enter on a plane where I hear that the probability of dying with the incumbent pilot is 1%. Life is too precious to risk it, and so are my investments.</p>
+<p>So, to implement this strategy, we discard everything that involves leverage (i.e., using money you don’t own). These are instruments like CFDs, leveraged ETFs, etc. The maximum loss must be limited to money on the risky budget, not somewhere else. So, how can we implement a high-risk/high-reward approach?</p>
+<p>By trading CALL options on SPY, the ETF that tracks the S&amp;P 500. SPY is liquid, widely traded, and closely tied to overall market behavior. It is simpler and more accessible than something like the VIX, which is more abstract and harder to time effectively.</p>
+<p>Here is an example. Suppose SPY is trading at $420. You buy a CALL option with 3 to 6 months until expiration, with a strike price of $460. Let us assume the premium for that option is $1.50 per share, or $150 for a standard contract of 100 shares. That is your maximum loss.</p>
+<p>Now imagine a market rally triggered by unexpected monetary easing or strong tech performance. If SPY jumps to 500 before the option expires, your CALL becomes deep in the money. The intrinsic value is $4,000 ($500 minus $460, multiplied by 100 shares). Subtracting the $150 premium, your net gain is $3,850.</p>
+<p>The key point is that you do not even need to exercise the option. In periods of rapid upward movement, the premium of the CALL option itself rises dramatically. You can sell the option at a much higher price than you paid. Historically, in similar market moves, SPY CALL options have returned a high multiple of the costs. I was not able to find specific closing values for options, but some literature points to a 50x or a 100x. In my very personal experience during 2025, it was possible to get a 10x or even a 20x.</p>
+<p>This strategy offers limited downside, capped at the premium paid, and potentially large upside in times of market surges. It fits well with an antifragile mindset. You are not using borrowed money, you are not exposed to liquidation, and you cannot be forced out of the market.</p>
+<p>The problem here, and I think this is the general problem with this strategy, it is a constant money drain until the volatility hits and you can profit from it. Investors are impatient, and money changes hands when people are impatient. It is hard to sit with a bunch of open CALLs when everybody else is getting larger returns by buying any other companies.</p>
+<h3 id="how-this-can-evolve">How this can evolve?</h3>
+<p>It will again, depend, on your life circumstances. You can use the dividends and distributions from the Core portfolio to fund your life expenses. You can allocate a percentage of those distributions to the Risky portfolio.</p>
+<p>I have been personally allocating a part of my investments to follow this approach for about a year now. With Trump in power it would not be unsurprising to see more volability in the markets, and 2025 is a good example: the badly called Liberation Day, the attack on Iran, the generally erratic policy…</p>
+<p>Volatility is not instrinsically bad if you know how to benefit from it. Taleb has a decent amount of literature on this topic, and if you haven’t read them, you can start reading the Incerto series.</p>
 
     </article>
   </div>
