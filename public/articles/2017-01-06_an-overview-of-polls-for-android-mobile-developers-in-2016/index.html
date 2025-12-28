@@ -14,7 +14,7 @@
   <meta name="description" content="Last year I started a weekly routine consisting on posting on my Twitter a poll every Monday, with topics related to Android / Mobile / Software Engineering (in that order). It has been a total of 18 polls during the year, with an overwhelming response and engagement of the community.
 (On a side note, I can‘t stress enough how lucky I am of being able to be a part of the Worldwide Android District. It has changed my life in so many ways)" />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.147.2">
+  <meta name="generator" content="Hugo 0.153.3">
 
   <link rel="stylesheet" href="/css/main.css" />
 <script type="module">
@@ -231,14 +231,6 @@
     
     <li>
       <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
-        href="https://bsky.app/profile/eenriquelopez.bsky.social" target="_blank" rel="noopener noreferrer">
-        <span class="sr-only">Bluesky</span>
-        
-      </a>
-    </li>
-    
-    <li>
-      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="https://www.goodreads.com/author/show/7510473.Enrique_L_pez_Ma_as" target="_blank" rel="noopener noreferrer">
         <span class="sr-only">Goodreads</span>
         
@@ -343,7 +335,8 @@
         <div
           class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
           <blockquote>
-<p>Where the author teaches himself about the details of an anti-fragile investing strategy</p></blockquote>
+<p>Where the author teaches himself about the details of an anti-fragile investing strategy</p>
+</blockquote>
 <p>Taleb advocates for an anti-fragile approach to investing and life. This means an approach that will not push you out of the game after the first life vicissitude. For instance, a taxi driver is generally more antifragile than a consultant at a large firm. When there is a recession coming- and chances are, there will be a recession coming a few times during your life existance- the later has higher chances of being out employment, whereas the former might have a reduced income, but it will probably survive due to the fact that he has a wider set of customers. This approach advocates for survival to extreme events that can wipe out an entire life of savings and construction.</p>
         </div>
       </a>
@@ -640,7 +633,8 @@
           class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
           <p>Recently, I was contributing for the first time to a new codebase. I extended and implemented some functionality that I needed. After thorough testing on my machine, where I checked that the functionality was properly working, I committed my contribution. Minutes after, our CI environment delivered a message:</p>
 <blockquote>
-<p>4 Tests failed</p></blockquote>
+<p>4 Tests failed</p>
+</blockquote>
 <p>This happens so often, even on the codebases we are used to work with. We tend to focus on developing the new features, and forget that there is a test that is covering them. Or that there is a new test that needs to be done, to cover the new features. This very fact is not a tragedy, but the workflow, in this case, can surely be improved. We can use Git Hooks to ameliorate them.</p>
         </div>
       </a>
@@ -754,7 +748,8 @@ A trend that will only continue to grow.</p>
           class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
           <p>As a prologue to this article, I want to remark a short sentence for the notional reader. This quote will be important as we move forward.</p>
 <blockquote>
-<p>Absolute security does not exist. Security is a set of measures, being piled up and combined, trying to slow down the inevitable.</p></blockquote>
+<p>Absolute security does not exist. Security is a set of measures, being piled up and combined, trying to slow down the inevitable.</p>
+</blockquote>
 <p>Almost three years ago, I wrote <a href="http://codetalk.de/?p=86"  target="_blank" rel="noopener" >a post</a> giving some ideas to protect String tokens from a hypothetical attacker decompiling our Android application. For the sake of remembrance, and in order to ward off the inescapable death of the Internet, I am reproducing some sections here.</p>
         </div>
       </a>
@@ -841,7 +836,8 @@ A trend that will only continue to grow.</p>
           class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
           <p>A few weeks ago I attended <a href="http://2016.mobiconf.org/"  target="_blank" rel="noopener" >Mobiconf</a>, one of the best conferences for Mobile Developers I had the pleasure to attend in Poland. During his eclectic presentation “The best (good) practices”, my friend and colleague <a href="https://github.com/flipper83"  target="_blank" rel="noopener" >Jorge Barroso</a> came up with a statement that made me reflect after hearing it:</p>
 <blockquote>
-<p>If you are an Android developer and you do not use WeakReferences, you have a problem.</p></blockquote>
+<p>If you are an Android developer and you do not use WeakReferences, you have a problem.</p>
+</blockquote>
 <p>On an example of good timing, a couple of months ago I did publish my last book, “Android High Performance”, co-authored with <a href="https://www.linkedin.com/in/diegograncini"  target="_blank" rel="noopener" >Diego Grancini</a>. One of the most passionate chapters is the one talking about Memory Management in Android. In this chapter, we talk about how the memory works in a mobile device, how memory leaks happen, why this is important and which techniques we can apply to avoid them. Since I did start developing for Android, I have always observed a tendency to involuntarily avoid or give a low priority to everything related with memory leaks and memory management. If the functional criteria are fulfilled, why bothering? We are always in a rush to develop new features, and we would rather present something visual in our next Sprint demo rather than caring about something that nobody will see at a first glance.</p>
         </div>
       </a>
@@ -981,52 +977,71 @@ A trend that will only continue to grow.</p>
 <p>Does this sound like something crazy? Well, <a href="https://en.wikipedia.org/wiki/Richard_Branson"  target="_blank" rel="noopener" >Richard Branson</a> did not like the service at an airline when he was flying, so he thought “what if I start my own airline company?”. His next step was calling to Boeing to ask if they had an airplane they could lease. Welcome Virgin Airlines.</p>
 <p>I knew also in the past of some other folks that started with similar ideas (for instance, you want to check <a href="https://medium.com/u/ac54c8f80179"  target="_blank" rel="noopener" >Mark Allison</a> and his weekly posts in <a href="https://blog.stylingandroid.com/"  target="_blank" rel="noopener" >Styling Android</a>). He wrote a post in 2016, summarizing his experience over <a href="https://blog.stylingandroid.com/the-first-five-years/"  target="_blank" rel="noopener" >the last 5 years</a>. Mark started writing a weekly post since March 2011, and since then he has not missed a single week, although he recognized sometimes he was close to it.</p>
 <blockquote>
-<p>One of my great fears when I first started blogging was of running out of ideas to write about. While there have been occasions where I’ve come close to announcing “there won’t be a post this week” I’ve always managed to find something to write about — sometimes posts have been completed <em>very</em> close to publication time! At other times my creative cup runneth over and I have posts written and ready for publication many weeks in advance. In fact, I began writing this post in January 2016 but am finishing it less than 15 minutes before publication — which shows just how erratic things can be&gt; — Mark</p></blockquote>
+<p>One of my great fears when I first started blogging was of running out of ideas to write about. While there have been occasions where I’ve come close to announcing “there won’t be a post this week” I’ve always managed to find something to write about — sometimes posts have been completed <em>very</em> close to publication time! At other times my creative cup runneth over and I have posts written and ready for publication many weeks in advance. In fact, I began writing this post in January 2016 but am finishing it less than 15 minutes before publication — which shows just how erratic things can be&gt; — Mark</p>
+</blockquote>
 <p>The idea of running the Monday Poll was also intended to answer the question “Can I come up with a meaningful idea to be queried to my followers each week, without being repetitive or running out?”. I can agree with my colleague Mark that some weeks I was wondering whether the questions I had on my bucket were too eloquent, stupid or lacking any sense. After 18 polls in 2016, I am more than satisfied with the results and looking forward to the next 52 polls during this 2017.</p>
 <p>I have summarized the Monday polls in this Medium post. You can click in any of them, and you will be redirected to the discussion Thread (some of them get interesting!).</p>
 <blockquote>
 <p><a href="https://twitter.com/eenriquelopez/status/755321774305341440"  target="_blank" rel="noopener" ></a>
-Where everything started</p></blockquote>
+Where everything started</p>
+</blockquote>
 <blockquote>
-<p><a href="https://twitter.com/eenriquelopez/status/757479517967544320"  target="_blank" rel="noopener" ></a></p></blockquote>
+<p><a href="https://twitter.com/eenriquelopez/status/757479517967544320"  target="_blank" rel="noopener" ></a></p>
+</blockquote>
 <blockquote>
 <p><a href="https://twitter.com/eenriquelopez/status/762544040617336832"  target="_blank" rel="noopener" ></a>
-On a personal level this was a great surprise! I do work with Kotlin and curate the <a href="http://www.kotlinweekly.net/"  target="_blank" rel="noopener" >Kotlin Weekly</a> mailing list. It was a positive surprise to see this good numbers for the Kotlin option.</p></blockquote>
+On a personal level this was a great surprise! I do work with Kotlin and curate the <a href="http://www.kotlinweekly.net/"  target="_blank" rel="noopener" >Kotlin Weekly</a> mailing list. It was a positive surprise to see this good numbers for the Kotlin option.</p>
+</blockquote>
 <blockquote>
-<p><a href="https://twitter.com/eenriquelopez/status/765083152377344000"  target="_blank" rel="noopener" ></a></p></blockquote>
+<p><a href="https://twitter.com/eenriquelopez/status/765083152377344000"  target="_blank" rel="noopener" ></a></p>
+</blockquote>
 <blockquote>
 <p><a href="https://twitter.com/eenriquelopez/status/767617660502900738"  target="_blank" rel="noopener" ></a>
-This question triggered some discussion in a few of the Slack groups where I participate. What does Senior exactly means? Should it be connected only with the number of years working with a technology, also with the soft skills and lead experience?</p></blockquote>
+This question triggered some discussion in a few of the Slack groups where I participate. What does Senior exactly means? Should it be connected only with the number of years working with a technology, also with the soft skills and lead experience?</p>
+</blockquote>
 <blockquote>
-<p><a href="https://twitter.com/eenriquelopez/status/770131633647316992"  target="_blank" rel="noopener" ></a></p></blockquote>
+<p><a href="https://twitter.com/eenriquelopez/status/770131633647316992"  target="_blank" rel="noopener" ></a></p>
+</blockquote>
 <blockquote>
-<p><a href="https://twitter.com/eenriquelopez/status/772661849686994945"  target="_blank" rel="noopener" ></a></p></blockquote>
+<p><a href="https://twitter.com/eenriquelopez/status/772661849686994945"  target="_blank" rel="noopener" ></a></p>
+</blockquote>
 <blockquote>
 <p><a href="https://twitter.com/eenriquelopez/status/775211072257200128"  target="_blank" rel="noopener" ></a>
-In this poll I missed the opportunity to differentiate between Dagger and Dagger 2. Dagger was deprecated late last year.</p></blockquote>
+In this poll I missed the opportunity to differentiate between Dagger and Dagger 2. Dagger was deprecated late last year.</p>
+</blockquote>
 <blockquote>
-<p><a href="https://twitter.com/eenriquelopez/status/777773254467616769"  target="_blank" rel="noopener" ></a></p></blockquote>
+<p><a href="https://twitter.com/eenriquelopez/status/777773254467616769"  target="_blank" rel="noopener" ></a></p>
+</blockquote>
 <blockquote>
-<p><a href="https://twitter.com/eenriquelopez/status/780299378170953728"  target="_blank" rel="noopener" ></a></p></blockquote>
+<p><a href="https://twitter.com/eenriquelopez/status/780299378170953728"  target="_blank" rel="noopener" ></a></p>
+</blockquote>
 <blockquote>
 <p><a href="https://twitter.com/eenriquelopez/status/787881051087568896"  target="_blank" rel="noopener" ></a>
-Being a remote advocate, the numbers of this poll did satisfy me quite a lot! It seems that many companies are moving in the right direction. If you want to read more about this, check <a href="https://www.amazon.com/gp/product/0804137501/ref=as_li_tl?ie=UTF8&amp;amp;tag=100andrquesan-20&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;linkCode=as2&amp;amp;creativeASIN=0804137501&amp;amp;linkId=b8c06ccb55376dcc4ae246e7aea6ada7"  target="_blank" rel="noopener" >Remote</a> by Jason Fried</p></blockquote>
+Being a remote advocate, the numbers of this poll did satisfy me quite a lot! It seems that many companies are moving in the right direction. If you want to read more about this, check <a href="https://www.amazon.com/gp/product/0804137501/ref=as_li_tl?ie=UTF8&amp;amp;tag=100andrquesan-20&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;linkCode=as2&amp;amp;creativeASIN=0804137501&amp;amp;linkId=b8c06ccb55376dcc4ae246e7aea6ada7"  target="_blank" rel="noopener" >Remote</a> by Jason Fried</p>
+</blockquote>
 <blockquote>
 <p><a href="https://twitter.com/eenriquelopez/status/790451395996577792"  target="_blank" rel="noopener" ></a>
-There are big advocates fighting against open spaces (meet <a href="https://medium.com/u/ca3cc6ab359a"  target="_blank" rel="noopener" >Adrian Kosmaczewski</a>, and if you have not yet read “<a href="https://medium.freecodecamp.com/being-a-developer-after-40-3c5dd112210c#.tf8ru469y"  target="_blank" rel="noopener" >How to be a developer after 40</a>”). With the scarcity of talent and the increasing need for technological contributors, my bet is that this will decrease in the near future.</p></blockquote>
+There are big advocates fighting against open spaces (meet <a href="https://medium.com/u/ca3cc6ab359a"  target="_blank" rel="noopener" >Adrian Kosmaczewski</a>, and if you have not yet read “<a href="https://medium.freecodecamp.com/being-a-developer-after-40-3c5dd112210c#.tf8ru469y"  target="_blank" rel="noopener" >How to be a developer after 40</a>”). With the scarcity of talent and the increasing need for technological contributors, my bet is that this will decrease in the near future.</p>
+</blockquote>
 <blockquote>
-<p><a href="https://twitter.com/eenriquelopez/status/795512038231605248"  target="_blank" rel="noopener" ></a></p></blockquote>
+<p><a href="https://twitter.com/eenriquelopez/status/795512038231605248"  target="_blank" rel="noopener" ></a></p>
+</blockquote>
 <blockquote>
-<p><a href="https://twitter.com/eenriquelopez/status/800590144726331392"  target="_blank" rel="noopener" ></a></p></blockquote>
+<p><a href="https://twitter.com/eenriquelopez/status/800590144726331392"  target="_blank" rel="noopener" ></a></p>
+</blockquote>
 <blockquote>
-<p><a href="https://twitter.com/eenriquelopez/status/803125791697539072"  target="_blank" rel="noopener" ></a></p></blockquote>
+<p><a href="https://twitter.com/eenriquelopez/status/803125791697539072"  target="_blank" rel="noopener" ></a></p>
+</blockquote>
 <blockquote>
-<p><a href="https://twitter.com/eenriquelopez/status/808208638577885184"  target="_blank" rel="noopener" ></a></p></blockquote>
+<p><a href="https://twitter.com/eenriquelopez/status/808208638577885184"  target="_blank" rel="noopener" ></a></p>
+</blockquote>
 <blockquote>
 <p><a href="https://twitter.com/eenriquelopez/status/810733691685208064"  target="_blank" rel="noopener" ></a>
-Again, reading this poll was great. I always struggle to introduce Kotlin in production in many companies due to many unfounded fears. The fact that so many people answered with a brave “100 percent Kotlin” shows that Kotlin is here to stay and is not a temporal fashion.</p></blockquote>
+Again, reading this poll was great. I always struggle to introduce Kotlin in production in many companies due to many unfounded fears. The fact that so many people answered with a brave “100 percent Kotlin” shows that Kotlin is here to stay and is not a temporal fashion.</p>
+</blockquote>
 <blockquote>
-<p><a href="https://twitter.com/eenriquelopez/status/813310597899190272"  target="_blank" rel="noopener" ></a></p></blockquote>
+<p><a href="https://twitter.com/eenriquelopez/status/813310597899190272"  target="_blank" rel="noopener" ></a></p>
+</blockquote>
 <p>I want to thank my colleagues <a href="https://twitter.com/ErikHellman"  target="_blank" rel="noopener" >Erik Hellman</a> and <a href="https://twitter.com/seebrock3r"  target="_blank" rel="noopener" >Sebastiano Poggi</a> for proof-reading the article and giving me many tips on it. So fortunate to know you and being able to collaborate together!</p>
 <p>I write my thoughts about Software Engineering and life in general in my <a href="https://twitter.com/eenriquelopez"  target="_blank" rel="noopener" >Twitter account</a>. Did you like this article or it did help you? Then feel free to share it, like it and/or leave a comment. This is the currency that fuels amateur writers ❤</p>
 
@@ -1043,7 +1058,7 @@ Again, reading this poll was great. I always struggle to introduce Kotlin in pro
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-M37D0QHKMX"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

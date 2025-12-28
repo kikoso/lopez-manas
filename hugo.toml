@@ -47,10 +47,7 @@ googleAnalytics = "G-M37D0QHKMX"
   name = "Mastodon"
   url = "https://kotlin.social/@eenriquelopez"
   weight = 1
-[[menu.social]]
-  name = "Bluesky"
-  url = "https://bsky.app/profile/eenriquelopez.bsky.social"
-  weight = 2
+
   [[menu.social]]
   name = "Goodreads"
   url = "https://www.goodreads.com/author/show/7510473.Enrique_L_pez_Ma_as"
