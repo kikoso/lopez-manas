@@ -14,7 +14,7 @@ I have broad interests and try not to limit myself to a single domain.
 
 I'm passionate about photography. My Nikon Z8, which I picked up in Japan, goes with me often, and I occasionally upload my work to [500px](https://500px.com/eenriquelopez).
 
-Finance is another area I’ve grown into. I've been investing thoughtfully since 2017, focusing on dividend-paying companies with a history of consistent growth. I prefer a long-term, steady approach that aligns with my personality—quiet and deliberate. Lately, I've also been exploring data visualization and analysis, particularly using Kotlin. I [spoke about it at the KotlinConf in 2025](https://kotlinconf.com/speakers/2f606e32-997a-4b74-8420-76a47e7d66a3/).
+Finance is another area I’ve grown into. I've been investing thoughtfully since 2017, focusing on dividend-paying companies with a history of consistent growth. I prefer a long-term, steady approach that aligns with my personality-quiet and deliberate. Lately, I've also been exploring data visualization and analysis, particularly using Kotlin. I [spoke about it at the KotlinConf in 2025](https://kotlinconf.com/speakers/2f606e32-997a-4b74-8420-76a47e7d66a3/).
 
 I hold a Master’s in Computer Science and am currently finishing a second Master’s in Economics, with an emphasis on theory rather than business administration. Over the years, I’ve spoken at various conferences, mainly on Kotlin, Java, Android, and AI.
 
