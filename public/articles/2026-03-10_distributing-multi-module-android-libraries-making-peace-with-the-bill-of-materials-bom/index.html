@@ -65,7 +65,7 @@
   <meta itemprop="description" content="How to use a Gradle BoM to align versions and save your library consumers from dependency hell.">
   <meta itemprop="datePublished" content="2026-03-10T09:00:00+00:00">
   <meta itemprop="dateModified" content="2026-03-10T09:00:00+00:00">
-  <meta itemprop="wordCount" content="952">
+  <meta itemprop="wordCount" content="953">
   <meta itemprop="image" content="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/images/1.jpg">
 
   
@@ -73,7 +73,7 @@
   <meta itemprop="description" content="How to use a Gradle BoM to align versions and save your library consumers from dependency hell.">
   <meta itemprop="datePublished" content="2026-03-10T09:00:00+00:00">
   <meta itemprop="dateModified" content="2026-03-10T09:00:00+00:00">
-  <meta itemprop="wordCount" content="952">
+  <meta itemprop="wordCount" content="953">
   <meta itemprop="image" content="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/images/1.jpg">
 </head>
 <body class="flex relative h-full min-h-screen"><aside
@@ -985,7 +985,7 @@ A trend that will only continue to grow.</p>
 <p>This means consumers only have to specify the version number once. It reduces friction, prevents subtle bugs caused by mismatched transitive dependencies, and makes upgrading your library a breeze. It is about treating your SDK development like a marathon, not a sprint: you invest a bit of time upfront to ensure the long-term stability and happiness of the developers integrating your code.</p>
 <h4 id="a-real-world-example-android-maps-utils">A Real-World Example: Android Maps Utils</h4>
 <p>You can see the gory details in <a href="https://github.com/googlemaps/android-maps-utils/pull/1660"  target="_blank" rel="noopener" >this Pull Request</a>.</p>
-<p>The library is split into specific modules (clustering, heatmaps, etc.). To tie it all together, they created a BoM. If you are developing a multi-module library, this is the blueprint you want to follow.</p>
+<p>The library is split into specific modules (clustering, heatmaps, etc.). To tie it all together, a BoM has been created. If you are developing a multi-module library, this is the blueprint you want to follow.</p>
 <p>Here is how you can implement it in your own project.</p>
 <h3 id="creating-the-bom-module">Creating the BoM module</h3>
 <p>First, you need to create a dedicated, empty module in your project. Let&rsquo;s call it <code>bom</code>.</p>
