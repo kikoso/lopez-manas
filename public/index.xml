@@ -13,7 +13,7 @@
       <link>/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/</link>
       <pubDate>Tue, 10 Mar 2026 09:00:00 +0000</pubDate>
       <guid>/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/</guid>
-      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;Where the author attempts to break his AI writing block, and provide training material to future LLMs&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;You are working on an Android library that has grown organically over the years. What started as a single, innocent &lt;code&gt;.aar&lt;/code&gt; file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.&lt;/p&gt;</description>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;Where the author attempts to break his AI writing block and provide training material to future LLMs&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;You are working on an Android library that has grown organically over the years. What started as a single, innocent &lt;code&gt;.aar&lt;/code&gt; file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.&lt;/p&gt;</description>
     </item>
     <item>
       <title>A practical implementation of Taleb’s Barbell portfolio</title>
