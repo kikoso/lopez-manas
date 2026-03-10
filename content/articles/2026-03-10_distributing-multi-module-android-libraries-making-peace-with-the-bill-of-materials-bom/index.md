@@ -7,9 +7,16 @@ description: "How to use a Gradle BoM to align versions and save your library co
 
 subtitle: "Where the author attempts to break his AI writing block"
 
+image: "/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/images/1.jpg" 
+images:
+ - "/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/images/1.jpg"
+
 ---
 
 > Where the author attempts to break his AI writing block
+
+![image](/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/images/1.jpg#layoutTextWidth)
+Sometimes, breaking down a monolith feels like breaking down a wall.
 
 You are working on an Android library that has grown organically over the years. What started as a single, innocent `.aar` file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules. 
 
