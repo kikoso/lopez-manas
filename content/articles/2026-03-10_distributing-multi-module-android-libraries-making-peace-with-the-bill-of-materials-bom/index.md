@@ -35,7 +35,7 @@ This means consumers only have to specify the version number once. It reduces fr
 
 You can see the gory details in [this Pull Request](https://github.com/googlemaps/android-maps-utils/pull/1660). 
 
-The library is split into specific modules (clustering, heatmaps, etc.). To tie it all together, they created a BoM. If you are developing a multi-module library, this is the blueprint you want to follow.
+The library is split into specific modules (clustering, heatmaps, etc.). To tie it all together, a BoM has been created. If you are developing a multi-module library, this is the blueprint you want to follow.
 
 Here is how you can implement it in your own project.
 
