@@ -9,6 +9,8 @@ subtitle: "Where the author attempts to break his AI writing block"
 
 ---
 
+> Where the author attempts to break his AI writing block
+
 You are working on an Android library that has grown organically over the years. What started as a single, innocent `.aar` file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules. 
 
 This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: **version alignment**. 
