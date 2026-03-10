@@ -5,7 +5,7 @@ date: 2026-03-10T09:00:00.000Z
 
 description: "How to use a Gradle BoM to align versions and save your library consumers from dependency hell."
 
-subtitle: "You are splitting your monolith SDK into a beautiful, modularized architecture. But soon enough, your consumers will enter dependency hell. Let's fix that."
+subtitle: "Where the author attempts to break his AI writing block"
 
 ---
 
