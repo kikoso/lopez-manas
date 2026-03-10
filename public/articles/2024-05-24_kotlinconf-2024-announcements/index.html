@@ -14,7 +14,7 @@
   <meta name="description" content="The first day of the KotlinConf 2024 is over, and there has been a significant amount. After 5 years the conference happened again at The Bella Center in Copenhagen, a fantastic venue close to the historical center of the Danish capital.
 The last two weeks have been intense, with the Google I/O announcing another set of relevant features for Android and Kotlin developers. Most notably, Google is now supporting KMP for Android development. This is not a surprise move, since Google has been slowly pushing KMP for many of their libraries and products. Having official support is, however, a confirmation of a direction that makes Android developers happy. We are no longer relying on uncertainty. Quite the opposite, we know that putting our time and effort on Kotlin Multiplatform is likely to pay dividends over the upcoming years." />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.153.3">
+  <meta name="generator" content="Hugo 0.157.0">
 
   <link rel="stylesheet" href="/css/main.css" />
 <script type="module">
@@ -324,6 +324,18 @@ The last two weeks have been intense, with the Google I/O announcing another set
   }
 </script>
 <div class="space-y-2.5">
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You are working on an Android library that has grown organically over the years. What started as a single, innocent <code>.aar</code> file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.</p>
+<p>This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: <strong>version alignment</strong>.</p>
+        </div>
+      </a>
       
       <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/">

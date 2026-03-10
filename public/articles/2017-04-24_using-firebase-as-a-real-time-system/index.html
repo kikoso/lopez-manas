@@ -14,7 +14,7 @@
   <meta name="description" content="I was captivated by exposed pictures since I was a child. Is a unique way to capture movement in a static image.
 I have been an avid user of Firebase since more than a year now. When Parse.com announced it would be shutting off, I was attending a Google Launchpad in Mountain View as a mentor. If you haven’t heard of the Google Launchpads, they are great. Not only for the startups, which get a fair amount of advising and mentoring from people in different fields (UX, Tech, Marketing, Monetizing and Fund raising…) but also for mentors itself! Besides getting to know what top-notch startups are doing around the world and helping them, we also get to talk with each other and get to know first hand what other folks are experiencing too. It ressembles a swinging party where knowledge is the currency to be exchanged. It has always been one of those events where you wake up early and excited, just thinking of following up with all the people you have met the previous day." />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.153.3">
+  <meta name="generator" content="Hugo 0.157.0">
 
   <link rel="stylesheet" href="/css/main.css" />
 <script type="module">
@@ -336,6 +336,18 @@ I have been an avid user of Firebase since more than a year now. When Parse.com 
   }
 </script>
 <div class="space-y-2.5">
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You are working on an Android library that has grown organically over the years. What started as a single, innocent <code>.aar</code> file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.</p>
+<p>This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: <strong>version alignment</strong>.</p>
+        </div>
+      </a>
       
       <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/">
@@ -995,18 +1007,18 @@ A trend that will only continue to grow.</p>
 </ol>
 <p>Part of the magic of how Firebase achieves this is also the simplicity in the code. You do not need to spend hours coding. This can literally be achieved within minutes.</p>
 <p>For the sake of simplicity, this tutorial will provide the code for Android. As you may know, Firebase do provide SDKs for iOS and the web with an equal plethora of simplicity. Let’s see (configuration and setup of our application aside) how could we write a value in the Real Time Database (RTD from now on)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>FirebaseDatabase database <span style="color:#ff79c6">=</span> FirebaseDatabase.<span style="color:#50fa7b">getInstance</span>();
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>FirebaseDatabase database <span style="color:#ff79c6">=</span> FirebaseDatabase.<span style="color:#50fa7b">getInstance</span>();
 </span></span><span style="display:flex;"><span>DatabaseReference myRef <span style="color:#ff79c6">=</span> database.<span style="color:#50fa7b">getReference</span>(<span style="color:#f1fa8c">&#34;message&#34;</span>);
 </span></span><span style="display:flex;"><span>myRef.<span style="color:#50fa7b">setValue</span>(<span style="color:#f1fa8c">&#34;Hello, World!&#34;</span>);
 </span></span></code></pre></div><p>If we execute this code in our client, the RTD will reflect the changes in its structure:</p>
 <p><img src="/articles/2017-04-24_using-firebase-as-a-real-time-system/images/3.png#layoutTextWidth" alt="image"></p>
 <p>With Firebase we can also push nodes into our RTD. That way, the RTD generates a unique key:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>FirebaseDatabase database <span style="color:#ff79c6">=</span> FirebaseDatabase.<span style="color:#50fa7b">getInstance</span>();
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>FirebaseDatabase database <span style="color:#ff79c6">=</span> FirebaseDatabase.<span style="color:#50fa7b">getInstance</span>();
 </span></span><span style="display:flex;"><span>database.<span style="color:#50fa7b">getReference</span>().<span style="color:#50fa7b">push</span>().<span style="color:#50fa7b">setValue</span>(<span style="color:#f1fa8c">&#34;Hello world&#34;</span>);
 </span></span></code></pre></div><p>Which also creates the result in RTD, this time with a unique key as an ID:</p>
 <p><img src="/articles/2017-04-24_using-firebase-as-a-real-time-system/images/4.png#layoutTextWidth" alt="image"></p>
 <p>I have previously mentioned that apps get notified wherever data has been changed in the RTD out of the box. With the following code, we will subscribe to any value that is changed in the specified node (in this case, the node “message”):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>FirebaseDatabase database <span style="color:#ff79c6">=</span> FirebaseDatabase.<span style="color:#50fa7b">getInstance</span>();
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>FirebaseDatabase database <span style="color:#ff79c6">=</span> FirebaseDatabase.<span style="color:#50fa7b">getInstance</span>();
 </span></span><span style="display:flex;"><span>DatabaseReference myRef <span style="color:#ff79c6">=</span> database.<span style="color:#50fa7b">getReference</span>(<span style="color:#f1fa8c">&#34;message&#34;</span>);
 </span></span><span style="display:flex;"><span>myRef.<span style="color:#50fa7b">addValueEventListener</span>(<span style="color:#ff79c6">new</span> ValueEventListener() {
 </span></span><span style="display:flex;"><span>  @Override

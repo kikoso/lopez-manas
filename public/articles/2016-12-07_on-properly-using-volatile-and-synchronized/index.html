@@ -15,7 +15,7 @@
 Multithreading is an entire discipline that takes years to master and properly understand. We will keep a short introduction in this article.
 In computing, a resource can be accessed from different threads concurrently. This can lead to inconsistency and corrupt data. A thread ThreadA accesses a resource and modifies it. In the meantime, the thread ThreadB starts accessing the same resource. Data may get corrupted since it is concurrently being modified. Let´s analyze an example without any kind of protection:" />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.153.3">
+  <meta name="generator" content="Hugo 0.157.0">
 
   <link rel="stylesheet" href="/css/main.css" />
 <script type="module">
@@ -329,6 +329,18 @@ In computing, a resource can be accessed from different threads concurrently. Th
   }
 </script>
 <div class="space-y-2.5">
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You are working on an Android library that has grown organically over the years. What started as a single, innocent <code>.aar</code> file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.</p>
+<p>This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: <strong>version alignment</strong>.</p>
+        </div>
+      </a>
       
       <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/">
@@ -971,7 +983,7 @@ A trend that will only continue to grow.</p>
       <p>In the last weeks I have been writing about the <a href="https://medium.com/google-developer-experts/diving-deeper-into-the-java-transient-modifier-3b16eff68f42#.tes59mm9a"  target="_blank" rel="noopener" >transient</a> modifier and the different <a href="https://medium.com/google-developer-experts/finally-understanding-how-references-work-in-android-and-java-26a0d9c92f83#.ixg2oyvhj"  target="_blank" rel="noopener" >types of references</a> available in Java. I want to hold the topic of underused/misused topics in Java and bring you this week the <strong>volatile</strong> and <strong>synchronized</strong> modifiers .</p>
 <p>Multithreading is an entire discipline that takes years to master and properly understand. We will keep a short introduction in this article.</p>
 <p>In computing, a resource can be accessed from different threads concurrently. This can lead to inconsistency and corrupt data. A thread <em>ThreadA</em> accesses a resource and modifies it. In the meantime, the thread <em>ThreadB</em> starts accessing the same resource. Data may get corrupted since it is concurrently being modified. Let´s analyze an example without any kind of protection:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">PrintDemo</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">PrintDemo</span> {
 </span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd">int</span> i;
 </span></span><span style="display:flex;"><span>   <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">printCount</span>() {
 </span></span><span style="display:flex;"><span>	 
@@ -1063,7 +1075,7 @@ Thread Thread 2 finishing.
 <p>We have mentioned before that <strong>synchronized</strong> modifier could apply to blocks and methods. The first difference between them is that <strong>volatile</strong> is a modifier that can be applied to fields.</p>
 <p>A small note on how Java memory and multithreading work. When we are working with multithreading environments, each thread creates its own copy on a local cache of the variable they are dealing with. When this value is being updated, the update happens first in the local cache copy, and not in the real variable. Therefore, other threads are agnostic about the values that other threads are changing.</p>
 <p>Here <strong>volatile</strong> changes the paradigm. When a variable is declared as <strong>volatile</strong>, it will not be stored in the local cache of a thread. Instead, each thread will access the variable in the main memory and other threads will be able to access the updated value. Let´s compare all the methods for a proper understanding:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd">int</span> firstVariable;  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd">int</span> firstVariable;  
 </span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">getFirstVariable</span>() {
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> firstVariable;
 </span></span><span style="display:flex;"><span>}  

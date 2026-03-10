@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/</loc>
-    <lastmod>2025-08-26T09:00:03+02:00</lastmod>
-  </url><url>
     <loc>/</loc>
-    <lastmod>2025-08-26T09:00:03+02:00</lastmod>
+    <lastmod>2026-03-10T09:00:00+00:00</lastmod>
   </url><url>
     <loc>/articles/</loc>
+    <lastmod>2026-03-10T09:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/</loc>
+    <lastmod>2026-03-10T09:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/</loc>
     <lastmod>2025-08-26T09:00:03+02:00</lastmod>
   </url><url>
     <loc>/articles/2025-04-12_vibe-coding-kotlin-finance-and-data-visualization/</loc>

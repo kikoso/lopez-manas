@@ -14,7 +14,7 @@
   <meta name="description" content="I just sent the issue #182 of the Kotlin Weekly. #182 means that this has been the week 182 that the Kotlin Weekly is alive. Many things have changed since the first edition on the 7th of August 2017, sent to over 200 initial subscribers with 5 articles.
 In some of the first editions, the content was so scarce that I ended up writing my own articles to include them, or adding some code snippets I posted on Twitter. Slowly and steadily, the evolution of Kotlin has followed a clear trend since then." />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.153.3">
+  <meta name="generator" content="Hugo 0.157.0">
 
   <link rel="stylesheet" href="/css/main.css" />
 <script type="module">
@@ -336,6 +336,18 @@ In some of the first editions, the content was so scarce that I ended up writing
   }
 </script>
 <div class="space-y-2.5">
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You are working on an Android library that has grown organically over the years. What started as a single, innocent <code>.aar</code> file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.</p>
+<p>This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: <strong>version alignment</strong>.</p>
+        </div>
+      </a>
       
       <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/">
@@ -1005,7 +1017,7 @@ Excerpt of <a href="https://books.google.com.vn/books?id=aMxPDwAAQBAJ&amp;amp;pg
 val file = File(&quot;src/yamls/&quot; + filename + &quot;.yaml&quot;)<br>
 val result = Yaml.default.parse(Issue.serializer(), file.<em>readText</em>())</p>
 <p><em>createMdFile</em>(result, filename)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">var</span> html = _createHeader_(result.number.toString(), result.date)  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">var</span> html = _createHeader_(result.number.toString(), result.date)  
 </span></span><span style="display:flex;"><span>html <span style="color:#ff79c6">+=</span> _createTitle_(result.title)  
 </span></span><span style="display:flex;"><span>result.announcements<span style="color:#ff79c6">?.</span>_let_ **{** html <span style="color:#ff79c6">+=</span> _createAnnouncements_(result.announcements) **}  
 </span></span><span style="display:flex;"><span>**result.articles<span style="color:#ff79c6">?.</span>_let_ **{** html <span style="color:#ff79c6">+=</span> _createArticles_(result.articles) **}  
@@ -1024,7 +1036,7 @@ Runtime.getRuntime().exec(&amp;#34;cp src/mds/&amp;#34;+filename+&amp;#34;-title
 _println_(&amp;#34;Moving to kotlin-weekly directory&amp;#34;)  
 Runtime.getRuntime().exec(&amp;#34;cd ../kotlin-weekly&amp;#34;)`
 </code></pre><p>As a nice side effect, I copy directly into the clipboard the entire HTML, so I just need to paste it into Mailchimp:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">val</span> clipboard = <span style="color:#50fa7b">Toolkit</span>.getDefaultToolkit()._systemClipboard  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">val</span> clipboard = <span style="color:#50fa7b">Toolkit</span>.getDefaultToolkit()._systemClipboard  
 </span></span><span style="display:flex;"><span>_clipboard.setContents(StringSelection(html), <span style="color:#ff79c6">null</span>)
 </span></span></code></pre></div><p>After I commit the content from the Jekyll directory into GitHub, a hook will be triggered. This hook will build the Jekyll page, and automatically post it into Firebase.</p>
 <p><img src="/articles/2020-01-25_managing-the-kotlin-weekly/images/5.png#layoutTextWidth" alt="image">

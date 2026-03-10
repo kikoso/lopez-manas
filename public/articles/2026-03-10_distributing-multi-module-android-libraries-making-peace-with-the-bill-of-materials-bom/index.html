@@ -8,12 +8,10 @@
   <link rel="icon" href="/favicon.ico">
 
   <title>
-    Event-driven programming for Android (part III) - 
+    Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM) - 
   </title>
 
-  <meta name="description" content="(This is the third article in a three-part series)
-Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
-Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications." />
+  <meta name="description" content="How to use a Gradle BoM to align versions and save your library consumers from dependency hell." />
   <meta name="author" content="Enrique López-Mañas" />
   <meta name="generator" content="Hugo 0.157.0">
 
@@ -44,53 +42,39 @@ Now we are likely facing another problem: how can we easily scale an application
   
   
 
-  <meta property="og:url" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/">
-  <meta property="og:title" content="Event-driven programming for Android (part III)">
-  <meta property="og:description" content="(This is the third article in a three-part series)
-Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
-Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.">
+  <meta property="og:url" content="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/">
+  <meta property="og:title" content="Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)">
+  <meta property="og:description" content="How to use a Gradle BoM to align versions and save your library consumers from dependency hell.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2015-02-08T18:32:14+00:00">
-    <meta property="article:modified_time" content="2025-06-09T09:47:50+02:00">
-    <meta property="og:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
-    <meta property="og:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
-    <meta property="og:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
+    <meta property="article:published_time" content="2026-03-10T09:00:00+00:00">
+    <meta property="article:modified_time" content="2026-03-10T09:00:00+00:00">
+    <meta property="og:image" content="/digital-garden-logo.png">
 
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
-  <meta name="twitter:title" content="Event-driven programming for Android (part III)">
-  <meta name="twitter:description" content="(This is the third article in a three-part series)
-Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
-Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.">
+  <meta name="twitter:image" content="/digital-garden-logo.png">
+  <meta name="twitter:title" content="Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)">
+  <meta name="twitter:description" content="How to use a Gradle BoM to align versions and save your library consumers from dependency hell.">
 
 
   
-  <meta itemprop="name" content="Event-driven programming for Android (part III)">
-  <meta itemprop="description" content="(This is the third article in a three-part series)
-Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
-Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.">
-  <meta itemprop="datePublished" content="2015-02-08T18:32:14+00:00">
-  <meta itemprop="dateModified" content="2025-06-09T09:47:50+02:00">
-  <meta itemprop="wordCount" content="777">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
+  <meta itemprop="name" content="Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)">
+  <meta itemprop="description" content="How to use a Gradle BoM to align versions and save your library consumers from dependency hell.">
+  <meta itemprop="datePublished" content="2026-03-10T09:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-03-10T09:00:00+00:00">
+  <meta itemprop="wordCount" content="962">
+  <meta itemprop="image" content="/digital-garden-logo.png">
 
   
-  <meta itemprop="name" content="Event-driven programming for Android (part III)">
-  <meta itemprop="description" content="(This is the third article in a three-part series)
-Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
-Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.">
-  <meta itemprop="datePublished" content="2015-02-08T18:32:14+00:00">
-  <meta itemprop="dateModified" content="2025-06-09T09:47:50+02:00">
-  <meta itemprop="wordCount" content="777">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
+  <meta itemprop="name" content="Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)">
+  <meta itemprop="description" content="How to use a Gradle BoM to align versions and save your library consumers from dependency hell.">
+  <meta itemprop="datePublished" content="2026-03-10T09:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-03-10T09:00:00+00:00">
+  <meta itemprop="wordCount" content="962">
+  <meta itemprop="image" content="/digital-garden-logo.png">
 </head>
 <body class="flex relative h-full min-h-screen"><aside
   class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:basis-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar flex-shrink-0">
@@ -336,13 +320,13 @@ Now we are likely facing another problem: how can we easily scale an application
 </script>
 <div class="space-y-2.5">
       
-      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+      <a class="article block px-3 py-4  bg-slate-900 dark:bg-slate-700 text-slate-50 "
         href="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/">
         
         
         <h3 class="text-lg font-semibold mb-0.5">Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)</h3>
         <div
-          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          class="text-sm  text-slate-400  line-clamp-2">
           <p>You are working on an Android library that has grown organically over the years. What started as a single, innocent <code>.aar</code> file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.</p>
 <p>This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: <strong>version alignment</strong>.</p>
         </div>
@@ -919,7 +903,7 @@ A trend that will only continue to grow.</p>
         </div>
       </a>
       
-      <a class="article block px-3 py-4  bg-slate-900 dark:bg-slate-700 text-slate-50 "
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/">
         
         
@@ -927,7 +911,7 @@ A trend that will only continue to grow.</p>
         
         <h3 class="text-lg font-semibold mb-0.5">Event-driven programming for Android (part III)</h3>
         <div
-          class="text-sm  text-slate-400  line-clamp-2">
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
           <p>(This is the third article in a three-part series)</p>
 <p>Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a <em>HelloWorld Event-Driven</em> application.</p>
 <p>Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.</p>
@@ -972,55 +956,87 @@ A trend that will only continue to grow.</p>
     <article class="px-6 py-20 w-full mx-auto prose lg:prose-lg h-fit dark:prose-invert prose-img:mx-auto">
 
       
-      <h1 class="!mb-2">Event-driven programming for Android (part III)</h1>
+      <h1 class="!mb-2">Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)</h1>
 
 	  
-      <p class="text-sm text-slate-500 !mb-8"> Planted February 8, 2015
+      <p class="text-sm text-slate-500 !mb-8"> Planted March 10, 2026
 		
-			<br/> Pruned June 9, 2025
-        
 	  </p>
       
 
       
-      <img class="rounded max-w-full mx-auto mb-4" src="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png" alt="Event-driven programming for Android (part III)" />
-      
 
-      <p>(This is the third article in a three-part series)</p>
-<p>Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a <em>HelloWorld Event-Driven</em> application.</p>
-<p>Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications.</p>
-<p>I have been using this architecture for a while, and it has made a change. Using Events and an MVP pattern ensures that I can easily add features to an application. I have also reduced the period between refactoring and rewriting, so the software I write can actually live longer and with a better quality.</p>
-<h3 id="a-first-term-mvp">A first term: MVP</h3>
-<p>MVP stands for Model View Presenter, and is a programming pattern that defines three basic entities to be implemented within a software system:</p>
-<p>The <strong>Model</strong>: what to render</p>
-<p>The <strong>View</strong>: how to render</p>
-<p>The <strong>Presenter</strong>: handles the communication between the model and the view. The presenter updates the view with content from the model, abstracting the view of any complexity underneath.</p>
-<p><img src="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png#layoutTextWidth" alt="image">
-Courtesy of WikiMedia</p>
-<p>MVP (as well as other programming patterns) is a concept rather than a concept solid framework, so there are no strict rules about it. Android does not implement a pure MVP pattern, but contains some elements:</p>
+      <p>You are working on an Android library that has grown organically over the years. What started as a single, innocent <code>.aar</code> file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.</p>
+<p>This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: <strong>version alignment</strong>.</p>
+<p>If a developer wants to use your library, they now have to include multiple dependencies in their <code>build.gradle</code> file, and they have to make absolutely sure they are requesting the exact same version for all of them. If they use version <code>1.2.0</code> of your core module but accidentally leave the UI module at <code>1.1.0</code>, things will break. And they will blame you.</p>
+<p>How can we prevent this? Well, there is an elegant, long-term solution for this problem that you have probably already consumed from libraries like Firebase or Compose: <strong>The Bill of Materials (BoM)</strong>.</p>
+<h4 id="what-is-a-bom">What is a BoM?</h4>
+<p>In the software world, a Bill of Materials (BoM) is a special kind of module that doesn&rsquo;t contain any code. Instead, it contains a list of dependencies and their strict versions. It acts as a single source of truth.</p>
+<p>When a consumer imports your BoM, they are essentially telling their build system: <em>&ldquo;Hey, whenever I add a module from this library, look up its version in the BoM.&rdquo;</em></p>
+<p>This means consumers only have to specify the version number once. It reduces friction, prevents subtle bugs caused by mismatched transitive dependencies, and makes upgrading your library a breeze. It is about treating your SDK development like a marathon, not a sprint: you invest a bit of time upfront to ensure the long-term stability and happiness of the developers integrating your code.</p>
+<h4 id="a-real-world-example-android-maps-utils">A Real-World Example: Android Maps Utils</h4>
+<p>I was recently looking at how the Google Maps team approached this exact problem when they modularized the <code>android-maps-utils</code> library. You can see the gory details in <a href="https://github.com/googlemaps/android-maps-utils/pull/1660"  target="_blank" rel="noopener" >this Pull Request</a>.</p>
+<p>They split their library into specific modules (clustering, heatmaps, etc.). To tie it all together, they created a BoM. If you are developing a multi-module library, this is the blueprint you want to follow.</p>
+<p>Here is how you can implement it in your own project.</p>
+<h3 id="creating-the-bom-module">Creating the BoM module</h3>
+<p>First, you need to create a dedicated, empty module in your project. Let&rsquo;s call it <code>bom</code>.</p>
+<p>Inside this module&rsquo;s <code>build.gradle</code> (or <code>build.gradle.kts</code>), you are not going to use the standard Android library plugin. Instead, you will use the <code>java-platform</code> plugin. This plugin is designed exactly for this purpose: it allows you to declare constraints on other modules.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>plugins {
+</span></span><span style="display:flex;"><span>    id(<span style="color:#f1fa8c">&#34;java-platform&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// You will likely also need your publishing plugin here
+</span></span></span><span style="display:flex;"><span>    id(<span style="color:#f1fa8c">&#34;maven-publish&#34;</span>) 
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dependencies {
+</span></span><span style="display:flex;"><span>    constraints {
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// Here you define all the modules that belong to your library
+</span></span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// The &#39;api&#39; configuration exposes these constraints to consumers
+</span></span></span><span style="display:flex;"><span>        api(project(<span style="color:#f1fa8c">&#34;:library-core&#34;</span>))
+</span></span><span style="display:flex;"><span>        api(project(<span style="color:#f1fa8c">&#34;:library-ui&#34;</span>))
+</span></span><span style="display:flex;"><span>        api(project(<span style="color:#f1fa8c">&#34;:library-networking&#34;</span>))
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>By using <code>project(&quot;:module-name&quot;)</code>, Gradle automatically resolves the current version of your project during the publishing phase.</p>
+<h4 id="fixing-artifact-ids">Fixing Artifact IDs</h4>
+<p>There is a crucial detail to keep in mind, and it was a major pain point addressed in the Google Maps PR. When you transition from a monolith to a multi-module architecture, you must ensure that each module has a <strong>unique artifact ID</strong> when published to Maven Central.</p>
+<p>If your legacy library was published as <code>com.example:my-library</code>, your new modules cannot share that ID, otherwise they will overwrite each other in the repository. You need to assign them distinct names:</p>
 <ul>
-<li>The user interface (Views) are defined in XML files.</li>
-<li>We extend classes (Activity, Fragment) that inflate the views, and update them.</li>
+<li><code>com.example:my-library-core</code></li>
+<li><code>com.example:my-library-ui</code></li>
+<li><code>com.example:my-library-bom</code></li>
 </ul>
-<p>From all the components of the MVP pattern, the <em>presenter</em> has no direct representation in Android. This is however an important component: imagine that tomorrow we need to retrieve our data from a web service rather than a database. If we have followed a MVP approach, this change would be rather trivial to implement.</p>
-<h3 id="an-event-driven-supporting-architecture">An Event-Driven supporting architecture</h3>
-<p>The following architecture aims to make easier the implementation of an Event-Driven based applications. It also has some other advantages, such as a high modularity and easiness for testing.</p>
-<p>We are going to create our own instance of <em>Application</em>. This instance will host an EventBus Registry, which is a class that contains a comprehensive list of all the subscribers to the bus (more on this later). Our <em>Application</em> will register all the subscribers and de-register them when it has been terminated.</p>
-<h4 id="the-eventbusregistry">The EventBusRegistry</h4>
-<p>This class is basically a register containing all the subscribers to the bus. I ended up naming my subscribers as PluginControllers, since you can plug them in and out and the application will keep working (of course, if they are not plug in they will not listen to events). I understand this naming can confuse the reader, so I will name then as Subscribers in this article.</p>
-<p>The EventBus Registry keeps a reference to the EventBus (which is a static class), so it can register the subscribers.</p>
-<p><img src="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png#layoutTextWidth" alt="image">
-Conceptually: the Application will contain a EventBus Registry with references to the different subscribers, so they can be registered or unregistered. The EventBus is a static instance in the application.</p>
-<h4 id="the-subscribers">The Subscribers</h4>
-<p>The Subscribers will be the only class able to listen to events. This classes will always contain one or more <em>OnEvent()</em> method. The Subscribers will perform actions after they received an Event. A basic example: you can have a subscriber that performs a call when receives the “PerformCallEvent”.</p>
-<p>Subscribers can also post events into the EventBus as a response to an incoming Event.</p>
-<h4 id="presenters">Presenters</h4>
-<p>The presenters take actions. The Views give them orders, and they act in consequence. They can also post events into the EventBus.</p>
-<p>This architecture uses a single Activity. There are arguments in favour and against this, but since we will be using different Fragments to represent the screens, using a single Activity makes things easier (and remember, as a developer your main target should be to program less).</p>
-<p>I have uploaded to <a href="https://github.com/kikoso/Event-Bus-Architecture"  target="_blank" rel="noopener" >GitHub</a> a sample project that includes a login screen, that triggers event to perform the login and loads a different fragment after it. Take a look at the project structure:</p>
-<p><img src="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png#layoutTextWidth" alt="image"></p>
-<p>There are base classes for the EventBus Registry, the Activities and the Subscriber (you might want to add a base Fragment class depending on your project needs). The Application, EventBus and EventBus registry have been customized for the project (thus the ED prefix).</p>
-<p>Extending this application into new features will basically require new events, subscribers and a presenter and view per feature. Following this pattern ensures that the application is scalable, the code is decoupled and therefore easy to test and understand.</p>
+<p>You can preserve the original <code>com.example:my-library</code> artifact ID for the core library (or an aggregation module) to maintain backward compatibility, but the BoM and the new modules need their own space.</p>
+<h4 id="publishing-the-bom">Publishing the BoM</h4>
+<p>Your BoM needs to be published to your Maven repository alongside your other modules. If you have a solid CI/CD pipeline, you are probably using a convention plugin (like <code>BomPublishingConventionPlugin</code> in the Maps Utils repo) inside <code>buildSrc</code> or <code>build-logic</code> to share publishing configuration across all your modules.</p>
+<p>The BoM will be published as a <code>.pom</code> file rather than an <code>.aar</code> or <code>.jar</code>.</p>
+<h3 id="the-consumer-experience">The Consumer Experience</h3>
+<p>This is where the magic happens. After you publish your BoM, the developers consuming your library will update their <code>build.gradle</code> file.</p>
+<p>Instead of this error-prone mess:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>dependencies <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    implementation <span style="color:#f1fa8c">&#39;com.example:my-library-core:2.0.0&#39;</span>
+</span></span><span style="display:flex;"><span>    implementation <span style="color:#f1fa8c">&#39;com.example:my-library-ui:2.0.0&#39;</span>
+</span></span><span style="display:flex;"><span>    implementation <span style="color:#f1fa8c">&#39;com.example:my-library-networking:1.9.5&#39;</span> <span style="color:#6272a4">// Oops, a typo!
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span></code></pre></div><p>They will now write this beautiful, clean code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>dependencies <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// Import the BoM
+</span></span></span><span style="display:flex;"><span>    implementation <span style="color:#50fa7b">platform</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#39;com.example:my-library-bom:2.0.0&#39;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// Declare the dependencies without specifying versions
+</span></span></span><span style="display:flex;"><span>    implementation <span style="color:#f1fa8c">&#39;com.example:my-library-core&#39;</span>
+</span></span><span style="display:flex;"><span>    implementation <span style="color:#f1fa8c">&#39;com.example:my-library-ui&#39;</span>
+</span></span><span style="display:flex;"><span>    implementation <span style="color:#f1fa8c">&#39;com.example:my-library-networking&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span></code></pre></div><p>The <code>platform()</code> keyword tells Gradle to use the BoM to enforce version alignment. If the consumer updates the BoM to version <code>2.1.0</code>, all the underlying modules are automatically updated to the matching version. No more dependency hell. No more mismatched crashes.</p>
+<h3 id="conclusions">Conclusions</h3>
+<ul>
+<li>If your Android library has multiple modules that are meant to be used together, you absolutely need a BoM.</li>
+<li>Use the <code>java-platform</code> Gradle plugin to create a module that constraints the versions of your library components.</li>
+<li>Ensure every module has a unique, well-defined Artifact ID before publishing to avoid repository conflicts.</li>
+<li>Your consumers will thank you.</li>
+</ul>
+<p>Setting up a BoM requires a bit of upfront Gradle configuration, but it is an investment in the architecture of your deployment pipeline. Do it once, and let the automation do the heavy lifting for the rest of your project&rsquo;s lifecycle.</p>
+<p>I write my thoughts about Software Engineering and life in general on my <a href="https://kotlin.social/@eenriquelopez"  target="_blank" rel="noopener" >Mastodon account</a>. If you have liked this article or if it did help you, feel free to share, 👏 it and/or leave a comment. This is the currency that fuels amateur writers.</p>
 
     </article>
   </div>

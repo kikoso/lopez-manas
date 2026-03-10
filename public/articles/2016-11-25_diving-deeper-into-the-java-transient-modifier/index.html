@@ -15,7 +15,7 @@
 Last week I published an article to help you understand how references do work in Java. It had a great acceptance, and I got a lot of constructive feedback. That is why I love the software community.
 Today I want to present you another article diving into a topic that it is not widely used: the transient modifier. Personally, when I started using it I recall I was able to quickly grasp the theoretical aspect of it, although applying was a question of a different nature. Let´s gonna check closer" />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.153.3">
+  <meta name="generator" content="Hugo 0.157.0">
 
   <link rel="stylesheet" href="/css/main.css" />
 <script type="module">
@@ -329,6 +329,18 @@ Today I want to present you another article diving into a topic that it is not w
   }
 </script>
 <div class="space-y-2.5">
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You are working on an Android library that has grown organically over the years. What started as a single, innocent <code>.aar</code> file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.</p>
+<p>This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: <strong>version alignment</strong>.</p>
+        </div>
+      </a>
       
       <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/">
@@ -978,7 +990,7 @@ A trend that will only continue to grow.</p>
 <p>You will agree with me: the theory is quite easy, but we initially fail to see the practical aspect. Where should we apply a transient modifier? When it will be useful? Is hard to come up with a factual example unless you have used it before. Like a dog chasing its tail, we fail to find a use case and therefore we cannot apply <a href="https://medium.com/@enriquelopezmanas/the-theoretical-animal-4f6901aaf571#.w9db0bi8k"  target="_blank" rel="noopener" >practice to the theory</a>.</p>
 <p>My intention with this article is to help you break this vicious cycle. Let´s check a few practical examples.</p>
 <p>Think of an <strong>User</strong> object. This <strong>User</strong> contains among all its properties <em>login</em>, <em>email</em> and <em>password</em>. When the data is being serialized and transmitted through the network, we can think of a few security reasons why we would not like to send the field <em>password</em> altogether with the entire object. In this case, marking the field as <strong>transient</strong> will solve this security problem. How would this look like in code?</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>@Data      
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>@Data      
 </span></span><span style="display:flex;"><span>@NoArgsConstructor  
 </span></span><span style="display:flex;"><span>@AllArgsConstructor  
 </span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">User</span> <span style="color:#8be9fd;font-style:italic">implements</span> Serializable {  
@@ -1002,7 +1014,7 @@ A trend that will only continue to grow.</p>
 </blockquote>
 <p>There is another use case I can think of when using <strong>transient</strong> modifiers: when an object is being derived of another. In that case, we can make our code more efficient by making the derived field <strong>transient</strong>.</p>
 <p>Let´s take a look at this piece of code:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>@Data      
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>@Data      
 </span></span><span style="display:flex;"><span>@NoArgsConstructor  
 </span></span><span style="display:flex;"><span>@AllArgsConstructor  
 </span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">GalleryImage</span> <span style="color:#8be9fd;font-style:italic">implements</span> Serializable {````    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd">long</span> serialVersionUID <span style="color:#ff79c6">=</span> 123456789L;  

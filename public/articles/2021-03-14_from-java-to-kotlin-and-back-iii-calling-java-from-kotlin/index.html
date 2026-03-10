@@ -17,7 +17,7 @@ From Java to Kotlin and back (II): Calling Kotlin from Java
 In this last chapter of the series, we will evaluate consideration when calling Java code from Kotlin.
 One could argue that even in this situation happens often, keeping considerations in mind for some code that might legacy is not that practical. Kotlin has also been designed with interoperability in mind, so Java code from Kotlin is much more “callable” than the other way around, since the design has been in mind since its conception. However, there are a few points that you can keep in mind when working on your Java code, and we would like to explain them in this article." />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.153.3">
+  <meta name="generator" content="Hugo 0.157.0">
 
   <link rel="stylesheet" href="/css/main.css" />
 <script type="module">
@@ -339,6 +339,18 @@ One could argue that even in this situation happens often, keeping consideration
   }
 </script>
 <div class="space-y-2.5">
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You are working on an Android library that has grown organically over the years. What started as a single, innocent <code>.aar</code> file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.</p>
+<p>This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: <strong>version alignment</strong>.</p>
+        </div>
+      </a>
       
       <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/">
@@ -987,11 +999,11 @@ A trend that will only continue to grow.</p>
 <p>Since Java lacks a few of the powerful features we already have on Kotlin, we will rely significantly on some annotations that can prepare our Java code to interface with Kotlin.</p>
 <h4 id="nullability">Nullability</h4>
 <p>Whereas nullability is one of the core features in Kotlin, Java does not provide out-of-the-box support for it. Every parameter in Java should always have a nullability annotation. Otherwise, they are understood as “<a href="https://p5v.medium.com/platform-types-in-kotlin-5caceeb556ad"  target="_blank" rel="noopener" >platform types</a>”, which have an ambiguous way to determine nullability and can trigger runtime errors, pretty much what Kotlin nullability aims to avoid. For example, consider the following piece of code:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> String <span style="color:#50fa7b">doNotUseAnnotation</span>(<span style="color:#8be9fd">boolean</span> returnNull) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> String <span style="color:#50fa7b">doNotUseAnnotation</span>(<span style="color:#8be9fd">boolean</span> returnNull) {
 </span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">return</span> returnNull <span style="color:#ff79c6">?</span> <span style="color:#ff79c6">null</span> : “I will not crash”;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>If we try to call the function <em>doNotUseAnnotation</em> with false, the code will trigger an Exception. Because we didn’t add any annotation, Kotlin implies that the function is not nullable. In Java, we would be setting up the nullability as follows:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">myFunction</span>(@Nullable String myString) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">myFunction</span>(@Nullable String myString) {
 </span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">if</span> (myString <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">null</span>) { 
 </span></span><span style="display:flex;"><span>    myString.<span style="color:#50fa7b">doSomething</span>();
 </span></span><span style="display:flex;"><span>  }
@@ -1010,18 +1022,18 @@ A trend that will only continue to grow.</p>
 <h3 id="getters-and-setters-in-java">Getters and setters in Java</h3>
 <p>Kotlin uses property access instead of getters and setters, like Java. The definition of a getter is a no argument with a name starting with <em>get</em>, and the definition of a setter is a one-argument method with a name starting with <em>set</em>. Boolean getters start with is, so we can use a more natural human language to ask for the value of the property (<em>isClosed</em>, is <em>Finished</em>, etc). Keep this in mind when designing your Java class, although this is pretty much standard. Interestingly, if your attribute provides only a setter it will not be visible as a property, since Kotlin does not support set-only properties (and this is generally an <a href="https://softwareengineering.stackexchange.com/questions/50554/why-it-is-not-recommended-to-have-set-only-property"  target="_blank" rel="noopener" >anti-pattern</a>).</p>
 <p>The following Java class:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">MyClass</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">MyClass</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#8be9fd;font-style:italic">public</span> String <span style="color:#50fa7b">getName</span>() {  }
 </span></span><span style="display:flex;"><span>  <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">boolean</span> <span style="color:#50fa7b">isFinished</span>() {  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>will be accessed like the following block in Kotlin:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">val</span> name = myClass.name 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">val</span> name = myClass.name 
 </span></span><span style="display:flex;"><span><span style="color:#ff79c6">val</span> active = myClass.isFinished
 </span></span></code></pre></div><h3 id="kotlin-keywords">Kotlin keywords</h3>
 <p>Kotlin has a few hard keywords that we should not be using in our Java code, since the Kotlin counterpart will need backticks to call them.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>foo.`is`(bar)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>foo.`is`(bar)
 </span></span></code></pre></div><p>Protip: these backticks can be used all around when naming methods and variables in Kotlin, not only in the case of hard keywords or tests.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">`The Final Countdown`</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">`We&#39;re leavin together`</span>() {
 </span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">val</span> `But still its farewell`: String?

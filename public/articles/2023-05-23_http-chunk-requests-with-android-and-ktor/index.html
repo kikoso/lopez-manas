@@ -15,7 +15,7 @@
 Android apps use HTTP requests to download data from a backend. This information is stored and processed on the app to make it functional.
 HTTP requests are executed using different frameworks on Android. The most common ones are Retrofit or OkHttp." />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.153.3">
+  <meta name="generator" content="Hugo 0.157.0">
 
   <link rel="stylesheet" href="/css/main.css" />
 <script type="module">
@@ -335,6 +335,18 @@ HTTP requests are executed using different frameworks on Android. The most commo
   }
 </script>
 <div class="space-y-2.5">
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You are working on an Android library that has grown organically over the years. What started as a single, innocent <code>.aar</code> file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.</p>
+<p>This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: <strong>version alignment</strong>.</p>
+        </div>
+      </a>
       
       <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/">
@@ -1010,7 +1022,7 @@ OkHttpClient: --&gt; END GET
 <p>There are also a few more differences in how they operate at the network level. This falls out of the scope of this article, but if you are interested you can read the <a href="https://en.wikipedia.org/wiki/OSI_model"  target="_blank" rel="noopener" >Wikipedia article</a> that explains the OSI model.</p>
 <p>However, there might be cases where it is more convenient to use an HTTP Streamed request. From infrastructure to reusing certain models already being handled by the HTTP client, the casuistic can be wide.</p>
 <p>Ktor supports this relatively out-of-the-box. The following snippet is able to execute a streamed request from a given API:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">main</span>() {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">main</span>() {
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">val</span> client = HttpClient(CIO)
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">val</span> file = <span style="color:#50fa7b">File</span>.createTempFile(<span style="color:#f1fa8c">&#34;files&#34;</span>, <span style="color:#f1fa8c">&#34;index&#34;</span>)
 </span></span><span style="display:flex;"><span>

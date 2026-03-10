@@ -18,7 +18,7 @@
 
 According to the paper, both portfolios should have a one-year expected return of 10%. However, the paper claims that Portfolio A wins over Portfolio B around 90% of the time at the end of a 30-year simulation. This sounds a bit too excessive to me (it means that, at the end of the entire simulation, 9 times out of 10 portfolio A wins). I was expecting this number to be lower. The author also mentioned that he was using GenAI to generate the code, and he even mentions “this process seems like magic”. Strong indications that the code is likely not correct." />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.153.3">
+  <meta name="generator" content="Hugo 0.157.0">
 
   <link rel="stylesheet" href="/css/main.css" />
 <script type="module">
@@ -349,6 +349,18 @@ According to the paper, both portfolios should have a one-year expected return o
   }
 </script>
 <div class="space-y-2.5">
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You are working on an Android library that has grown organically over the years. What started as a single, innocent <code>.aar</code> file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.</p>
+<p>This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: <strong>version alignment</strong>.</p>
+        </div>
+      </a>
       
       <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/">
@@ -998,7 +1010,7 @@ A trend that will only continue to grow.</p>
 <p>After a valuable exchange with one of my Data Science reference experts, <a href="https://medium.com/u/1d85b0f0c1a7"  target="_blank" rel="noopener" >Alexander Nozik</a>, it seems that the paper was making an, allegedly, wrong assumption: by using two independent samples to generate the sample, so the variance is larger. By using the same generator for both, which is what happens in a real-life scenario, this makes more sense.</p>
 <p>The following sample uses two separate random generators, both seeded with the same fixed value (123) This ensures reproducibility: every time you run the simulation, the results are the same.</p>
 <p>Because the seeds are the same, both random number generators will generate the same sequence of random numbers (at least initially). But since they’re passed independently to different portfolio simulations, they stay in sync but separate. Good for a fair comparison.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">val</span> rng1 = Random(<span style="color:#bd93f9">123</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">val</span> rng1 = Random(<span style="color:#bd93f9">123</span>)
 </span></span><span style="display:flex;"><span><span style="color:#ff79c6">val</span> rng2 = Random(<span style="color:#bd93f9">123</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#ff79c6">val</span> accumulatedResults = (<span style="color:#bd93f9">1</span><span style="color:#ff79c6">..</span>simulations).map {
@@ -1009,7 +1021,7 @@ A trend that will only continue to grow.</p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The following snippet uses asingle Random instance, seeded with the current time. So: no reproducibility . Results change on every run.</p>
 <p>The same random sequence is shared between portfolioA and portfolioB during each iteration. This might lead to coupled randomness (i.e., the same stream drives both portfolios). This is undesirable if you want the portfolios to evolve independently.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#ff79c6">val</span> rng = Random(<span style="color:#50fa7b">System</span>.currentTimeMillis())
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#ff79c6">val</span> accumulatedResults = (<span style="color:#bd93f9">1</span><span style="color:#ff79c6">..</span>simulations).map {

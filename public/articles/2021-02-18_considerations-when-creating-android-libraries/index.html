@@ -14,7 +14,7 @@
   <meta name="description" content="If you are an Android developer, chances are you might have been working on your own Android libraries. A library is a useful way to create a reusable set of features that need to be integrated through different apps (or even different libraries).
 A library is a self-contained package including code and resources required to execute some functionality. Importing a library in our Android app is the same process as importing a .JAR file in a Java app, except that for Android the library file has the extension .AAR, which extends for Android archive (however, Android apps can also import libraries with a .JAR extension). There are detailed guides on the Internet on how to create Android libraries, but in this article I would like to focus on some aspects that are more subjective, and not always defined in every guide. We will discuss today the following aspects:" />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.153.3">
+  <meta name="generator" content="Hugo 0.157.0">
 
   <link rel="stylesheet" href="/css/main.css" />
 <script type="module">
@@ -327,6 +327,18 @@ A library is a self-contained package including code and resources required to e
   }
 </script>
 <div class="space-y-2.5">
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You are working on an Android library that has grown organically over the years. What started as a single, innocent <code>.aar</code> file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.</p>
+<p>This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: <strong>version alignment</strong>.</p>
+        </div>
+      </a>
       
       <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/">
@@ -1002,7 +1014,7 @@ Library structure including a module using an internal model</li>
 <p>Kotlin should not be a strange word for you anymore. And this means that you should be aware of how Kotlin and Java interact with each other, and keep this in mind to ensure that the library can be called seamlessly. This means: you might be calling your Kotlin library from a Java codebase, or you might be calling your Java library from a Kotlin codebase. In those cases you will need to put an extra dose of attention, to improve the experience of the users implementing your library.</p>
 <h4 id="package-level-functions">Package level functions</h4>
 <p>Since Java does not allow standalone functions outside classes, all the standalone functions or properties that you declare in a file <strong>file.kt</strong> will be compiled as static methods of a class called org.file.FileKt:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#6272a4">// file.kt  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#6272a4">// file.kt  
 </span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">package</span> org.file``class MyUtils``<span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">getLocale</span>()`
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>This would compile <span style="color:#ff79c6">in</span> a Java <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">like</span> the following:
@@ -1011,7 +1023,7 @@ Library structure including a module using an internal model</li>
 </span></span><span style="display:flex;"><span>new org.<span style="color:#ff79c6">file</span>.MyUtils();  
 </span></span><span style="display:flex;"><span>org.<span style="color:#ff79c6">file</span>.<span style="color:#50fa7b">AppKt</span>.getLocale();
 </span></span></code></pre></div><p>Of course, having the classes automatically named is something that we want to avoid. By using the annotation <code>[@JvmName](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html) </code>we can specify the name of the destination class:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>@file:JvmName(<span style="color:#f1fa8c">&#34;ClassName&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>@file:JvmName(<span style="color:#f1fa8c">&#34;ClassName&#34;</span>)
 </span></span><span style="display:flex;"><span> 
 </span></span><span style="display:flex;"><span> <span style="color:#ff79c6">package</span> org.file
 </span></span><span style="display:flex;"><span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MyUtils</span>
@@ -1023,14 +1035,14 @@ Library structure including a module using an internal model</li>
 <p>When you define a function in Kotlin with default parameters, you don’t need to continuously pass them when you are calling that function. If they are not specified, the default value is taken.</p>
 <p>Java does not support default parameters, so what happens when we call these functions in Java? By default, we need to specify all the parameters, and this does not scale well if you have been using default parameters in Kotlin. This is where we can use <code>@JvmOverloads</code></p>
 <p>Let’s consider the following fictional function in Kotlin:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span> @JvmOverloads
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span> @JvmOverloads
 </span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">getStops</span>(
 </span></span><span style="display:flex;"><span>        latitude: Double,
 </span></span><span style="display:flex;"><span>        longitude: Double = <span style="color:#bd93f9">0.0</span>,
 </span></span><span style="display:flex;"><span>        radiusInMeters: Int = <span style="color:#bd93f9">100</span>
 </span></span><span style="display:flex;"><span>    ) 
 </span></span></code></pre></div><p>The function is using the annotation <code>@JvmOverloads,</code>and it also has two default parameters as arguments. From a Java point of view, this function will compile as follows:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd">void</span> <span style="color:#50fa7b">getStops</span>(<span style="color:#8be9fd">double</span> latitude, <span style="color:#8be9fd">double</span> longitude, <span style="color:#8be9fd">int</span> radiusInMeters)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd">void</span> <span style="color:#50fa7b">getStops</span>(<span style="color:#8be9fd">double</span> latitude, <span style="color:#8be9fd">double</span> longitude, <span style="color:#8be9fd">int</span> radiusInMeters)
 </span></span><span style="display:flex;"><span> 
 </span></span><span style="display:flex;"><span><span style="color:#8be9fd">void</span> <span style="color:#50fa7b">getStops</span>(<span style="color:#8be9fd">double</span> latitude, <span style="color:#8be9fd">double</span> longitude)
 </span></span><span style="display:flex;"><span>  
@@ -1040,7 +1052,7 @@ Library structure including a module using an internal model</li>
 <p>A Kotlin type with a generic parameter <code>Nothing</code> is exposed as a raw type in Java. This should be avoided, since raw types are rarely used in Java.</p>
 <h4 id="companion-functions-and-constants">Companion functions and constants</h4>
 <p>When Companion functions and constants are rawly compiled and accessed from Java, they are only available as instance methods on a static Companion field. For instance, the following Kotlin class:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">KotlinClass</span> {  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">KotlinClass</span> {  
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">companion</span> <span style="color:#ff79c6">object</span> {  
 </span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">function</span>() {
 </span></span><span style="display:flex;"><span>
@@ -1053,19 +1065,19 @@ Library structure including a module using an internal model</li>
     }  
 }
 </code></pre><p>Using a <code>@JvmStatic</code> annotation for the function makes the compiled code cleaner:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">JavaClass</span> {  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">JavaClass</span> {  
 </span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">main</span>(String... args) {  
 </span></span><span style="display:flex;"><span>        KotlinClass.<span style="color:#50fa7b">function</span>();  
 </span></span><span style="display:flex;"><span>    }  
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>For companion constants, is better to use the annotation<code>@JvmField</code>, since <code>@JvmStatic</code>creates a weird getter. For instance, consider the following companion constant:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">KotlinClass</span> {  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">KotlinClass</span> {  
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">companion</span> <span style="color:#ff79c6">object</span> {  
 </span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">const</span> <span style="color:#ff79c6">val</span> PI = <span style="color:#bd93f9">3.14</span>  
 </span></span><span style="display:flex;"><span>    }  
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Annotating the companion value with <code>@JvmField</code>will result again in a Java code much more comprehensive:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">JavaClass</span> {  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">JavaClass</span> {  
 </span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">main</span>(String... args) {  
 </span></span><span style="display:flex;"><span>        System.<span style="color:#50fa7b">out</span>.<span style="color:#50fa7b">println</span>(KotlinClass.<span style="color:#50fa7b">PI</span>);  
 </span></span><span style="display:flex;"><span>    }  
@@ -1073,7 +1085,7 @@ Library structure including a module using an internal model</li>
 </span></span></code></pre></div><h3 id="exposing-resources">Exposing resources</h3>
 <p>Something that some folks are not aware of is that, by default, all the resources in an Android library are public! This means that everything that is included in your <strong>res</strong> folder (images, drawables, strings…). It is somehow a convoluted and counterintuitive method, but in order to make all your resources private, you should define at least one resource as public.</p>
 <p>A good practice is to make public only a string specifying the library name. Do this when you start developing your app, and you will not have to worry about the external visibility of your resources anymore (that is, unless you really want to make them public).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Xml" data-lang="Xml"><span style="display:flex;"><span><span style="color:#ff79c6">&lt;resources&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Xml" data-lang="Xml"><span style="display:flex;"><span><span style="color:#ff79c6">&lt;resources&gt;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&lt;public</span> <span style="color:#50fa7b">name=</span><span style="color:#f1fa8c">&#34;lib_app_name&#34;</span> <span style="color:#50fa7b">type=</span><span style="color:#f1fa8c">&#34;string&#34;</span><span style="color:#ff79c6">/&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#ff79c6">&lt;/resources&gt;</span>
 </span></span></code></pre></div><h3 id="be-aware-of-transitive-dependencies"><strong>Be aware of transitive dependencies</strong></h3>

@@ -14,7 +14,7 @@
   <meta name="description" content="I have always been fascinated by the above comic strip. A discussion on randomness and determinism becomes as much a philosophical issue as it is a practical one. They are used in a variety of applications: from the obvious cryptography, gaming or gambling to the less evident politics or arts.
 How can we be sure that a number is random? Will observing the process mine our efforts on generating the random number, similar to the observation of a cat inside a box with a decaying radioactive atom? Despite the potential complexity of generating random numbers, we can provide an initially simple method to generate them." />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.153.3">
+  <meta name="generator" content="Hugo 0.157.0">
 
   <link rel="stylesheet" href="/css/main.css" />
 <script type="module">
@@ -327,6 +327,18 @@ How can we be sure that a number is random? Will observing the process mine our 
   }
 </script>
 <div class="space-y-2.5">
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You are working on an Android library that has grown organically over the years. What started as a single, innocent <code>.aar</code> file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.</p>
+<p>This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: <strong>version alignment</strong>.</p>
+        </div>
+      </a>
       
       <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/">
@@ -969,7 +981,7 @@ A trend that will only continue to grow.</p>
       <p>I have always been fascinated by the above comic strip. A discussion on randomness and determinism becomes as much a philosophical issue as it is a practical one. They are used in a variety of applications: from the obvious cryptography, gaming or gambling to the less evident politics or arts.</p>
 <p>How can we be sure that a number is random? Will observing the process mine our efforts on generating the random number, similar to the observation of a cat inside a box with a decaying radioactive atom? Despite the potential complexity of generating random numbers, we can provide an initially simple method to generate them.</p>
 <p>When I participate in meetups or conferences as an organizer, there is one simple game I like to practice at the end of the session, and it is developing a script together with the audience that selects a random participant eligible for a gift (a cup, a t-shirt, etc… any swag generally provided by the hosting organization). The list of participants usually comes in a .CSV file, and coming from the Java world live-coding this can be a daunting task: opening streams, closing them… Damn, I am myself scared of even trying this on stage. However, in Kotlin the solution is rather simple:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>File(<span style="color:#f1fa8c">&#34;path/to/file.csv&#34;</span>).readLines().
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>File(<span style="color:#f1fa8c">&#34;path/to/file.csv&#34;</span>).readLines().
 </span></span><span style="display:flex;"><span>                         <span style="color:#ff79c6">get</span>(<span style="color:#50fa7b">Random</span>.nextInt(File(<span style="color:#f1fa8c">&#34;path/to/file.csv&#34;</span>).readLines().size)
 </span></span></code></pre></div><p>(except the part of guessing how to specify the path, which is impossible to get right at the first try).</p>
 <p>While playing this little game, very often the name of a participant comes up twice, so we jokingly express our doubts on whether the process is being truly random, or the randomness algorithm has been tweaked to favor one individual and let him/her go back home with all the swag. Developing on stage an algorithm that is able to provide a random number might require more time than using <em>java.util.Random</em>. However, we can dive into it before the stage event, and understand how randomness is implemented in Java.</p>
@@ -985,7 +997,7 @@ LCG generation formula</p>
 </ul>
 <p>The selection of the previous values may affect the quality or randomness of the output, so we can go down the rabbit hole and increase the entropy for those selected values (by either making them random as well or using a more convoluted process to generate them). In fact, Java generates the above parameters from rand48, so they get as random as it is acceptable for most usages.</p>
 <p>The following code excerpt is an implementation in Kotlin of a linear congruential generator:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>  <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">generateRandomNumber</span>(range: Int) : Int {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span>  <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">generateRandomNumber</span>(range: Int) : Int {
 </span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">val</span> random = <span style="color:#50fa7b">System</span>.currentTimeMillis()
 </span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">val</span> multiplier = <span style="color:#bd93f9">0x9393DL</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">val</span> increment = <span style="color:#bd93f9">0x8763</span>

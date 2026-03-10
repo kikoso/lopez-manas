@@ -14,7 +14,7 @@
   <meta name="description" content="I wrote this post originally 5 years ago. For a side project, I had to use the StackExchange data explorer again, so I decided to revisit it and update the numbers.
 StackExchange Data Explorer is an open-source tool to run SQL queries against public data from StackOverflow. Since StackOverflow is the biggest development forum of the world, there is surely a lot of information that companies can actually retrieve from their system in order to take some business decision (this is actually a brilliant place to apply BigData)" />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.153.3">
+  <meta name="generator" content="Hugo 0.157.0">
 
   <link rel="stylesheet" href="/css/main.css" />
 <script type="module">
@@ -330,6 +330,18 @@ StackExchange Data Explorer is an open-source tool to run SQL queries against pu
   }
 </script>
 <div class="space-y-2.5">
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          <p>You are working on an Android library that has grown organically over the years. What started as a single, innocent <code>.aar</code> file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules.</p>
+<p>This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: <strong>version alignment</strong>.</p>
+        </div>
+      </a>
       
       <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
         href="/articles/2025-08-24_practical-implementation-of-talebs-barbell-portfolio/">
@@ -973,7 +985,7 @@ A trend that will only continue to grow.</p>
 <p><a href="http://data.stackexchange.com/"  target="_blank" rel="noopener" >StackExchange Data Explorer</a> is an open-source tool to run SQL queries against public data from <a href="http://stackoverflow.com/"  target="_blank" rel="noopener" >StackOverflow</a>. Since StackOverflow is the biggest development forum of the world, there is surely a lot of information that companies can actually retrieve from their system in order to take some business decision (this is actually a brilliant place to apply <a href="http://en.wikipedia.org/wiki/Big_data"  target="_blank" rel="noopener" >BigData</a>)</p>
 <p>Moving now to different issues: I was discussing back in time with some event organizers the possibility of bringing an Android event from the USA to Europe. Since I do live in Munich I was trying to convince them that Munich was the choice. They were resilient about it, so I needed to prove with some data that Munich would be a really nice choice.</p>
 <p>At this time, I was thinking about how could I use Data Explorer and BigData to support my thesis. I remember two times I used it before, to display the most active developers from <a href="https://twitter.com/eenriquelopez/status/384946205320437761"  target="_blank" rel="noopener" >Barcelona</a> (the city I lived before), <a href="https://twitter.com/eenriquelopez/status/384949033136955392"  target="_blank" rel="noopener" >Munich</a>, and <a href="https://twitter.com/eenriquelopez/status/384964337934163968"  target="_blank" rel="noopener" >the two cities</a> combined. Something similar could be a valid approach. In the previous SQL queries, I was clustering the top developers from each city based on their contribution to questions tagged with the token “<em>android</em>“. So I could possibly group all the developers' contribution from a certain city with questions tagged with the same token. I come over with this script:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-SQL" data-lang="SQL"><span style="display:flex;"><span>;<span style="color:#ff79c6">WITH</span> USER_BY_TAG
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-SQL" data-lang="SQL"><span style="display:flex;"><span>;<span style="color:#ff79c6">WITH</span> USER_BY_TAG
 </span></span><span style="display:flex;"><span><span style="color:#ff79c6">AS</span>
 </span></span><span style="display:flex;"><span>(
 </span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">SELECT</span> 
