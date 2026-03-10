@@ -20,11 +20,11 @@ Sometimes, breaking down a monolith feels like breaking down a wall.
 
 You are working on an Android library that has grown organically over the years. What started as a single, innocent `.aar` file has evolved into a massive monolith. Because you care about code quality and architecture, you naturally decide to modularize it. Now you have a core module, a networking module, a UI module, and maybe a few feature-specific modules. 
 
-This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: **version alignment**. 
+This is a great engineering decision. But when the time comes to publish and distribute your newly modularized SDK, you realize you have inadvertently passed a new problem down to your consumers: version alignment. 
 
 If a developer wants to use your library, they now have to include multiple dependencies in their `build.gradle` file, and they have to make absolutely sure they are requesting the exact same version for all of them. If they use version `1.2.0` of your core module but accidentally leave the UI module at `1.1.0`, things will break. And they will blame you. 
 
-How can we prevent this? Well, there is an elegant, long-term solution for this problem that you have probably already consumed from libraries like Firebase or Compose: **The Bill of Materials (BoM)**.
+How can we prevent this? Well, there is an elegant, long-term solution for this problem that you have probably already consumed from libraries like Firebase or Compose: The Bill of Materials (BoM).
 
 #### What is a BoM?
 
@@ -36,9 +36,9 @@ This means consumers only have to specify the version number once. It reduces fr
 
 #### A Real-World Example: Android Maps Utils
 
-I was recently looking at how the Google Maps team approached this exact problem when they modularized the `android-maps-utils` library. You can see the gory details in [this Pull Request](https://github.com/googlemaps/android-maps-utils/pull/1660). 
+You can see the gory details in [this Pull Request](https://github.com/googlemaps/android-maps-utils/pull/1660). 
 
-They split their library into specific modules (clustering, heatmaps, etc.). To tie it all together, they created a BoM. If you are developing a multi-module library, this is the blueprint you want to follow.
+The library is split into specific modules (clustering, heatmaps, etc.). To tie it all together, they created a BoM. If you are developing a multi-module library, this is the blueprint you want to follow.
 
 Here is how you can implement it in your own project.
 
@@ -70,7 +70,7 @@ By using `project(":module-name")`, Gradle automatically resolves the current ve
 
 #### Fixing Artifact IDs
 
-There is a crucial detail to keep in mind, and it was a major pain point addressed in the Google Maps PR. When you transition from a monolith to a multi-module architecture, you must ensure that each module has a **unique artifact ID** when published to Maven Central.
+There is a crucial detail to keep in mind, and it was a major pain point addressed in the Google Maps PR. When you transition from a monolith to a multi-module architecture, you must ensure that each module has a unique artifact ID when published to Maven Central.
 
 If your legacy library was published as `com.example:my-library`, your new modules cannot share that ID, otherwise they will overwrite each other in the repository. You need to assign them distinct names:
 
