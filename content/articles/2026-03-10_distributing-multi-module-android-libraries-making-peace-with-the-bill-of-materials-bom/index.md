@@ -31,10 +31,6 @@ When a consumer imports your BoM, they are essentially telling their build syste
 
 This means consumers only have to specify the version number once. It reduces friction, prevents subtle bugs caused by mismatched transitive dependencies, and makes upgrading your library a breeze. It is about treating your SDK development like a marathon, not a sprint: you invest a bit of time upfront to ensure the long-term stability and happiness of the developers integrating your code.
 
-#### A Real-World Example
-
-The library is split into specific modules (clustering, heatmaps, etc.). To tie it all together, a BoM has been created. If you are developing a multi-module library, this is the blueprint you want to follow.
-
 Here is how you can implement it in your own project.
 
 ### Creating the BoM module
