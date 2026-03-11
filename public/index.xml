@@ -6,8 +6,15 @@
     <description>Recent content in About Me on </description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 10 Mar 2026 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 10 Mar 2026 12:00:00 +0000</lastBuildDate>
     <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>De Incertitudine Mercatus</title>
+      <link>/articles/2026-03-10_de-incertitudine-mercatus-trading-uncertainty-options-strategies-for-direction-agnostic-markets/</link>
+      <pubDate>Tue, 10 Mar 2026 12:00:00 +0000</pubDate>
+      <guid>/articles/2026-03-10_de-incertitudine-mercatus-trading-uncertainty-options-strategies-for-direction-agnostic-markets/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;Where the author embraces the chaos of the markets and learns to profit from pure volatility.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;Trading Uncertainty: Options Strategies for Direction-Agnostic Markets&lt;/p&gt;&#xA;&lt;p&gt;I wrote somewhere else a short excerpt with my opinion of the current state of the world in AI, financial bubbles, and company valuations that I will reproduce here:&lt;/p&gt;&#xA;&lt;p&gt;There are growing discussions about a possible bubble in the AI world. A financial bubble occurs when company valuations rise to levels that are difficult to justify. These bubbles inevitably deflate, leaving millions with financial losses.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Distributing Multi-Module Android Libraries: Making Peace with the Bill of Materials (BoM)</title>
       <link>/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/</link>
