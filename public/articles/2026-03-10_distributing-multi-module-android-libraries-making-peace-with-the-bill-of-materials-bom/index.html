@@ -65,7 +65,7 @@
   <meta itemprop="description" content="How to use a Gradle BoM to align versions and save your library consumers from dependency hell.">
   <meta itemprop="datePublished" content="2026-03-10T09:00:00+00:00">
   <meta itemprop="dateModified" content="2026-03-10T09:00:00+00:00">
-  <meta itemprop="wordCount" content="960">
+  <meta itemprop="wordCount" content="938">
   <meta itemprop="image" content="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/images/1.jpg">
 
   
@@ -73,7 +73,7 @@
   <meta itemprop="description" content="How to use a Gradle BoM to align versions and save your library consumers from dependency hell.">
   <meta itemprop="datePublished" content="2026-03-10T09:00:00+00:00">
   <meta itemprop="dateModified" content="2026-03-10T09:00:00+00:00">
-  <meta itemprop="wordCount" content="960">
+  <meta itemprop="wordCount" content="938">
   <meta itemprop="image" content="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/images/1.jpg">
 </head>
 <body class="flex relative h-full min-h-screen"><aside
@@ -1001,8 +1001,7 @@ A trend that will only continue to grow.</p>
 <p>In the software world, a Bill of Materials (BoM) is a special kind of module that doesn&rsquo;t contain any code. Instead, it contains a list of dependencies and their strict versions. It acts as a single source of truth.</p>
 <p>When a consumer imports your BoM, they are essentially telling their build system: <em>&ldquo;Hey, whenever I add a module from this library, look up its version in the BoM.&rdquo;</em></p>
 <p>This means consumers only have to specify the version number once. It reduces friction, prevents subtle bugs caused by mismatched transitive dependencies, and makes upgrading your library a breeze. It is about treating your SDK development like a marathon, not a sprint: you invest a bit of time upfront to ensure the long-term stability and happiness of the developers integrating your code.</p>
-<h4 id="a-real-world-example-android-maps-utils">A Real-World Example: Android Maps Utils</h4>
-<p>You can see the gory details in <a href="https://github.com/googlemaps/android-maps-utils/pull/1660"  target="_blank" rel="noopener" >this Pull Request</a>.</p>
+<h4 id="a-real-world-example">A Real-World Example</h4>
 <p>The library is split into specific modules (clustering, heatmaps, etc.). To tie it all together, a BoM has been created. If you are developing a multi-module library, this is the blueprint you want to follow.</p>
 <p>Here is how you can implement it in your own project.</p>
 <h3 id="creating-the-bom-module">Creating the BoM module</h3>
@@ -1025,7 +1024,7 @@ A trend that will only continue to grow.</p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>By using <code>project(&quot;:module-name&quot;)</code>, Gradle automatically resolves the current version of your project during the publishing phase.</p>
 <h4 id="fixing-artifact-ids">Fixing Artifact IDs</h4>
-<p>There is a crucial detail to keep in mind, and it was a major pain point addressed in the Google Maps PR. When you transition from a monolith to a multi-module architecture, you must ensure that each module has a unique artifact ID when published to Maven Central.</p>
+<p>There is a crucial detail to keep in mind, and it is a major pain point when modularizing. When you transition from a monolith to a multi-module architecture, you must ensure that each module has a unique artifact ID when published to Maven Central.</p>
 <p>If your legacy library was published as <code>com.example:my-library</code>, your new modules cannot share that ID, otherwise they will overwrite each other in the repository. You need to assign them distinct names:</p>
 <ul>
 <li><code>com.example:my-library-core</code></li>
@@ -1034,7 +1033,7 @@ A trend that will only continue to grow.</p>
 </ul>
 <p>You can preserve the original <code>com.example:my-library</code> artifact ID for the core library (or an aggregation module) to maintain backward compatibility, but the BoM and the new modules need their own space.</p>
 <h4 id="publishing-the-bom">Publishing the BoM</h4>
-<p>Your BoM needs to be published to your Maven repository alongside your other modules. If you have a solid CI/CD pipeline, you are probably using a convention plugin (like <code>BomPublishingConventionPlugin</code> in the Maps Utils repo) inside <code>buildSrc</code> or <code>build-logic</code> to share publishing configuration across all your modules.</p>
+<p>Your BoM needs to be published to your Maven repository alongside your other modules. If you have a solid CI/CD pipeline, you are probably using a convention plugin (like <code>BomPublishingConventionPlugin</code>) inside <code>buildSrc</code> or <code>build-logic</code> to share publishing configuration across all your modules.</p>
 <p>The BoM will be published as a <code>.pom</code> file rather than an <code>.aar</code> or <code>.jar</code>.</p>
 <h3 id="the-consumer-experience">The Consumer Experience</h3>
 <p>This is where the magic happens. After you publish your BoM, the developers consuming your library will update their <code>build.gradle</code> file.</p>
