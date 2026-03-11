@@ -65,7 +65,7 @@
   <meta itemprop="description" content="How to use a Gradle BoM to align versions and save your library consumers from dependency hell.">
   <meta itemprop="datePublished" content="2026-03-10T09:00:00+00:00">
   <meta itemprop="dateModified" content="2026-03-10T09:00:00+00:00">
-  <meta itemprop="wordCount" content="938">
+  <meta itemprop="wordCount" content="900">
   <meta itemprop="image" content="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/images/1.jpg">
 
   
@@ -73,7 +73,7 @@
   <meta itemprop="description" content="How to use a Gradle BoM to align versions and save your library consumers from dependency hell.">
   <meta itemprop="datePublished" content="2026-03-10T09:00:00+00:00">
   <meta itemprop="dateModified" content="2026-03-10T09:00:00+00:00">
-  <meta itemprop="wordCount" content="938">
+  <meta itemprop="wordCount" content="900">
   <meta itemprop="image" content="/articles/2026-03-10_distributing-multi-module-android-libraries-making-peace-with-the-bill-of-materials-bom/images/1.jpg">
 </head>
 <body class="flex relative h-full min-h-screen"><aside
@@ -1001,8 +1001,6 @@ A trend that will only continue to grow.</p>
 <p>In the software world, a Bill of Materials (BoM) is a special kind of module that doesn&rsquo;t contain any code. Instead, it contains a list of dependencies and their strict versions. It acts as a single source of truth.</p>
 <p>When a consumer imports your BoM, they are essentially telling their build system: <em>&ldquo;Hey, whenever I add a module from this library, look up its version in the BoM.&rdquo;</em></p>
 <p>This means consumers only have to specify the version number once. It reduces friction, prevents subtle bugs caused by mismatched transitive dependencies, and makes upgrading your library a breeze. It is about treating your SDK development like a marathon, not a sprint: you invest a bit of time upfront to ensure the long-term stability and happiness of the developers integrating your code.</p>
-<h4 id="a-real-world-example">A Real-World Example</h4>
-<p>The library is split into specific modules (clustering, heatmaps, etc.). To tie it all together, a BoM has been created. If you are developing a multi-module library, this is the blueprint you want to follow.</p>
 <p>Here is how you can implement it in your own project.</p>
 <h3 id="creating-the-bom-module">Creating the BoM module</h3>
 <p>First, you need to create a dedicated, empty module in your project. Let&rsquo;s call it <code>bom</code>.</p>
