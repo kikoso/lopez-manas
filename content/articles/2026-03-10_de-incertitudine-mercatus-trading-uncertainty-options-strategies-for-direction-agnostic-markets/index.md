@@ -47,31 +47,31 @@ The Long Straddle
 
 To implement a long straddle, you simultaneously buy a Call option (betting the price goes up) and a Put option (betting the price goes down) on the same underlying asset, with the same strike price, and the same expiration date.
 
-Let's use a hypothetical example. Suppose there is a widely discussed AI company, let's call it DontBeEvil, currently trading at $306 per share. You believe that their upcoming earnings report will either be a massive disappointment leading to a sell-off, or it will announce a revolutionary new model causing the stock to soar. You don't know which.
+Let's use a hypothetical example. Suppose there is a widely discussed AI company, let's call it DontBeEvil, currently trading at $200 per share. You believe that their upcoming earnings report will either be a massive disappointment leading to a sell-off, or it will announce a revolutionary new model causing the stock to soar. You don't know which.
 
 You execute a long straddle:
-1. You buy a Call option with a strike price of $306, expiring in 3 months. Let's say the premium is $15 ($1,500 total).
-2. You buy a Put option with a strike price of $306, expiring in 3 months. Let's say the premium is also $15 ($1,500 total).
+1. You buy a Call option with a strike price of $200, expiring in 3 months. Let's say the premium is $15 ($1,500 total).
+2. You buy a Put option with a strike price of $200, expiring in 3 months. Let's say the premium is also $15 ($1,500 total).
 
 Your total cost (and maximum possible loss) is $30 per share, or $3,000 total. 
 
-Because you paid a combined premium of $30, you need the stock to move more than $30 in either direction just to break even. This means you only start making a profit if DontBeEvil rises above $336 (the upper breakeven point) or falls below $276 (the lower breakeven point).
+Because you paid a combined premium of $30, you need the stock to move more than $30 in either direction just to break even at expiration. This means you only start making a profit if DontBeEvil rises above $230 (the upper breakeven point) or falls below $170 (the lower breakeven point).
 
 The Outcomes
 
 Here is what happens in the different scenarios:
 
-Scenario A: The market does nothing. DontBeEvil stays exactly at $306, or anywhere between $276 and $336. Both your Call and Put will expire either worthless or without enough intrinsic value to cover your initial cost. In the worst-case scenario (it stays exactly at $306), you lose your entire $3,000 premium. This is the danger of the straddle. Time decay (theta) is your enemy. You need significant movement, and you need it before expiration.
+Scenario A: The market does nothing. DontBeEvil stays exactly at $200, or anywhere between $170 and $230. Both your Call and Put will expire either worthless or without enough intrinsic value to cover your initial cost. In the worst-case scenario (it stays exactly at $200), you lose your entire $3,000 premium. This is the danger of the straddle. Time decay (theta) is your enemy. You need significant movement, and you need it before expiration.
 
-Scenario B: The bubble bursts. The company announces they are pivoting back to selling physical servers. The stock crashes to $200. 
+Scenario B: The bubble bursts. The company announces they are pivoting back to selling physical servers. The stock crashes to $140. 
 - Your Call option is worthless.
-- Your Put option is now deep in the money. You have the right to sell at $306 something currently worth $200. The intrinsic value is $106 per share ($10,600 total). 
-- Subtracting your initial $3,000 investment, your net profit is $7,600.
+- Your Put option is now deep in the money. You have the right to sell at $200 something currently worth $140. The intrinsic value is $60 per share ($6,000 total). 
+- Subtracting your initial $3,000 investment, your net profit is $3,000.
 
-Scenario C: The rocket takes off. They announce a model that writes flawless code. The stock jumps to $400.
+Scenario C: The rocket takes off. They announce a model that writes flawless code. The stock jumps to $260.
 - Your Put option is worthless.
-- Your Call option is deep in the money. You have the right to buy at $306 something currently worth $400. The intrinsic value is $94 per share ($9,400 total).
-- Subtracting your initial $3,000 investment, your net profit is $6,400.
+- Your Call option is deep in the money. You have the right to buy at $200 something currently worth $260. The intrinsic value is $60 per share ($6,000 total).
+- Subtracting your initial $3,000 investment, your net profit is $3,000.
 
 A philosophy of volatility
 
