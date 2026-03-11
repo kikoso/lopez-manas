@@ -15,23 +15,21 @@ images:
 
 > Where the author embraces pure volatility.
 
-Trading Uncertainty: Options Strategies for Direction-Agnostic Markets
-
 I wrote somewhere else a short excerpt with my opinion of the current state of the world in AI, financial bubbles, and company valuations that I will reproduce here:
 
-There are growing discussions about a possible bubble in the AI world. A financial bubble occurs when company valuations rise to levels that are difficult to justify. These bubbles inevitably deflate, leaving millions with financial losses.
-
-In technology, we have the example of the dot-com bubble of 2000. A prominent case was pets.com: once the darling of the boom, it eventually collapsed. Today, we see names like Nvidia, OpenAI, and others raising similar concerns about whether we are on a comparable trajectory. History does not repeat itself, but it often rhymes.
-
-It is important to distinguish between two ideas: the existence of a bubble in a sector, and whether investors can still make money by participating in it.
-
-The dot-com bubble burst, but the internet remained. The collapse affected valuations, not the underlying technology. Many companies that were part of that era, like Microsoft and Cisco, survived and thrived afterward.
-
-The AI sector could face a similar adjustment, but my view is that AI is here to stay. Valuations might correct for some companies, and priorities may shift toward energy consumption, real-world utility, and perhaps a reassessment of whether we truly need AI in every chatbot or workflow.
-
-Whether there is a bubble or not is hard to say. No one really knows, despite all the opinionated articles that appear daily. My view is that AI will remain, but many companies will eventually leave the field, and usage will normalize as we recognize its limitations. It may happen sooner or later, but the future we end up with will likely look very different from what we see today.
-
-The financial world keeps behaving irrationally. 
+> There are growing discussions about a possible bubble in the AI world. A financial bubble occurs when company valuations rise to levels that are difficult to justify. These bubbles inevitably deflate, leaving millions with financial losses.
+>
+> In technology, we have the example of the dot-com bubble of 2000. A prominent case was pets.com: once the darling of the boom, it eventually collapsed. Today, we see names like Nvidia, OpenAI, and others raising similar concerns about whether we are on a comparable trajectory. History does not repeat itself, but it often rhymes.
+>
+> It is important to distinguish between two ideas: the existence of a bubble in a sector, and whether investors can still make money by participating in it.
+>
+> The dot-com bubble burst, but the internet remained. The collapse affected valuations, not the underlying technology. Many companies that were part of that era, like Microsoft and Cisco, survived and thrived afterward.
+>
+> The AI sector could face a similar adjustment, but my view is that AI is here to stay. Valuations might correct for some companies, and priorities may shift toward energy consumption, real-world utility, and perhaps a reassessment of whether we truly need AI in every chatbot or workflow.
+>
+> Whether there is a bubble or not is hard to say. No one really knows, despite all the opinionated articles that appear daily. My view is that AI will remain, but many companies will eventually leave the field, and usage will normalize as we recognize its limitations. It may happen sooner or later, but the future we end up with will likely look very different from what we see today.
+>
+> The financial world keeps behaving irrationally. 
 
 #### Embracing the unknown
 
