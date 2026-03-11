@@ -5,7 +5,7 @@ date: 2026-03-10T12:00:00.000Z
 
 description: "Trading Uncertainty: Options Strategies for Direction-Agnostic Markets"
 
-subtitle: "Where the author embraces the chaos of the markets and learns to profit from pure volatility."
+subtitle: "Where the author embraces pure volatility."
 
 image: "/articles/2026-03-10_de-incertitudine-mercatus-trading-uncertainty-options-strategies-for-direction-agnostic-markets/images/1.jpg" 
 images:
@@ -13,7 +13,7 @@ images:
 
 ---
 
-> Where the author embraces the chaos of the markets and learns to profit from pure volatility.
+> Where the author embraces pure volatility.
 
 Trading Uncertainty: Options Strategies for Direction-Agnostic Markets
 
