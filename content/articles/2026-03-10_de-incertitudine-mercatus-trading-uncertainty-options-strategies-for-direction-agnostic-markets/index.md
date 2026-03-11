@@ -63,7 +63,7 @@ You might be thinking: *expecting a 15% growth or drop in 3 months is a lot just
 
 Here is the secret of trading options: you almost never hold them until expiration. The $3,000 is your maximum possible loss if you hold until the very last day and the stock stays exactly flat. However, if DontBeEvil jumps 8% in the first two weeks due to a leaked memo, the value of your Call option will spike significantly due to the sudden price movement and increased implied volatility. 
 
-You can sell the straddle early—closing both the Call and the Put positions—for a profit long before hitting that mathematical "breakeven at expiration" mark. You are trading the momentum, not just the final destination.
+You can sell the straddle early, closing both the Call and the Put positions, for a profit long before hitting that mathematical "breakeven at expiration" mark. You are trading the momentum, not just the final destination.
 
 #### The Outcomes
 
@@ -89,4 +89,4 @@ As I mentioned in my article about the Barbell portfolio, this strategy requires
 
 You are essentially buying insurance against stability. When the market is calm, you pay your premiums. When the market panics or euphoriates, you collect the payout. In an era where technological paradigms shift overnight and financial markets behave irrationally, embracing uncertainty might just be the most rational choice you can make. 
 
-I write my thoughts about Software Engineering and life in general on my Mastodon account. If you have liked this article or if it did help you, feel free to share, 👏 it and/or leave a comment. This is the currency that fuels amateur writers.
+I write my thoughts about Software Engineering and life in general on my [Mastodon account](https://kotlin.social/@eenriquelopez). If you have liked this article or if it did help you, feel free to share, 👏 it and/or leave a comment. This is the currency that fuels amateur writers.
