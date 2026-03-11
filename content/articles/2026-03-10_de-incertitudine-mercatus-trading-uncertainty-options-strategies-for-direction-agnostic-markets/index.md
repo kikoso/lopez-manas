@@ -33,7 +33,7 @@ Whether there is a bubble or not is hard to say. No one really knows, despite al
 
 The financial world keeps behaving irrationally. 
 
-Embracing the unknown
+#### Embracing the unknown
 
 So, we find ourselves in a peculiar situation. We are looking at a market, specifically the tech sector heavily influenced by AI, and we know that a significant event is likely. We just don't know which event. The bubble might burst, sending valuations crashing down to earth. Or, alternatively, the massive capital expenditure might suddenly pay off in an unforeseen breakthrough, sending valuations skyrocketing even further. 
 
@@ -43,7 +43,7 @@ But what if you didn't have to? What if you could say, "I have no idea if this c
 
 This is where options strategies, specifically the Long Straddle, come into play. It is a tool for the direction-agnostic investor. It perfectly aligns with an anti-fragile mindset: you are positioning yourself to benefit from extreme volatility, regardless of the direction the wind blows.
 
-The Long Straddle
+### The Long Straddle
 
 To implement a long straddle, you simultaneously buy a Call option (betting the price goes up) and a Put option (betting the price goes down) on the same underlying asset, with the same strike price, and the same expiration date.
 
@@ -57,23 +57,31 @@ Your total cost (and maximum possible loss) is $30 per share, or $3,000 total.
 
 Because you paid a combined premium of $30, you need the stock to move more than $30 in either direction just to break even at expiration. This means you only start making a profit if DontBeEvil rises above $230 (the upper breakeven point) or falls below $170 (the lower breakeven point).
 
-The Outcomes
+#### The Secret of Early Exits
+
+You might be thinking: *expecting a 15% growth or drop in 3 months is a lot just to break even. Isn't this too much to bet $3,000?*
+
+Here is the secret of trading options: you almost never hold them until expiration. The $3,000 is your maximum possible loss if you hold until the very last day and the stock stays exactly flat. However, if DontBeEvil jumps 8% in the first two weeks due to a leaked memo, the value of your Call option will spike significantly due to the sudden price movement and increased implied volatility. 
+
+You can sell the straddle early—closing both the Call and the Put positions—for a profit long before hitting that mathematical "breakeven at expiration" mark. You are trading the momentum, not just the final destination.
+
+#### The Outcomes
 
 Here is what happens in the different scenarios:
 
-Scenario A: The market does nothing. DontBeEvil stays exactly at $200, or anywhere between $170 and $230. Both your Call and Put will expire either worthless or without enough intrinsic value to cover your initial cost. In the worst-case scenario (it stays exactly at $200), you lose your entire $3,000 premium. This is the danger of the straddle. Time decay (theta) is your enemy. You need significant movement, and you need it before expiration.
+**Scenario A: The market does nothing.** DontBeEvil stays exactly at $200, or anywhere between $170 and $230. Both your Call and Put will expire either worthless or without enough intrinsic value to cover your initial cost. In the worst-case scenario (it stays exactly at $200 until expiration), you lose your entire $3,000 premium. This is the danger of the straddle. Time decay (theta) is your enemy. You need significant movement, and you need it before expiration.
 
-Scenario B: The bubble bursts. The company announces they are pivoting back to selling physical servers. The stock crashes to $140. 
+**Scenario B: The bubble bursts.** The company announces they are pivoting back to selling physical servers. The stock crashes to $140. 
 - Your Call option is worthless.
 - Your Put option is now deep in the money. You have the right to sell at $200 something currently worth $140. The intrinsic value is $60 per share ($6,000 total). 
 - Subtracting your initial $3,000 investment, your net profit is $3,000.
 
-Scenario C: The rocket takes off. They announce a model that writes flawless code. The stock jumps to $260.
+**Scenario C: The rocket takes off.** They announce a model that writes flawless code. The stock jumps to $260.
 - Your Put option is worthless.
 - Your Call option is deep in the money. You have the right to buy at $200 something currently worth $260. The intrinsic value is $60 per share ($6,000 total).
 - Subtracting your initial $3,000 investment, your net profit is $3,000.
 
-A philosophy of volatility
+### A philosophy of volatility
 
 Notice the beauty here. In both extreme scenarios, you won. The only scenario where you lose is the one where the world remains boring and predictable. 
 
