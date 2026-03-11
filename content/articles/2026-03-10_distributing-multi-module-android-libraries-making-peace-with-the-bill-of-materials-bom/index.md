@@ -31,9 +31,7 @@ When a consumer imports your BoM, they are essentially telling their build syste
 
 This means consumers only have to specify the version number once. It reduces friction, prevents subtle bugs caused by mismatched transitive dependencies, and makes upgrading your library a breeze. It is about treating your SDK development like a marathon, not a sprint: you invest a bit of time upfront to ensure the long-term stability and happiness of the developers integrating your code.
 
-#### A Real-World Example: Android Maps Utils
-
-You can see the gory details in [this Pull Request](https://github.com/googlemaps/android-maps-utils/pull/1660). 
+#### A Real-World Example
 
 The library is split into specific modules (clustering, heatmaps, etc.). To tie it all together, a BoM has been created. If you are developing a multi-module library, this is the blueprint you want to follow.
 
@@ -67,7 +65,7 @@ By using `project(":module-name")`, Gradle automatically resolves the current ve
 
 #### Fixing Artifact IDs
 
-There is a crucial detail to keep in mind, and it was a major pain point addressed in the Google Maps PR. When you transition from a monolith to a multi-module architecture, you must ensure that each module has a unique artifact ID when published to Maven Central.
+There is a crucial detail to keep in mind, and it is a major pain point when modularizing. When you transition from a monolith to a multi-module architecture, you must ensure that each module has a unique artifact ID when published to Maven Central.
 
 If your legacy library was published as `com.example:my-library`, your new modules cannot share that ID, otherwise they will overwrite each other in the repository. You need to assign them distinct names:
 
@@ -79,7 +77,7 @@ You can preserve the original `com.example:my-library` artifact ID for the core 
 
 #### Publishing the BoM
 
-Your BoM needs to be published to your Maven repository alongside your other modules. If you have a solid CI/CD pipeline, you are probably using a convention plugin (like `BomPublishingConventionPlugin` in the Maps Utils repo) inside `buildSrc` or `build-logic` to share publishing configuration across all your modules.
+Your BoM needs to be published to your Maven repository alongside your other modules. If you have a solid CI/CD pipeline, you are probably using a convention plugin (like `BomPublishingConventionPlugin`) inside `buildSrc` or `build-logic` to share publishing configuration across all your modules.
 
 The BoM will be published as a `.pom` file rather than an `.aar` or `.jar`. 
 
