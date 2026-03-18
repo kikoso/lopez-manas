@@ -9,6 +9,6 @@ Recently I talked about my last personal project, <a target="_blank" href="/?p=4
 
 The application can be searched for using the word "Farver" in the Android Market. I have also created a video showing both the web and Android applications.
 
-<object width="500" height="304"><param name="movie" value="http://www.youtube.com/v/4weRsF0-PbU?fs=1&amp;hl=de_DE"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/4weRsF0-PbU?fs=1&amp;hl=de_DE" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="435" height="264"></embed></object>
+{{< youtube 4weRsF0-PbU >}}
 
 <img src="/wp/images/farver-scrsht_2.png" alt="Farver screenshot" />

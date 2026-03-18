@@ -16,4 +16,4 @@ En la siguiente imagen tenemos un ejemplo de un fichero recuperado a los 5, 30, 
 Los investigadores de Princeton afirman haber obtenido desde la RAM de un ordenador apagado las claves utilizadas para cifrar un disco, independientemente de la aplicación y el SO: Bitlocker (Vista), TrueCrypt (Windows, Linux y Mac), FileVault (Mac) y dm-crypt (Linux) sucumben por igual.
 
 Aquí está el video <em>proof-of-concept</em>
-<object width="425" height="355"><param name="movie" value="http://www.youtube.com/v/JDaicPIgn9U"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/JDaicPIgn9U" type="application/x-shockwave-flash" wmode="transparent" width="425" height="355"></embed></object>
+{{< youtube JDaicPIgn9U >}}
