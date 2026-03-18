@@ -14,14 +14,14 @@
   <meta name="description" content="You are working in a team that cares about code quality. You have been doing -or thinking of doing- some code pairing. Your team regularly carry out hacking events to talk and present new technologies, or to talk about the personal discoveries of each member. And you are trying to devise the perfect code review process for your organisation. Is this situation familiar to you?
 Code reviews are hard to implement. A team is composed of N people, each of them having its own agenda and priorities. Some people might be more perfectionist and might have a different acceptance criteria for the code reviews. Some others truly believe the reviews should be something at the top of each new feature or fix, and completely voluntary. As in any team, convincing needs to be done rather than imposing." />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.157.0">
+  <meta name="generator" content="Hugo 0.158.0">
 
-  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="https://lopez-manas.com/css/main.css" />
 
   
   
 
-  <meta property="og:url" content="/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/">
+  <meta property="og:url" content="https://lopez-manas.com/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/">
   <meta property="og:title" content="A Comprehensive Introduction to Perform an Efficient Android Code Review">
   <meta property="og:description" content="You are working in a team that cares about code quality. You have been doing -or thinking of doing- some code pairing. Your team regularly carry out hacking events to talk and present new technologies, or to talk about the personal discoveries of each member. And you are trying to devise the perfect code review process for your organisation. Is this situation familiar to you?
 Code reviews are hard to implement. A team is composed of N people, each of them having its own agenda and priorities. Some people might be more perfectionist and might have a different acceptance criteria for the code reviews. Some others truly believe the reviews should be something at the top of each new feature or fix, and completely voluntary. As in any team, convincing needs to be done rather than imposing.">
@@ -30,13 +30,13 @@ Code reviews are hard to implement. A team is composed of N people, each of them
     <meta property="article:section" content="articles">
     <meta property="article:published_time" content="2015-12-09T12:08:20+00:00">
     <meta property="article:modified_time" content="2025-06-09T09:47:55+02:00">
-    <meta property="og:image" content="/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/1.png">
-    <meta property="og:image" content="/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/2.png">
+    <meta property="og:image" content="https://lopez-manas.com/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/1.png">
+    <meta property="og:image" content="https://lopez-manas.com/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/2.png">
 
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/1.png">
+  <meta name="twitter:image" content="https://lopez-manas.com/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/1.png">
   <meta name="twitter:title" content="A Comprehensive Introduction to Perform an Efficient Android Code Review">
   <meta name="twitter:description" content="You are working in a team that cares about code quality. You have been doing -or thinking of doing- some code pairing. Your team regularly carry out hacking events to talk and present new technologies, or to talk about the personal discoveries of each member. And you are trying to devise the perfect code review process for your organisation. Is this situation familiar to you?
 Code reviews are hard to implement. A team is composed of N people, each of them having its own agenda and priorities. Some people might be more perfectionist and might have a different acceptance criteria for the code reviews. Some others truly believe the reviews should be something at the top of each new feature or fix, and completely voluntary. As in any team, convincing needs to be done rather than imposing.">
@@ -49,8 +49,8 @@ Code reviews are hard to implement. A team is composed of N people, each of them
   <meta itemprop="datePublished" content="2015-12-09T12:08:20+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:47:55+02:00">
   <meta itemprop="wordCount" content="2245">
-  <meta itemprop="image" content="/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/1.png">
-  <meta itemprop="image" content="/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/2.png">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/1.png">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/2.png">
 
   
   <meta itemprop="name" content="A Comprehensive Introduction to Perform an Efficient Android Code Review">
@@ -59,8 +59,8 @@ Code reviews are hard to implement. A team is composed of N people, each of them
   <meta itemprop="datePublished" content="2015-12-09T12:08:20+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:47:55+02:00">
   <meta itemprop="wordCount" content="2245">
-  <meta itemprop="image" content="/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/1.png">
-  <meta itemprop="image" content="/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/2.png">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/1.png">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2015-12-09_comprehensive-introduction-to-perform-an-efficient-android-code-review/images/2.png">
 </head>
 <body class="flex relative h-full min-h-screen"><aside
   class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:basis-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar flex-shrink-0">
@@ -72,7 +72,7 @@ Code reviews are hard to implement. A team is composed of N people, each of them
   <line x1="18" y1="6" x2="6" y2="18" />
   <line x1="6" y1="6" x2="18" y2="18" />
 </svg></button>
-    <a href="/" class="px-2">
+    <a href="https://lopez-manas.com/" class="px-2">
       <span></span>
     </a>
     <button aria-label="Toggle dark mode"
@@ -276,7 +276,7 @@ Code reviews are hard to implement. A team is composed of N people, each of them
   lg:translate-x-0 lg:min-w-[400px] lg:w-1/4 h-full bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 lg:flex flex-col py-3 overflow-y-auto scroll-area">
     
     
-    <a href="/articles/">
+    <a href="https://lopez-manas.com/articles/">
       <h2 class="font-bold mb-5 py-1 pl-12 pr-3 md:px-3">Articles</h2>
     </a>
 <label class="mb-2 block px-2">

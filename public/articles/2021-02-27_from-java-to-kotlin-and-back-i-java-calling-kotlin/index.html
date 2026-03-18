@@ -16,14 +16,14 @@ From Java to Kotlin and back (II): Calling Kotlin from Java
 From Java to Kotlin and back (III): Calling Java from Kotlin
 I am currently working on a multi-module project that combines a variety of Java and Kotlin code, so I decided to publish my thought and notes as an article series. It will likely help me as a journaling practice, and hopefully can help other potential readers that end up here trying to find some tips while they are facing the same problem." />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.157.0">
+  <meta name="generator" content="Hugo 0.158.0">
 
-  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="https://lopez-manas.com/css/main.css" />
 
   
   
 
-  <meta property="og:url" content="/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/">
+  <meta property="og:url" content="https://lopez-manas.com/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/">
   <meta property="og:title" content="From Java to Kotlin and back (I): Java calling Kotlin">
   <meta property="og:description" content="This article is part of a series. You can find the remaining article of the series here:
 From Java to Kotlin and back (II): Calling Kotlin from Java
@@ -34,13 +34,13 @@ I am currently working on a multi-module project that combines a variety of Java
     <meta property="article:section" content="articles">
     <meta property="article:published_time" content="2021-02-27T14:15:22+00:00">
     <meta property="article:modified_time" content="2025-06-09T09:50:00+02:00">
-    <meta property="og:image" content="/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/1.jpeg">
-    <meta property="og:image" content="/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/2.png">
+    <meta property="og:image" content="https://lopez-manas.com/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/1.jpeg">
+    <meta property="og:image" content="https://lopez-manas.com/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/2.png">
 
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/1.jpeg">
+  <meta name="twitter:image" content="https://lopez-manas.com/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/1.jpeg">
   <meta name="twitter:title" content="From Java to Kotlin and back (I): Java calling Kotlin">
   <meta name="twitter:description" content="This article is part of a series. You can find the remaining article of the series here:
 From Java to Kotlin and back (II): Calling Kotlin from Java
@@ -57,8 +57,8 @@ I am currently working on a multi-module project that combines a variety of Java
   <meta itemprop="datePublished" content="2021-02-27T14:15:22+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:00+02:00">
   <meta itemprop="wordCount" content="1691">
-  <meta itemprop="image" content="/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/1.jpeg">
-  <meta itemprop="image" content="/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/2.png">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/1.jpeg">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/2.png">
 
   
   <meta itemprop="name" content="From Java to Kotlin and back (I): Java calling Kotlin">
@@ -69,8 +69,8 @@ I am currently working on a multi-module project that combines a variety of Java
   <meta itemprop="datePublished" content="2021-02-27T14:15:22+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:00+02:00">
   <meta itemprop="wordCount" content="1691">
-  <meta itemprop="image" content="/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/1.jpeg">
-  <meta itemprop="image" content="/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/2.png">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/1.jpeg">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2021-02-27_from-java-to-kotlin-and-back-i-java-calling-kotlin/images/2.png">
 </head>
 <body class="flex relative h-full min-h-screen"><aside
   class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:basis-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar flex-shrink-0">
@@ -82,7 +82,7 @@ I am currently working on a multi-module project that combines a variety of Java
   <line x1="18" y1="6" x2="6" y2="18" />
   <line x1="6" y1="6" x2="18" y2="18" />
 </svg></button>
-    <a href="/" class="px-2">
+    <a href="https://lopez-manas.com/" class="px-2">
       <span></span>
     </a>
     <button aria-label="Toggle dark mode"
@@ -286,7 +286,7 @@ I am currently working on a multi-module project that combines a variety of Java
   lg:translate-x-0 lg:min-w-[400px] lg:w-1/4 h-full bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 lg:flex flex-col py-3 overflow-y-auto scroll-area">
     
     
-    <a href="/articles/">
+    <a href="https://lopez-manas.com/articles/">
       <h2 class="font-bold mb-5 py-1 pl-12 pr-3 md:px-3">Articles</h2>
     </a>
 <label class="mb-2 block px-2">

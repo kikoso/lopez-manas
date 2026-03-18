@@ -17,14 +17,14 @@ From Java to Kotlin and back (II): Calling Kotlin from Java
 In this last chapter of the series, we will evaluate consideration when calling Java code from Kotlin.
 One could argue that even in this situation happens often, keeping considerations in mind for some code that might legacy is not that practical. Kotlin has also been designed with interoperability in mind, so Java code from Kotlin is much more “callable” than the other way around, since the design has been in mind since its conception. However, there are a few points that you can keep in mind when working on your Java code, and we would like to explain them in this article." />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.157.0">
+  <meta name="generator" content="Hugo 0.158.0">
 
-  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="https://lopez-manas.com/css/main.css" />
 
   
   
 
-  <meta property="og:url" content="/articles/2021-03-14_from-java-to-kotlin-and-back-iii-calling-java-from-kotlin/">
+  <meta property="og:url" content="https://lopez-manas.com/articles/2021-03-14_from-java-to-kotlin-and-back-iii-calling-java-from-kotlin/">
   <meta property="og:title" content="From Java to Kotlin and back (III): Calling Java from Kotlin">
   <meta property="og:description" content="This article is part of a series. You can find the remaining article of the series here:
 From Java to Kotlin and back (I) — Calling Kotlin from Java
@@ -36,12 +36,12 @@ One could argue that even in this situation happens often, keeping consideration
     <meta property="article:section" content="articles">
     <meta property="article:published_time" content="2021-03-14T07:41:42+00:00">
     <meta property="article:modified_time" content="2025-06-09T09:50:10+02:00">
-    <meta property="og:image" content="/articles/2021-03-14_from-java-to-kotlin-and-back-iii-calling-java-from-kotlin/images/1.jpeg">
+    <meta property="og:image" content="https://lopez-manas.com/articles/2021-03-14_from-java-to-kotlin-and-back-iii-calling-java-from-kotlin/images/1.jpeg">
 
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="/articles/2021-03-14_from-java-to-kotlin-and-back-iii-calling-java-from-kotlin/images/1.jpeg">
+  <meta name="twitter:image" content="https://lopez-manas.com/articles/2021-03-14_from-java-to-kotlin-and-back-iii-calling-java-from-kotlin/images/1.jpeg">
   <meta name="twitter:title" content="From Java to Kotlin and back (III): Calling Java from Kotlin">
   <meta name="twitter:description" content="This article is part of a series. You can find the remaining article of the series here:
 From Java to Kotlin and back (I) — Calling Kotlin from Java
@@ -60,7 +60,7 @@ One could argue that even in this situation happens often, keeping consideration
   <meta itemprop="datePublished" content="2021-03-14T07:41:42+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:10+02:00">
   <meta itemprop="wordCount" content="831">
-  <meta itemprop="image" content="/articles/2021-03-14_from-java-to-kotlin-and-back-iii-calling-java-from-kotlin/images/1.jpeg">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2021-03-14_from-java-to-kotlin-and-back-iii-calling-java-from-kotlin/images/1.jpeg">
 
   
   <meta itemprop="name" content="From Java to Kotlin and back (III): Calling Java from Kotlin">
@@ -72,7 +72,7 @@ One could argue that even in this situation happens often, keeping consideration
   <meta itemprop="datePublished" content="2021-03-14T07:41:42+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:50:10+02:00">
   <meta itemprop="wordCount" content="831">
-  <meta itemprop="image" content="/articles/2021-03-14_from-java-to-kotlin-and-back-iii-calling-java-from-kotlin/images/1.jpeg">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2021-03-14_from-java-to-kotlin-and-back-iii-calling-java-from-kotlin/images/1.jpeg">
 </head>
 <body class="flex relative h-full min-h-screen"><aside
   class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:basis-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar flex-shrink-0">
@@ -84,7 +84,7 @@ One could argue that even in this situation happens often, keeping consideration
   <line x1="18" y1="6" x2="6" y2="18" />
   <line x1="6" y1="6" x2="18" y2="18" />
 </svg></button>
-    <a href="/" class="px-2">
+    <a href="https://lopez-manas.com/" class="px-2">
       <span></span>
     </a>
     <button aria-label="Toggle dark mode"
@@ -288,7 +288,7 @@ One could argue that even in this situation happens often, keeping consideration
   lg:translate-x-0 lg:min-w-[400px] lg:w-1/4 h-full bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 lg:flex flex-col py-3 overflow-y-auto scroll-area">
     
     
-    <a href="/articles/">
+    <a href="https://lopez-manas.com/articles/">
       <h2 class="font-bold mb-5 py-1 pl-12 pr-3 md:px-3">Articles</h2>
     </a>
 <label class="mb-2 block px-2">

@@ -15,14 +15,14 @@
 Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
 Now we are likely facing another problem: how can we easily scale an application using Event-Driven development without falling into a messy and unorganised code? In this article, I will provide a proposal architecture that serves to scale an application based on Event-Driven development, but that can also be used to create a more general type of applications." />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.157.0">
+  <meta name="generator" content="Hugo 0.158.0">
 
-  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="https://lopez-manas.com/css/main.css" />
 
   
   
 
-  <meta property="og:url" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/">
+  <meta property="og:url" content="https://lopez-manas.com/articles/2015-02-08_eventdriven-programming-for-android-part-iii/">
   <meta property="og:title" content="Event-driven programming for Android (part III)">
   <meta property="og:description" content="(This is the third article in a three-part series)
 Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
@@ -32,14 +32,14 @@ Now we are likely facing another problem: how can we easily scale an application
     <meta property="article:section" content="articles">
     <meta property="article:published_time" content="2015-02-08T18:32:14+00:00">
     <meta property="article:modified_time" content="2025-06-09T09:47:50+02:00">
-    <meta property="og:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
-    <meta property="og:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
-    <meta property="og:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
+    <meta property="og:image" content="https://lopez-manas.com/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
+    <meta property="og:image" content="https://lopez-manas.com/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
+    <meta property="og:image" content="https://lopez-manas.com/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
 
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
+  <meta name="twitter:image" content="https://lopez-manas.com/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
   <meta name="twitter:title" content="Event-driven programming for Android (part III)">
   <meta name="twitter:description" content="(This is the third article in a three-part series)
 Previously, I have given an introduction to Event Driven programming with Android, and show some code to create a HelloWorld Event-Driven application.
@@ -54,9 +54,9 @@ Now we are likely facing another problem: how can we easily scale an application
   <meta itemprop="datePublished" content="2015-02-08T18:32:14+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:47:50+02:00">
   <meta itemprop="wordCount" content="777">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
 
   
   <meta itemprop="name" content="Event-driven programming for Android (part III)">
@@ -66,9 +66,9 @@ Now we are likely facing another problem: how can we easily scale an application
   <meta itemprop="datePublished" content="2015-02-08T18:32:14+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:47:50+02:00">
   <meta itemprop="wordCount" content="777">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
-  <meta itemprop="image" content="/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/1.png">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/2.png">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2015-02-08_eventdriven-programming-for-android-part-iii/images/3.png">
 </head>
 <body class="flex relative h-full min-h-screen"><aside
   class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:basis-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar flex-shrink-0">
@@ -80,7 +80,7 @@ Now we are likely facing another problem: how can we easily scale an application
   <line x1="18" y1="6" x2="6" y2="18" />
   <line x1="6" y1="6" x2="18" y2="18" />
 </svg></button>
-    <a href="/" class="px-2">
+    <a href="https://lopez-manas.com/" class="px-2">
       <span></span>
     </a>
     <button aria-label="Toggle dark mode"
@@ -284,7 +284,7 @@ Now we are likely facing another problem: how can we easily scale an application
   lg:translate-x-0 lg:min-w-[400px] lg:w-1/4 h-full bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 lg:flex flex-col py-3 overflow-y-auto scroll-area">
     
     
-    <a href="/articles/">
+    <a href="https://lopez-manas.com/articles/">
       <h2 class="font-bold mb-5 py-1 pl-12 pr-3 md:px-3">Articles</h2>
     </a>
 <label class="mb-2 block px-2">

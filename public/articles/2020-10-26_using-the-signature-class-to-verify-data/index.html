@@ -14,14 +14,14 @@
   <meta name="description" content="When there is an exchange of information happening, we often want to verify that the origin of the data is the right one. This can be used to ensure that the right clients are having access to our resources.
 For instance, let’s imagine that we want to ensure that an authorized device is querying a file with sensitive information from our backend. An immediate solution could be to use a X-Api-Token in our device. I wrote previously about how we can store tokens securely in Android: ideally, the X-Api-Token should not be stored in plain text, since everything delivered as plain-text in an Android app can be considered open source. One more twist to the story could be to have a local function that generates the token, and that is understood by the server as well." />
   <meta name="author" content="Enrique López-Mañas" />
-  <meta name="generator" content="Hugo 0.157.0">
+  <meta name="generator" content="Hugo 0.158.0">
 
-  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="https://lopez-manas.com/css/main.css" />
 
   
   
 
-  <meta property="og:url" content="/articles/2020-10-26_using-the-signature-class-to-verify-data/">
+  <meta property="og:url" content="https://lopez-manas.com/articles/2020-10-26_using-the-signature-class-to-verify-data/">
   <meta property="og:title" content="Using the Signature class to verify data">
   <meta property="og:description" content="When there is an exchange of information happening, we often want to verify that the origin of the data is the right one. This can be used to ensure that the right clients are having access to our resources.
 For instance, let’s imagine that we want to ensure that an authorized device is querying a file with sensitive information from our backend. An immediate solution could be to use a X-Api-Token in our device. I wrote previously about how we can store tokens securely in Android: ideally, the X-Api-Token should not be stored in plain text, since everything delivered as plain-text in an Android app can be considered open source. One more twist to the story could be to have a local function that generates the token, and that is understood by the server as well.">
@@ -30,13 +30,13 @@ For instance, let’s imagine that we want to ensure that an authorized device i
     <meta property="article:section" content="articles">
     <meta property="article:published_time" content="2020-10-26T19:34:11+00:00">
     <meta property="article:modified_time" content="2025-06-09T09:49:51+02:00">
-    <meta property="og:image" content="/articles/2020-10-26_using-the-signature-class-to-verify-data/images/1.jpeg">
-    <meta property="og:image" content="/articles/2020-10-26_using-the-signature-class-to-verify-data/images/2.png">
+    <meta property="og:image" content="https://lopez-manas.com/articles/2020-10-26_using-the-signature-class-to-verify-data/images/1.jpeg">
+    <meta property="og:image" content="https://lopez-manas.com/articles/2020-10-26_using-the-signature-class-to-verify-data/images/2.png">
 
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="/articles/2020-10-26_using-the-signature-class-to-verify-data/images/1.jpeg">
+  <meta name="twitter:image" content="https://lopez-manas.com/articles/2020-10-26_using-the-signature-class-to-verify-data/images/1.jpeg">
   <meta name="twitter:title" content="Using the Signature class to verify data">
   <meta name="twitter:description" content="When there is an exchange of information happening, we often want to verify that the origin of the data is the right one. This can be used to ensure that the right clients are having access to our resources.
 For instance, let’s imagine that we want to ensure that an authorized device is querying a file with sensitive information from our backend. An immediate solution could be to use a X-Api-Token in our device. I wrote previously about how we can store tokens securely in Android: ideally, the X-Api-Token should not be stored in plain text, since everything delivered as plain-text in an Android app can be considered open source. One more twist to the story could be to have a local function that generates the token, and that is understood by the server as well.">
@@ -49,8 +49,8 @@ For instance, let’s imagine that we want to ensure that an authorized device i
   <meta itemprop="datePublished" content="2020-10-26T19:34:11+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:49:51+02:00">
   <meta itemprop="wordCount" content="1138">
-  <meta itemprop="image" content="/articles/2020-10-26_using-the-signature-class-to-verify-data/images/1.jpeg">
-  <meta itemprop="image" content="/articles/2020-10-26_using-the-signature-class-to-verify-data/images/2.png">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2020-10-26_using-the-signature-class-to-verify-data/images/1.jpeg">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2020-10-26_using-the-signature-class-to-verify-data/images/2.png">
 
   
   <meta itemprop="name" content="Using the Signature class to verify data">
@@ -59,8 +59,8 @@ For instance, let’s imagine that we want to ensure that an authorized device i
   <meta itemprop="datePublished" content="2020-10-26T19:34:11+00:00">
   <meta itemprop="dateModified" content="2025-06-09T09:49:51+02:00">
   <meta itemprop="wordCount" content="1138">
-  <meta itemprop="image" content="/articles/2020-10-26_using-the-signature-class-to-verify-data/images/1.jpeg">
-  <meta itemprop="image" content="/articles/2020-10-26_using-the-signature-class-to-verify-data/images/2.png">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2020-10-26_using-the-signature-class-to-verify-data/images/1.jpeg">
+  <meta itemprop="image" content="https://lopez-manas.com/articles/2020-10-26_using-the-signature-class-to-verify-data/images/2.png">
 </head>
 <body class="flex relative h-full min-h-screen"><aside
   class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:basis-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar flex-shrink-0">
@@ -72,7 +72,7 @@ For instance, let’s imagine that we want to ensure that an authorized device i
   <line x1="18" y1="6" x2="6" y2="18" />
   <line x1="6" y1="6" x2="18" y2="18" />
 </svg></button>
-    <a href="/" class="px-2">
+    <a href="https://lopez-manas.com/" class="px-2">
       <span></span>
     </a>
     <button aria-label="Toggle dark mode"
@@ -276,7 +276,7 @@ For instance, let’s imagine that we want to ensure that an authorized device i
   lg:translate-x-0 lg:min-w-[400px] lg:w-1/4 h-full bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 lg:flex flex-col py-3 overflow-y-auto scroll-area">
     
     
-    <a href="/articles/">
+    <a href="https://lopez-manas.com/articles/">
       <h2 class="font-bold mb-5 py-1 pl-12 pr-3 md:px-3">Articles</h2>
     </a>
 <label class="mb-2 block px-2">
