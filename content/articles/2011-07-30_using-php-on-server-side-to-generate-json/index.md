@@ -11,7 +11,7 @@ Firstly, I needed to access his database on the server, which was a slow task du
 
 Since I do not have access to Juan Carlos' server, I decided to do it on my own server. I created some PHP files that query the server and give me the information in JSON format
 
-<pre lang="php"> 
+```php
 <?php
 mysql_connect("jcbcarc.dyndns.org","user","password");
 mysql_select_db("economia");
@@ -24,10 +24,10 @@ print(json_encode($output));
  
 mysql_close();
 ?>
-</pre>
+```
 
 Now the data has to be requested and handled from the Android side:
-<pre lang="java"> 
+```java
 private void initPHP() {
 		//http post
 		 String result = "";
@@ -81,6 +81,6 @@ private void initPHP() {
 		         Log.e("log_tag", "Error parsing data "+e.toString());
 		 }
 	 }
-</pre>
+```
 
 The code can be improved to handle authentication, HTTPS, or to do more complex work in general. In a project at work we used authentication based on a pair of generated keys, but a simple method based on a known keyword is enough.

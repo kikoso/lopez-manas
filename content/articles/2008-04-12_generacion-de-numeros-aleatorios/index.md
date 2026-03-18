@@ -11,7 +11,7 @@ Como ya he mencionado, utilizando este tipo de métodos escogeremos una semilla 
 
 Como veremos en el siguiente código, declararemos una variable "semilla" que inicializaremos a un valor dado. Será idealmente una variable estática, es decir, una variable global accesible solo por las rutinas de este mismo archivo. 
 
-<pre lang="cpp">
+```cpp
 #include  <iostream.h>
 
 static long _random= 0;
@@ -47,12 +47,12 @@ void main()
     cout << int(Rnd()*100) +1 << "  ";
   }
 }
-</pre>
+```
 
 Con la sección de código
 
-<pre lang=cpp>
-    cout << int(Rnd()*100) +1 << "  ";
-</pre>
+```cpp
+cout << int(Rnd()*100) +1 << "  ";
+```
 
 generaremos los números aleatorios entre los valores que nosotros deseemos.

@@ -8,7 +8,8 @@ title: Automatically increasing versionCode with Gradle
 Continuous Integration means, above all, automatization. The user should not be in charge of the distribution or deployment process. Everything should be scripted!
 
 While deploying new versions in Android, one of the common tasks is to increase the <a href="http://developer.android.com/tools/publishing/versioning.html" target="_blank">versionCode</a> to identify a particular build. Using the new Gradle system, this can also be automatized.
-<pre lang="java">def getVersionCodeAndroid() {
+```java
+def getVersionCodeAndroid() {
     println "Hello getVersionCode"
     def manifestFile = file("src/main/AndroidManifest.xml")
     def pattern = Pattern.compile("versionCode=\"(\\\\d+)\"")
@@ -39,6 +40,9 @@ tasks.whenTaskAdded { task -&gt;
     if (task.name == ''generateDebugBuildConfig'') {
         task.dependsOn ''writeVersionCode''
     }
-}</pre>
+}
+```
 In our defaultConfig, we will need to specify that the versionCode must be read from the newly added function:
-<pre lang="java">  versionCode getVersionCodeAndroid()</pre>
+```java
+versionCode getVersionCodeAndroid()
+```

@@ -35,21 +35,25 @@ So there are three general solutions widely accepted to implement our own Push n
 <div>According to the source site of C2DM, the Android implementation is quite trivial. We first need to declare in our Manifest the required permissions for the application, which are com.google.android.c2dm.permission.RECEIVE, com.example.myapp.permission.C2D_MESSAGE and of course android.permission.INTERNET.  We also need to declare our receivers. For further information, check out the <a title="Android Manifest for C2DM" href="http://code.google.com/intl/de-DE/android/c2dm/#manifest">official link</a>.</div>
 <div>The next step is to register our application, which can be done with the following code. Typically, we will add it to an onCreate method, or when the application needs to prepare itself for the push.</div>
 &nbsp;
-<pre lang="java">Intent registrationIntent = new Intent("com.google.android.c2dm.intent.REGISTER");
+```java
+Intent registrationIntent = new Intent("com.google.android.c2dm.intent.REGISTER");
 registrationIntent.putExtra("app", PendingIntent.getBroadcast(this, 0, new Intent(), 0)); // boilerplate
 registrationIntent.putExtra("sender", emailOfSender);
-startService(registrationIntent);</pre>
+startService(registrationIntent);
+```
 &nbsp;
 Unregistering is also trivial (again, we might want to add this into the onDestroy event):
 &nbsp;
-<pre lang="java">
+```java
 Intent unregIntent = new Intent("com.google.android.c2dm.intent.UNREGISTER");
 unregIntent.putExtra("app", PendingIntent.getBroadcast(this, 0, new Intent(), 0));
-startService(unregIntent);</pre>
+startService(unregIntent);
+```
 &nbsp;
 The basic part for handling the message needs a bit more explanation. When the onReceive method of our BroadcastReceiver is triggered, we might need to check if we are dealing with the registration or if we are just receiving a push notification. We provide the code for the first case. For the second case, we might need to create our own method based on our design. We will be able to receive a message through the Intent. And that's the part we need to handle on the server side.
 &nbsp;
-<pre lang="java">public void onReceive(Context context, Intent intent) {
+```java
+public void onReceive(Context context, Intent intent) {
    if (intent.getAction().equals("com.google.android.c2dm.intent.REGISTRATION")) {
       handleRegistration(context, intent);
    } else if (intent.getAction().equals("com.google.android.c2dm.intent.RECEIVE")) {
@@ -69,18 +73,21 @@ private void handleRegistration(Context context, Intent intent) {
       // When done, remember that all registration is done.
    }
 }
-</pre>
+```
 &nbsp;
 
 So this is the core of the server application. This method needs to receive an auth code and the device registration ID. The device registration ID will be provided when our phone is registered in the previous step. The auth code is for authentication through a Google account. For instance, we could create a dummy account, and send it along with the push notification:
 
 &nbsp;
-<pre lang="php">googleAuthenticate("mydummyaccount@gmail.com","mydummypassword")</pre>
+```php
+googleAuthenticate("mydummyaccount@gmail.com","mydummypassword")
+```
 &nbsp;
 
 Afterwards, we can send a message type and the content itself. This allows us to have more flexibility in our notifications. For instance, we might provide a message type which corresponds to an error, and in the content we can send the complete error text.
 &nbsp;
-<pre lang="php">function sendMessageToPhone($authCode, $deviceRegistrationId, $msgType, $messageText) {
+```php
+function sendMessageToPhone($authCode, $deviceRegistrationId, $msgType, $messageText) {
     $headers = array(''Authorization: GoogleLogin auth='' . $authCode);
     $data = array(
       ''registration_id'' =&gt; $deviceRegistrationId,
@@ -157,7 +164,8 @@ if (!$matches[2]) {
 $_SESSION[''google_auth_id''] = $matches[2];
 
 return $matches[2];
-}</pre>
+}
+```
 &nbsp;
 
 I hope you enjoyed the tutorial. For any further questions or inquiries, you can drop me a line in my personal <a href="mailto:eenriquelopez@gmail.com" target="_blank">email</a>.

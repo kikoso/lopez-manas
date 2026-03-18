@@ -75,7 +75,9 @@ En este momento tu tarjeta debería estar funcionando correctamente. Sólo te qu
 sudo cp /mnt/System/Library/Extensions/IOUSBFamily.kext/Contents/PlugIns/AppleUSBVideoSupport.kext/Contents/MacOS/* /lib/firmware/2.6.22-14-generic/</em>
 
 También, en /etc/default/acpi-support, edita la línea que empieza con MODULES, tal como sigue:
-<pre><em>MODULES="isight_usb"</em></pre>
+```
+<em>MODULES="isight_usb"</em>
+```
 Reinicia para que todos los cambios se efectúen. Una vez que el firmware es funcional, la cámara iSight debería poder usarse con el programa ekiga o skype, entre otros.
 
 Para instalar Ekiga y todas sus dependencias, haz lo siguiente:

@@ -8,7 +8,7 @@ title: PHP- Sencillo sistema de login y control de sesiones
 He creado un pequeño sistema de login, con control de sesiones, para poder insertar citas mediante una interfaz web en mi base de datos. El sistema es muy básico, pero quizás alguno quiera tener una pequeña referencia al respecto de cómo empezar. Como de costumbre en este mundo de la programación, el único límite es nuestra imaginación, así que el campo de las posibles mejoras aplicables es muy extenso: control del tiempo de login, modelo de factoría para evitar (o permitir) accesos desde múltiples localizaciones, etc.
 <!--more-->
 En primer lugar, la función para conectar a la base de datos. Ya que será una función que utilizaremos con frecuencia, es una buena elección declararla en un fichero aparte:
-<pre lang="php">
+```php
 function conectar() {
    // Configura los datos de tu cuenta
    $dbhost=''nombre.de.host'';
@@ -19,9 +19,10 @@ function conectar() {
    // Conectar a la base de datos
    mysql_connect ($dbhost, $dbusername, $dbuserpass);
    mysql_select_db($dbname) or die(''Cannot select database'');
-   }</pre>
+   }
+```
 Típicamente, tendremos un punto de entrada a la aplicación, index.php, en el que colocaremos un formulario con los campos de usuario y contraseña. En el campo action de este formulario, introduciremos la dirección del archivo donde validaremos el login (login.php)
-<pre lang="php">
+```php
 <?php
    conectar();
 
@@ -56,10 +57,11 @@ Típicamente, tendremos un punto de entrada a la aplicación, index.php, en el q
     	else $_SESSION[''validUser''] = false;
   	echo ''Nombre de usuario o contraseña inválidos.<a href="javascript:back();"&lt;&lt;"></a>'';
 	}
-?&gt;</pre>
+?&gt;
+```
  
 Finalmente, en formulario.php controlaremos la validez de la sesión abierta, y tomaremos una decisión sobre la validez del usuario que realiza la petición:
-<pre lang="php">
+```php
 <?php
 	conectar();
 	if (isset($_SESSION[''validUser''])){
@@ -68,7 +70,7 @@ Finalmente, en formulario.php controlaremos la validez de la sesión abierta, y 
 } else{
    		echo "Tú no estás autentificado, dirígete a login.php o regístrate en register.php";
     }
-?> 
-</pre>
+?>
+```
 
 Siempre tendremos que usar esta verificación con isset en las páginas que queremos que estén protegidas por una sesión.

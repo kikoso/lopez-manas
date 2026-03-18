@@ -9,8 +9,8 @@ Cuando usamos BBDD, y mientras optimizamos configuraciones o interfaces de edici
 
 Esto puede resolverse de varias maneras: una opción es borrar la tabla y crearla de nuevo (impracticable por naturaleza en la mayoría de los casos). Otra opción más sencilla es utilizar el siguiente comando:
 
-<pre lang="mysql"> 
+```mysql
 ALTER TABLE nombre_tabla AUTO_INCREMENT=1
-</pre>
+```
 
 Esto permite que el único valor autoincremental que puede existir en una tabla se posicione al valor que le indiquemos.

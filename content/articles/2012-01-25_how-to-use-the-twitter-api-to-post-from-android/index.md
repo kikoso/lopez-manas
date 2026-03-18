@@ -14,8 +14,7 @@ We need three main classes in our application to make it work.
 First, TwitterApp. This will be the controller for the API:
 
 
-<pre lang="java">
-
+```java
 import java.net.MalformedURLException;
 import java.net.URLDecoder;
 
@@ -243,12 +242,11 @@ public class TwitterApp {
 		public void onError(String value);
 	}
 }
-</pre>
+```
 
 The TwitterDialog class is composed of a basic WebView that loads the URL with the authentication fields:
 
-<pre lang="java">
-
+```java
 import android.app.Dialog;
 import android.app.ProgressDialog;
 
@@ -401,12 +399,11 @@ public class TwitterDialog extends Dialog {
 
     }
 }
-
-</pre>
+```
 
 And as we can expect, TwitterSession manages the Twitter session:
 
-<pre lang="java">
+```java
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.Context;
@@ -456,12 +453,11 @@ public class TwitterSession {
 			return null;
 	}
 }
-</pre>
+```
 
 Now let's see how this works. In this application, we will need to insert our consumer and private keys in the variables above. The rest of the code is easy to understand: we will initialize the Twitter object, and we will post!
 
-<pre lang="java">
-
+```java
 public class ProceedActivity extends Activity {
 	
 	private TwitterApp mTwitter;
@@ -556,6 +552,6 @@ public class ProceedActivity extends Activity {
 	
 	
 }
-</pre>
+```
 
 Enrique López-Mañas
