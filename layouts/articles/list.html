@@ -9,40 +9,21 @@
     </a>
     {{- partial "search.html" . -}}
     <div class="space-y-2.5">
-      {{ $paginator := .Paginate .Data.Pages }}
-      {{ range $paginator.Pages -}}
+      {{ range .Data.Pages -}}
       <a class="article block px-3 py-4 hover:bg-slate-200 dark:hover:bg-slate-700" href="{{ .RelPermalink }}">
 
         {{ $title := .Params.title }}
         {{ with .Params.images }}
         {{- range first 1 . }}
-        <img class="rounded max-w-full mb-4" src="{{ . }}" alt="{{ $title }}" loading="lazy" />
+        <img class="rounded max-w-full mb-4" src="{{ . }}" alt="{{ $title }}" />
         {{ end -}}
         {{ end }}
         <h3 class="text-lg font-semibold mb-0.5">{{ $title }}</h3>
         <div class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
-          {{ .Summary }}
+          {{ .Summary | plainify }}
         </div>
       </a>
       {{ end -}}
-      
-      {{ if gt $paginator.TotalPages 1 }}
-      <div class="flex justify-between px-3 py-4 text-sm font-semibold">
-        {{ if $paginator.HasPrev }}
-        <a href="{{ $paginator.Prev.URL }}" class="text-slate-700 dark:text-slate-300 hover:underline">&larr; Previous</a>
-        {{ else }}
-        <span class="text-slate-400">&larr; Previous</span>
-        {{ end }}
-        
-        <span class="text-slate-500">{{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}</span>
-        
-        {{ if $paginator.HasNext }}
-        <a href="{{ $paginator.Next.URL }}" class="text-slate-700 dark:text-slate-300 hover:underline">Next &rarr;</a>
-        {{ else }}
-        <span class="text-slate-400">Next &rarr;</span>
-        {{ end }}
-      </div>
-      {{ end }}
     </div>
   </section>
 

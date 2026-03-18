@@ -29,7 +29,7 @@
         <h3 class="text-lg font-semibold mb-0.5">{{ $title }}</h3>
         <div
           class="text-sm {{ if $isCurrentPage }} text-slate-400 {{ else }} text-slate-500 dark:text-slate-400 {{ end }} line-clamp-2">
-          {{ .Summary }}
+          {{ .Summary | plainify }}
         </div>
       </a>
       {{ end -}}
@@ -45,7 +45,7 @@
 
 	  {{ if .Date }}
       <p class="text-sm text-slate-500 !mb-8"> Planted {{ $date }}
-		{{ if and (ne $lastmod $date) (ne $lastmod "June 9, 2025") }}
+		{{ if ne $lastmod $date}}
 			<br/> Pruned {{ .Lastmod.Format "January 2, 2006" }}
         {{ end }}
 	  </p>
