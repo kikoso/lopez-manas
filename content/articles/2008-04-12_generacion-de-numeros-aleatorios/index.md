@@ -5,11 +5,11 @@ slug: generacion-de-numeros-aleatorios
 title: Generación de números aleatorios
 ---
 
-La generación de <a target="_blank" href="http://en.wikipedia.org/wiki/Random_number_generation">números aleatorios</a> con métodos computacionales es una de las técnicas básicas utilizadas en multitud de disciplinas como la criptografía, los videojuegos, la estadística, la simulación... Existen dos métodos de generación de números aleatorios, básicamente: los números pseudo-aleatorios, que generan una secuencia partiendo de un primer número semilla, o los aleatorios, que siguen unos algoritmos de generación más complejos, tomando generalmente datos del contexto informático en el que se generan (tales como posición del puntero, porcentaje de ocupación de la RAM, etc) para tener suficiente entropía. En este post, trataré sobre los primeros.
+La generación de <a target="_blank" href="http://en.wikipedia.org/wiki/Random_number_generation">números aleatorios</a> con métodos computacionales es una de las técnicas básicas utilizadas en multitud de disciplinas como la criptografía, los videojuegos, la estadística, la simulación... Existen dos métodos de generación de números aleatorios, básicamente: los números pseudo-aleatorios, que generan una secuencia partiendo de un primer número semilla, o los aleatorios, que siguen unos algoritmos de generación más complejos, tomando generalmente datos del contexto informático en el que se generan (tales como posición del puntero, porcentaje de ocupación de la RAM, etc.) para tener suficiente entropía. En este post, trataré sobre los primeros.
 
-Como ya he mencionado, utilizando este tipo de métodos escogeremos una semilla o valor aleatorio inicial, a partir del cual generaremos el resto de números (combinar este método con uno aleatorio real para generar una ristra de números aleatorios verdaderos es otra opción, en la que ahorraremos potencia de cálculo al generar un número aleatorio tan sólo inicialmente).
+Como ya he mencionado, utilizando este tipo de métodos escogeremos una semilla o valor aleatorio inicial, a partir del cual generaremos el resto de números (combinar este método con uno aleatorio real para generar una ristra de números aleatorios verdaderos es otra opción, en la que ahorraremos potencia de cálculo al generar un número aleatorio tan solo inicialmente).
 
-Como veremos en el siguiente código, declararemos una variable "semilla" que inicializaremos a un valor dado. Será idealmente una variable estática, es decir, una variable global accesible sólo por las rutinas de este mismo archivo. 
+Como veremos en el siguiente código, declararemos una variable "semilla" que inicializaremos a un valor dado. Será idealmente una variable estática, es decir, una variable global accesible solo por las rutinas de este mismo archivo. 
 
 <pre lang="cpp">
 #include  <iostream.h>

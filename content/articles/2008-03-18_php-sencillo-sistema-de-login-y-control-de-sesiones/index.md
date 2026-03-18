@@ -25,11 +25,11 @@ Típicamente, tendremos un punto de entrada a la aplicación, index.php, en el q
 <?php
    conectar();
 
-   // Primero, transformamos los datos recibidos en entidades html para evitar inyecciones sql
+   // Primero, transformamos los datos recibidos en entidades HTML para evitar inyecciones SQL
     $a_user = htmlentities($_POST[''username''], ENT_QUOTES);
     $a_pass = htmlentities($_POST[''password''], ENT_QUOTES);
 
-    // Ahora creamos una sentencia sql en busca del usuario ingresado:
+    // Ahora creamos una sentencia SQL en busca del usuario ingresado:
     $select = mysql_query("SELECT * FROM nt_users WHERE username=''{$a_user}''");
     // Ahora comprobamos que el usuario exista.
     if(mysql_num_rows($select) != 0) {
@@ -66,9 +66,9 @@ Finalmente, en formulario.php controlaremos la validez de la sesión abierta, y 
     	include("menu.php");
 
 } else{
-   		echo "Tu no estas autentificado dirígete a login.php o registrate en register.php";
+   		echo "Tú no estás autentificado, dirígete a login.php o regístrate en register.php";
     }
 ?> 
 </pre>
 
-Siempre tendremos que usar este verificación con isset en las páginas que queremos que estén protegidas por una sesión.
+Siempre tendremos que usar esta verificación con isset en las páginas que queremos que estén protegidas por una sesión.

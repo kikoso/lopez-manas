@@ -5,11 +5,11 @@ slug: testing-asynchronous-tasks-on-android
 title: Testing Asynchronous Tasks on Android
 ---
 
-Recently, at <a href="http://www.sixt.de/" target="_blank">Sixt</a> we have been migrating our development environment from <a href="http://www.eclipse.org/" target="_blank">Eclipse</a> to <a href="http://developer.android.com/sdk/installing/studio.html" target="_blank">Android Studio</a>. This has mean we have also moved to the new build system, <a href="http://www.gradle.org/ target=">Gradle</a>, and applying <a href="http://en.wikipedia.org/wiki/Test-driven_development" target="_blank">TDD</a> and <a href="http://en.wikipedia.org/wiki/Continuous_integration" target="_blank">CI</a> to our software development process. This is not the place to discuss the benefits of applying CI to a software development plan, but to talk about a problem arising when testing tasks running on different threads than the UI in Android.
+Recently, at <a href="http://www.sixt.de/" target="_blank">Sixt</a> we have been migrating our development environment from <a href="http://www.eclipse.org/" target="_blank">Eclipse</a> to <a href="http://developer.android.com/sdk/installing/studio.html" target="_blank">Android Studio</a>. This has meant we have also moved to the new build system, <a href="http://www.gradle.org/ target=">Gradle</a>, and applying <a href="http://en.wikipedia.org/wiki/Test-driven_development" target="_blank">TDD</a> and <a href="http://en.wikipedia.org/wiki/Continuous_integration" target="_blank">CI</a> to our software development process. This is not the place to discuss the benefits of applying CI to a software development plan, but to talk about a problem arising when testing tasks running on different threads from the UI in Android.
 
 &nbsp;
 
-A test in Android is (broad definition) an extension of a <a href="http://junit.org/" target="_blank">JUnit</a> Suitcase. They do include setUp() and tearDown() for initialization/closing the tests, and infers using reflection the different test methods (starting with JUnit 4 we can use annotations to specify the priority and execution of all the tests). A typical test structure will look like:
+A test in Android is (broad definition) an extension of a <a href="http://junit.org/" target="_blank">JUnit</a> Suitcase. They do include setUp() and tearDown() for initialization/closing the tests, and infer using reflection the different test methods (starting with JUnit 4 we can use annotations to specify the priority and execution of all the tests). A typical test structure will look like:
 <pre lang="java">public class MyManagerTest extends ActivityTestCase {
 
 	public MyManagerTest(String name) {
@@ -29,7 +29,7 @@ A test in Android is (broad definition) an extension of a <a href="http://junit.
 	}
 
 }</pre>
-This is a very obvious instance: in a practical case we would like to test things such as HTTP requests, SQL storage, etc. In Sixt we follow a Manager/Model approach: each Model contains the representation of an Entity (a Car, a User...) and each Manager groups a set of functionality using different models (for example, our LoginManager might require of models Users to interact with them). Most our managers perform HTTP  requests intensively in order to retrieve data from our backend. As an example, we would perform the login of a user using the following code:
+This is a very obvious instance: in a practical case we would like to test things such as HTTP requests, SQL storage, etc. In Sixt we follow a Manager/Model approach: each Model contains the representation of an Entity (a Car, a User...) and each Manager groups a set of functionality using different models (for example, our LoginManager might require of models Users to interact with them). Most of our managers perform HTTP  requests intensively in order to retrieve data from our backend. As an example, we would perform the login of a user using the following code:
 
 &nbsp;
 <pre lang="java">	mLoginManager.performLoginWithUsername("username", "password", new OnLoginListener() {
@@ -43,11 +43,11 @@ This is a very obvious instance: in a practical case we would like to test thing
 		//..
 		}
 	});</pre>
-When it comes to apply this to our own test suitcase, we just make the process fail() when the result does not work as we were expecting. We can see why in the method onFailure() we call to fail().
+When it comes to applying this to our own test suitcase, we just make the process fail() when the result does not work as we were expecting. We can see why in the method onFailure() we call fail().
 
-However, even if I was using a wrong username the test was still passing. Wondering around, seems that the test executed the code sequentially, and did not wait until the result of the callbacks was back. This is certainly a bad approach, since a modern application do intense usage of asynchronous tasks and callback methods to retrieve data from a backend!. Tried applying the @UiThreadTest bust still didn''t work.
+However, even if I was using a wrong username the test was still passing. Wondering why, it seemed that the test executed the code sequentially, and did not wait until the result of the callbacks came back. This is certainly a bad approach, since a modern application makes intense usage of asynchronous tasks and callback methods to retrieve data from a backend!. Tried applying the @UiThreadTest but still didn't work.
 
-I found the following working method. I simply use CountDownLatch signal objects to implement the wait-notify (you can use synchronized(lock){... lock.notify();}, however this results in ugly code) mechanism. The previous code will look like follows:
+I found the following working method. I simply use CountDownLatch signal objects to implement the wait-notify mechanism (you can use synchronized(lock){... lock.notify();}, however this results in ugly code). The previous code will look as follows:
 <pre lang="java">	final CountDownLatch signal = new CountDownLatch(1);
 	mLoginManager.performLoginWithUsername("username", "password", new OnLoginListener() {
 		@Override

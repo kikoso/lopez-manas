@@ -5,11 +5,11 @@ slug: using-php-on-server-side-to-generate-json
 title: Using PHP on server side to generate JSON
 ---
 
-Recently, I publish one <a href="goo.gl/DPsAL" title="DefCon - Android Market" target="_blank">application</a> into the Android Market that tries to predict when Spain will default. The application uses the data provided by my colleague Juan Carlos Barba from his <a href="jcbcarc.dyndns.org/Defcon.php" target="_blank">server</a>. There are basically a set of levels pointing out the seriousness of the Spanish level of <a href="http://en.wikipedia.org/wiki/Credit_default_swap" title="CDS" target="_blank">CDS</a> and <a href="http://en.wikipedia.org/wiki/Credit_default_swap" title="spread" target="_blank">Spread </a>of the debt. The model establishes 5 different levels of alert (or how he called them, DefCon). My implementation customized the data to visualize into the Android Platform.
+Recently, I published one <a href="goo.gl/DPsAL" title="DefCon - Android Market" target="_blank">application</a> into the Android Market that tries to predict when Spain will default. The application uses the data provided by my colleague Juan Carlos Barba from his <a href="jcbcarc.dyndns.org/Defcon.php" target="_blank">server</a>. There is basically a set of levels pointing out the seriousness of the Spanish level of <a href="http://en.wikipedia.org/wiki/Credit_default_swap" title="CDS" target="_blank">CDS</a> and <a href="http://en.wikipedia.org/wiki/Credit_default_swap" title="spread" target="_blank">Spread </a>on the debt. The model establishes 5 different levels of alert (or what he called them, DefCon). My implementation customized the data for visualization on the Android Platform.
 
-Firstly, I needed to access his database into the server, which was a slow task due to the nature of the server (a personal computer with a normal DSL connection). My idea was to rely this task into something that could avoid overloading the server, and then I thought about everything that happens now with all the client / server application. Why not using a PHP file to generate JSON with the information I needed?
+Firstly, I needed to access his database on the server, which was a slow task due to the nature of the server (a personal computer with a normal DSL connection). My idea was to rely this task on something that could avoid overloading the server, and then I thought about everything that happens now with all the client/server applications. Why not use a PHP file to generate JSON with the information I needed?
 
-Since I do not have access to Juan Carlos'' server, I decided to do it on my own server. I created some PHP files that query the server, and give me the information in JSON format
+Since I do not have access to Juan Carlos' server, I decided to do it on my own server. I created some PHP files that query the server and give me the information in JSON format
 
 <pre lang="php"> 
 <?php
@@ -83,4 +83,4 @@ private void initPHP() {
 	 }
 </pre>
 
-The code can be improved to handle authentication, HTTPS, or do more complex work in general. In a project at work we used authentication based on a pair of generated keys, but a simple method based on a known keyword is enough.
+The code can be improved to handle authentication, HTTPS, or to do more complex work in general. In a project at work we used authentication based on a pair of generated keys, but a simple method based on a known keyword is enough.

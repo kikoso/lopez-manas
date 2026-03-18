@@ -5,9 +5,9 @@ slug: how-to-use-the-twitter-api-to-post-from-android
 title: How to use the Twitter API to post from Android
 ---
 
-Posting from Android into Twitter is one of the earliest stages of an Android developer. To keep full control over the posting process, we will use prefer primarily a pure OAuth post instead of dealing with Intents, so we can keep full control. So as a user, we could just think and conclude: the most typical way to authenticate is to pop up a window where we can identify with our user and password to give the application access to our account (not the full account though, just to post from the application!) and forget about the rest of the process. This might be a bit tricky process for newbies in Android. And of course, Twitter will eventually change their API or registration method, so we will found sometimes that our old implementation is not working anymore
+Posting from Android to Twitter is one of the earliest stages for an Android developer. To keep full control over the posting process, we will primarily prefer a pure OAuth post instead of dealing with Intents, so we can keep full control. So as users, we could just think and conclude: the most typical way to authenticate is to pop up a window where we can identify with our username and password to give the application access to our account (not the full account though, just to post from the application!) and forget about the rest of the process. This might be a tricky process for newbies in Android. And of course, Twitter will eventually change its API or registration method, so we will sometimes find that our old implementation is not working anymore.
 
-We first need to register a Twitter App. For that purpose, we will visit the <a href="https://dev.twitter.com/" target="_blank">developer website</a> of Twitter. After login in, we will add a <a href="https://dev.twitter.com/apps" target="_blank">new application</a>. There are no special settings to be remembered, but the part of the callback URL has changed very oftenly since Twitter released their API. At the moment, if we are developing one application we only need to provide any random URL.
+We first need to register a Twitter app. For that purpose, we will visit Twitter's <a href="https://dev.twitter.com/" target="_blank">developer website</a>. After logging in, we will add a <a href="https://dev.twitter.com/apps" target="_blank">new application</a>. There are no special settings to be remembered, but the callback URL part has changed very often since Twitter released its API. At the moment, if we are developing an application, we only need to provide any random URL.
 
 We need three main classes in our application to make it work.
 
@@ -245,7 +245,7 @@ public class TwitterApp {
 }
 </pre>
 
-The TwitterDialog class is composed by a basic WebView which loads the URL with the authentication fields:
+The TwitterDialog class is composed of a basic WebView that loads the URL with the authentication fields:
 
 <pre lang="java">
 
@@ -404,7 +404,7 @@ public class TwitterDialog extends Dialog {
 
 </pre>
 
-And as we can expect, TwitterSession manages the twitter session:
+And as we can expect, TwitterSession manages the Twitter session:
 
 <pre lang="java">
 import android.content.SharedPreferences;
@@ -458,7 +458,7 @@ public class TwitterSession {
 }
 </pre>
 
-Now let''s see how this works. In this application we will need to insert our consumer and private keys in the upper variables. The rest of the code is easy to understand: we will initialize the Twitter object, and we will post!
+Now let's see how this works. In this application, we will need to insert our consumer and private keys in the variables above. The rest of the code is easy to understand: we will initialize the Twitter object, and we will post!
 
 <pre lang="java">
 

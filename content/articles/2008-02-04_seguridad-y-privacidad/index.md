@@ -9,4 +9,4 @@ title: Seguridad y privacidad
 
 Vía <a href="http://www.claybennett.com" target="_blank">Clay Bennet</a>.
 
-Y es que ya lo dijo Benjamin Franklin: <span class="postbody"><span style="font-style: italic">They who would give up an essential liberty for temporary security, deserve neither liberty or security.</span>  </span>
+Y es que ya lo dijo Benjamin Franklin: <span class="postbody"><span style="font-style: italic">They who would give up an essential liberty for temporary security, deserve neither liberty nor security.</span> </span>

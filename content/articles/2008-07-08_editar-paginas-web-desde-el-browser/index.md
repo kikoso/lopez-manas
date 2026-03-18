@@ -10,4 +10,3 @@ Vía <a target="_blank" href="http://www.microsiervos.com/archivo/ordenadores/ed
 <code>javascript:document.body.contentEditable=''true''; document.designMode=''on''; void 0</code>
 
 Podrás editar el contenido de la página web. En realidad no tiene mucha aplicación práctica, ya que lógicamente la edición es a nivel local y no en el servidor, pero no deja de ser curioso.
-

@@ -7,7 +7,7 @@ title: Ahorcado en PHP y JavaScript
 
 Profundizando en la tónica de compartir antiguos trabajos, cuelgo aquí uno de los trabajos que realicé recientemente: un juego del ahorcado alternativo que utiliza JavaScript si el navegador soporta scripting, y PHP en caso contrario.
 
-El código fuente se puede descargar del siguiente <a href="/downloads/ahorcado.zip">enlace</a>. Se divide en un fichero denominado modulo.php donde almaceno toda la información referente a la lógica del programa. Desde el fichero ahorcado.php se van reaalizando las llamadas.
+El código fuente se puede descargar del siguiente <a href="/downloads/ahorcado.zip">enlace</a>. Se divide en un fichero denominado modulo.php donde almaceno toda la información referente a la lógica del programa. Desde el fichero ahorcado.php se van realizando las llamadas.
 
 En este ejemplo se pueden observar diferentes ejemplos del uso de PHP. Variables enviadas mediante sesión, inicialización de variables aleatorias, etc. Creo que se trata de un buen comienzo para sacar ideas que reutilizar en otras aplicaciones.
 
