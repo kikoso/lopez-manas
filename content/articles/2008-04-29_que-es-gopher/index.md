@@ -1,7 +1,7 @@
 ---
 date: '2008-04-29T17:19:05+00:00'
 draft: false
-slug: '%c2%bfque-es-gopher'
+slug: 'que-es-gopher'
 title: ¿Qué es Gopher?
 ---
 
