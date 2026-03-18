@@ -5,7 +5,7 @@ slug: nokia-developer-program
 title: Nokia developer program
 ---
 
-<a href="/wp-content/uploads/2012/05/wp7_windows_phone_7_logo_by_ironrex1-d3ggjis.jpg"><img class="aligncenter size-full wp-image-121" title="wp7_windows_phone_7_logo_by_ironrex1-d3ggjis" src="/wp-content/uploads/2012/05/wp7_windows_phone_7_logo_by_ironrex1-d3ggjis.jpg" alt="" width="300" height="300" /></a>
+<img class="aligncenter" style="max-width: 150px;" title="wp7_windows_phone_7_logo_by_ironrex1-d3ggjis" src="/wp-content/uploads/2012/05/wp7_windows_phone_7_logo_by_ironrex1-d3ggjis.jpg" alt="Windows Phone 7 logo" />
 
 Last March, I enrolled in the Windows Phone Developer Program. At the past <a href="http://www.mobileworldcongress.com/index.html" target="_blank">MWC</a> in Barcelona, I met a representative of <a href="http://www.nokia.com/" target="_blank">Nokia</a> who informed me about the program. In exchange for 2 applications for WPhone developed within 3 months, developers will get a Nokia Lumia 800. Not bad :-).
 
