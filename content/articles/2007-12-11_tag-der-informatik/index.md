@@ -9,4 +9,4 @@ El pasado viernes tuve la oportunidad de presentar en el Tag der informatik cele
 
 Yiwei, Andreas y yo presentamos la aplicación en una feria en la que se presentaron otros muchos proyectos bastante interesantes. A pesar de que se trate de la competencia directa, me quedo con el de las redes malladas (mesh network), del que procuraré escribir en sucesivos posts.
 
-<img src="/images/collage.jpg" /> <img src="/wp/images/collage.jpg" />
+<img src="/wp/images/collage.jpg" />
