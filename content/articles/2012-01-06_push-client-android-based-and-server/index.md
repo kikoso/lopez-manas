@@ -88,11 +88,11 @@ Afterwards, we can send a message type and the content itself. This allows us to
 &nbsp;
 ```php
 function sendMessageToPhone($authCode, $deviceRegistrationId, $msgType, $messageText) {
-    $headers = array(''Authorization: GoogleLogin auth='' . $authCode);
+    $headers = array('Authorization: GoogleLogin auth=' . $authCode);
     $data = array(
-      ''registration_id'' =&gt; $deviceRegistrationId,
-      ''collapse_key'' =&gt; $msgType,
-      ''data.message'' =&gt; $messageText //TODO Add more params with just simple data instead
+      'registration_id' => $deviceRegistrationId,
+      'collapse_key' => $msgType,
+      'data.message' => $messageText //TODO Add more params with just simple data instead
    );
 
    $ch = curl_init();
@@ -114,23 +114,23 @@ function sendMessageToPhone($authCode, $deviceRegistrationId, $msgType, $message
 
 function googleAuthenticate($username, $password, $source="Company-AppName-Version", $service="ac2dm") {
 
-   if( isset($_SESSION[''google_auth_id'']) &amp;&amp; $_SESSION[''google_auth_id''] != null) {
-   return $_SESSION[''google_auth_id''];
+   if( isset($_SESSION['google_auth_id']) && $_SESSION['google_auth_id'] != null) {
+   return $_SESSION['google_auth_id'];
 }
 
 // get an authorization token
 $ch = curl_init();
-if(!ch){
+if(!$ch){
    return false;
 }
 
 curl_setopt($ch, CURLOPT_URL, "https://www.google.com/accounts/ClientLogin");
-$post_fields = "accountType=" . urlencode(''HOSTED_OR_GOOGLE'')
+$post_fields = "accountType=" . urlencode('HOSTED_OR_GOOGLE')
 
-. "&amp;Email=" . urlencode($username)
-. "&amp;Passwd=" . urlencode($password)
-. "&amp;source=" . urlencode($source)
-. "&amp;service=" . urlencode($service);
+. "&Email=" . urlencode($username)
+. "&Passwd=" . urlencode($password)
+. "&source=" . urlencode($source)
+. "&service=" . urlencode($service);
 curl_setopt($ch, CURLOPT_HEADER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields);
@@ -151,7 +151,7 @@ $response = curl_exec($ch);
 //var_dump($response);
 
 curl_close($ch);
-if (strpos($response, ''200 OK'') === false) {
+if (strpos($response, '200 OK') === false) {
    return false;
 }
 
@@ -161,7 +161,7 @@ preg_match("/(Auth=)([\\w|-]+)/", $response, $matches);
 if (!$matches[2]) {
    return false;
 }
-$_SESSION[''google_auth_id''] = $matches[2];
+$_SESSION['google_auth_id'] = $matches[2];
 
 return $matches[2];
 }
