@@ -17,18 +17,7 @@ At the beginning of the Brainstorming, all the proposals were distributed among 
 
 &nbsp;
 
-<a href="http://blog.ideaknow.com/wp-content/uploads/2011/10/Bildschirmfoto-2011-10-20-um-22.53.351.png"><img class="aligncenter" title="Structured Brainstorming" src="http://blog.ideaknow.com/wp-content/uploads/2011/10/Bildschirmfoto-2011-10-20-um-22.53.351.png" alt="" width="453" height="459" /></a>
-
-&nbsp;
-
 In one minute, each person reads the proposal and jots down on the paper any idea, and after the minute, they should give the piece of paper to the person sitting to their right. Eventually, they would receive another piece of paper from their left side, and the process continues until all the people have written on all the pieces of paper. Although this might sound like a little game, it really helped us to gain some feedback and new ideas, and to get into a fun atmosphere. When everything was over, the owner of each proposal had up to 5 minutes to explain it, and to convince the unconvinced or the people with no proposal that they should join their project. By this time, it is likely that the group will have extensively elaborated on each idea.
-
-&nbsp;
-
-<a href="http://blog.ideaknow.com/wp-content/uploads/2011/10/Bildschirmfoto-2011-10-20-um-22.53.351.png">
-</a>
-
-<a href="http://blog.ideaknow.com/wp-content/uploads/2011/10/Bildschirmfoto-2011-10-20-um-22.58.44.png"><img class="aligncenter" title="Presentation" src="http://blog.ideaknow.com/wp-content/uploads/2011/10/Bildschirmfoto-2011-10-20-um-22.58.44.png" alt="" width="415" height="438" /></a>
 
 &nbsp;
 
@@ -41,7 +30,3 @@ We aim to keep this meeting bi-weekly, although considering the scope of the pro
 &nbsp;
 
 Oh yes, you might be wondering what happens to the projects we began to work on. Although we didn't sign any NDA, we would like to talk about them in future posts, so remember to add the website to Google Reader or your favourite RSS reader :-)
-
-&nbsp;
-
-<a href="http://blog.ideaknow.com/wp-content/uploads/2011/10/AcIeGUzCIAA2wEp.jpg"><img class="aligncenter" title="AcIeGUzCIAA2wEp" src="http://blog.ideaknow.com/wp-content/uploads/2011/10/AcIeGUzCIAA2wEp-300x224.jpg" alt="" width="300" height="224" /></a>
