@@ -5,11 +5,11 @@ slug: a-high-entropy-randomness-generator
 title: A high-entropy randomness generator
 ---
 
-<a href="/wp-content/uploads/2012/03/Bildschirmfoto-2012-03-24-um-03.02.34.png"><img class="size-full wp-image-114 aligncenter" title="Bildschirmfoto 2012-03-24 um 03.02.34" src="/wp-content/uploads/2012/03/Bildschirmfoto-2012-03-24-um-03.02.34.png" alt="" width="189" height="184" /></a>
+<a href="/wp-content/uploads/2012/03/Bildschirmfoto-2012-03-24-um-03.02.34.png"><img class="aligncenter" style="max-width: 150px;" title="Bildschirmfoto 2012-03-24 um 03.02.34" src="/wp-content/uploads/2012/03/Bildschirmfoto-2012-03-24-um-03.02.34.png" alt="Randomness cartoon" /></a>
 
 &nbsp;
 
-This <a href="http://www.random.org/analysis/dilbert.jpg" target="_blank">cartoon</a> of Dilbert has always fascinated me. You can never be sure about randomness, since the concept of randomness itself provides uncertainty to the process. A few years ago, I even wrote <a href="/?p=34" target="_blank">a post</a> on how to achieve randomness using deterministic methods. Nowadays, entropy can always be improved to obtain a more accurate (in this case, it would be more appropriate to say "less accurate" instead) result. This can lead to many philosophical discussions, which are not my purpose.
+This <a href="http://www.random.org/analysis/dilbert.jpg" target="_blank">cartoon</a> of Dilbert has always fascinated me. You can never be sure about randomness, since the concept of randomness itself provides uncertainty to the process. A few years ago, I even wrote <a href="/articles/generacion-de-numeros-aleatorios/" target="_blank">a post</a> on how to achieve randomness using deterministic methods. Nowadays, entropy can always be improved to obtain a more accurate (in this case, it would be more appropriate to say "less accurate" instead) result. This can lead to many philosophical discussions, which are not my purpose.
 
 The traditional approach has been to take contextual information (such as the UNIX time) to create a seed for the algorithm and give more uncertainty to the process. This might be sufficient for 99% of our purposes, but leads to more complex problems: For instance, it is easy to determine when a user logged into a system, and if at this time a random number is generated to generate some cryptographic keys at the same time, it is easy to establish an interval when the user was logged in (and therefore be closer to the seed of the random algorithm). It is still difficult to determine accurately the exact time, but definitely not impossible: systems of huge relevance face this problem daily.
 
