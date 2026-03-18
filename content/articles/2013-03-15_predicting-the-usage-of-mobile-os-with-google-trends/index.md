@@ -35,13 +35,13 @@ Analyzing the same results with Google Trends: For the comparison, I have used t
 
 &nbsp;
 
-<a href="#" rel="attachment wp-att-179"><img class="aligncenter size-full wp-image-179" alt="Bildschirmfoto 2013-03-13 um 20.59.55" src="/wp-content/uploads/2013/03/Bildschirmfoto 2013-03-13 um 20.59.55.png" width="825" height="359" /></a>
+<a href="#" rel="attachment wp-att-179"><img class="aligncenter size-full wp-image-179" alt="Bildschirmfoto 2013-03-13 um 20.59.55" src="/wp-content/uploads/2013/03/Bildschirmfoto-2013-03-13-um-20.59.55.png" width="825" height="359" /></a>
 
 The peaks, highlighted with letters, show some of the major events related to each term (for instance A represents the launch of iPhone 5). This table can be generated at the following <a href="http://goo.gl/EHMlW">link</a>.
 
 &nbsp;
 
-<a href="#" rel="attachment wp-att-184"><img class="aligncenter size-full wp-image-184" alt="Bildschirmfoto 2013-03-13 um 21.16.50" src="/wp-content/uploads/2013/03/Bildschirmfoto 2013-03-13 um 21.16.50.png" width="208" height="148" /></a>
+<a href="#" rel="attachment wp-att-184"><img class="aligncenter size-full wp-image-184" alt="Bildschirmfoto 2013-03-13 um 21.16.50" src="/wp-content/uploads/2013/03/Bildschirmfoto-2013-03-13-um-21.16.50.png" width="208" height="148" /></a>
 
 According to the percentages shown above, we will have the following percentages for each platform:
 <ul>
