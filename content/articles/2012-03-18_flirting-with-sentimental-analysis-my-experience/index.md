@@ -15,7 +15,7 @@ A few months ago I began to develop my own Sentimental Analyzer. It wasn't easy 
 
 And the experiment is working, and it is pretty accurate, I would like to say. I have developed two applications to show them as testbeds for the analyzer:
 
-	<ul>
+<ul>
 <li><a href="https://play.google.com/store/apps/details?id=com.happinessobserver" target="_blank">The Happiness Observer</a>, which determines the happiness for a certain concept</li>
 <li><a href="https://play.google.com/store/apps/details?id=com.citymood" target="_blank">City Mood</a>. This application determines the position of the user and throws information about the mood state of the city, based on the tweets from the people referencing it.</li>
 </ul>
