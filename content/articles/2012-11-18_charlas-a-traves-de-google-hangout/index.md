@@ -10,7 +10,7 @@ title: Charlas a través de Google Hangout
 No hace mucho tiempo, han surgido plataformas de educación online como <a href="https://www.coursera.org/" target="_blank">Coursera</a> y <a href="http://www.udacity.com/" target="_blank">Udacity</a>, que ofrecen cursos de universidades de primer nivel como <a href="http://www.mit.edu/" target="_blank">MIT</a> o <a href="http://www.stanford.edu/" target="_blank">Stanford</a>. La posibilidad de acceder a información que hace tiempo se antojaba elitista tiene el potencial de transformar el sistema educativo tal y como lo conocemos, ofreciendo la posibilidad de acceder a estos cursos de manera online, gratuita y permitiendo que los usuarios se encuentren en cualquier lugar del globo. Para más información, recomiendo ver la charla de <a href="http://ai.stanford.edu/~koller/" target="_blank">Daphne Koller</a>, profesora del laboratorio de <a href="http://ai.stanford.edu/" target="_blank">Inteligencia Artificial de Stanford</a>.
 
 &nbsp;
-<iframe src="http://embed.ted.com/talks/daphne_koller_what_we_re_learning_from_online_education.html" frameborder="0" scrolling="no" width="560" height="315"></iframe>
+<iframe src="https://embed.ted.com/talks/daphne_koller_what_we_re_learning_from_online_education.html" frameborder="0" scrolling="no" width="560" height="315"></iframe>
 
 &nbsp;
 
