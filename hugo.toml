@@ -42,6 +42,10 @@ googleAnalytics = "G-M37D0QHKMX"
   name = "Enrique's Fund"
   url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQRferMVtbXYbpuuTC6DSbnJq5Kupxf4fCmSV5npzryzDs0MKGemu2co8v3HUiyFkc1HTQYDt7ynN5c/pubchart?oid=215253988&format=interactive'
   weight = 10
+[[menu.main]]
+  name = 'findSkills.dev'
+  url = 'https://findskills.dev'
+  weight = 11
 
 
 [[menu.social]]
