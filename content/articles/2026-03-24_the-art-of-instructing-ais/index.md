@@ -32,7 +32,6 @@ When an LLM writes code for a fast-moving SDK, it often hallucinates deprecated 
 We can see this emerging pattern across the industry:
 *   **RevenueCat** provides a dedicated [AI Prompt guide](https://www.revenuecat.com/docs/welcome/overview) designed to be fed into developer assistants, ensuring the AI understands their latest SDK patterns and billing logic.
 *   **OneSignal** maintains a public repository of [SDK AI Prompts](https://github.com/OneSignal/sdk-ai-prompts/), giving developers pre-packaged instructions to constrain how an LLM implements push notifications in their apps.
-*   **Android Maps** has published Skills for several of its SDKs, like [Android Maps Compose](https://github.com/googlemaps/android-maps-compose/blob/main/.gemini/skills/android-maps-compose/SKILL.md). You can make sure that your LLM is actually using the latest SDK version, including all new interfaces and APIs.
 
 These aren't tutorials for humans; they are `.cursorrules`, `prompts.md`, or system instructions designed to anchor an LLM to reality.
 
