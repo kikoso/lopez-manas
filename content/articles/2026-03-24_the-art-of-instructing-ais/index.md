@@ -5,6 +5,10 @@ date: 2026-03-24T09:00:00.000Z
 
 description: "How to transition from casual prompting to engineering robust, predictable AI skills."
 
+image: "/articles/2026-03-24_the-art-of-instructing-ais/image1.jpeg"
+images:
+  - "/articles/2026-03-24_the-art-of-instructing-ais/image1.jpeg"
+
 ---
 
 As any software engineer who has tried to build a reliable tool on top of an LLM knows, natural language is inherently messy. A prompt that works perfectly on Monday might produce a hallucinated mess on Tuesday. To build robust AI integrations, we need to stop treating them like casual chatbots and start leveraging the current state of the art in interacting with them. The world of LLMs is pivoting towards skills, to cover this gap.
