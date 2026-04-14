@@ -5,10 +5,6 @@ date: 2026-04-09T10:00:00.000Z
 
 description: "A deep dive into building a secure, persistent bridge between local LLMs, the Gemini CLI, and mobile devices."
 
-image: "/articles/2026-04-09_bridging-the-gap-local-ai-meets-telegram-cli/image1.jpeg"
-images:
-  - "/articles/2026-04-09_bridging-the-gap-local-ai-meets-telegram-cli/image1.jpeg"
-
 ---
 
 As software engineers, our productivity is often tethered to the terminal. We’ve grown accustomed to the lightning-fast feedback loops of local development, and more recently, the transformative power of LLMs integrated directly into our CLI workflows. However, there is a recurring friction point: the moment we step away from our desks, that power vanishes. We are left with mobile apps that, while capable, often lack the context of our local environments, our specific codebase, or the specialized tools we’ve spent years refining.
