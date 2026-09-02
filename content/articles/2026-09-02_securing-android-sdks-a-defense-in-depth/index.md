@@ -7,6 +7,10 @@ description: "Obfuscation, request signing, device attestation and session token
 
 subtitle: "Four layers, one request, and why none of them is enough on its own."
 
+image: "/articles/2026-09-02_securing-android-sdks-a-defense-in-depth/images/1.png"
+images:
+ - "/articles/2026-09-02_securing-android-sdks-a-defense-in-depth/images/1.png"
+
 ---
 
 Every Android SDK eventually asks the same question. How do you trust a request that arrived from a device you do not control, running code you shipped but no longer own, sitting inside a host app you did not write? You cannot patch a client the moment it leaves your build pipeline, and by the time your SDK is running on a few million devices, at least a handful of those devices belong to someone actively trying to take it apart.
