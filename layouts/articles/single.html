@@ -1,77 +1,38 @@
 {{ define "main" }}
-
-{{ $permalink := .RelPermalink }}
 {{ $date := .Date.Format "January 2, 2006" }}
 {{ $lastmod := .Lastmod.Format "January 2, 2006" }}
-
-<div class="flex h-screen relative">
-
-  <section
-    class="will-change-transform transform transition-transform -translate-x-[200%] absolute top-0 left-0 lg:relative
-  lg:translate-x-0 lg:min-w-[400px] lg:w-1/4 h-full bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 lg:flex flex-col py-3 overflow-y-auto scroll-area">
-    {{$Section := .Site.GetPage "section" .Section }}
-    {{ with $Section }}
-    <a href="{{ .Permalink }}">
-      <h2 class="font-bold mb-5 py-1 pl-12 pr-3 md:px-3">{{ .Title }}</h2>
-    </a>
-    {{- partial "search.html" . -}}
-    <div class="space-y-2.5">
-      {{ range .Data.Pages -}}
-      {{ $isCurrentPage := eq .RelPermalink $permalink }}
-      <a class="article block px-3 py-4 {{ if $isCurrentPage }} bg-slate-900 dark:bg-slate-700 text-slate-50 {{ else }} hover:bg-slate-200 dark:hover:bg-slate-700 {{ end }}"
-        href="{{ .RelPermalink }}">
-        {{ $title := .Params.title }}
-        {{ $articlePermalink := .Permalink }}
-        {{ with .Params.images }}
-        {{- range first 1 . }}
-        {{ $src := . }}
-        {{ if not (hasPrefix $src "/") }}
-          {{ $src = print $articlePermalink $src }}
+<article>
+  <header class="post-header">
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{ if not .Date.IsZero }}
+      <p class="post-meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ $date }}</time>
+        {{ if and (ne $lastmod $date) (not .Lastmod.IsZero) }}
+          &middot; updated {{ $lastmod }}
         {{ end }}
-        <img class="rounded w-full mb-4" style="aspect-ratio: 3/2; object-fit: cover;" src="{{ $src }}" alt="{{ $title }}" />
-        {{ end -}}
-        {{ end }}
-        <h3 class="text-lg font-semibold mb-0.5">{{ $title }}</h3>
-        <p class="text-xs {{ if $isCurrentPage }} text-slate-400 {{ else }} text-slate-400 {{ end }} mb-1">{{ .Date.Format "Jan 2, 2006" }}</p>
-        <div
-          class="text-sm {{ if $isCurrentPage }} text-slate-400 {{ else }} text-slate-500 dark:text-slate-400 {{ end }} line-clamp-2">
-          {{ .Summary | plainify }}
-        </div>
-      </a>
-      {{ end -}}
-    </div>
-    {{ end -}}
-  </section>
+        {{ with .ReadingTime }}&middot; {{ . }} min read{{ end }}
+      </p>
+    {{ end }}
+    {{ with .Params.subtitle }}<p class="post-subtitle">{{ . }}</p>{{ end }}
+  </header>
 
-  <div class="overflow-y-auto h-screen w-full">
-    <article class="px-6 py-20 w-full mx-auto prose lg:prose-lg h-fit dark:prose-invert prose-img:mx-auto">
-
-      {{ $title := .Params.title }}
-      <h1 class="!mb-2">{{ $title }}</h1>
-
-	  {{ if .Date }}
-      <p class="text-sm text-slate-500 !mb-8"> Planted {{ $date }}
-		{{ if ne $lastmod $date}}
-			<br/> Pruned {{ .Lastmod.Format "January 2, 2006" }}
-        {{ end }}
-	  </p>
-      {{ end }}
-
-      {{ $articlePermalink := .Permalink }}
-      {{ with .Params.images }}
-      {{- range first 1 . }}
+  {{ with .Params.images }}
+    {{ range first 1 . }}
       {{ $src := . }}
-      {{ if not (hasPrefix $src "/") }}
-        {{ $src = print $articlePermalink $src }}
-      {{ end }}
-      <img class="rounded max-w-full mx-auto mb-4" src="{{ $src }}" alt="{{ $title }}" />
-      {{ end -}}
-      {{ end }}
+      {{ if not (hasPrefix $src "/") }}{{ $src = print $.Permalink $src }}{{ end }}
+      <img src="{{ $src }}" alt="{{ $.Title }}" style="border-radius:.375rem;margin:0 auto 2.5rem">
+    {{ end }}
+  {{ end }}
 
-      {{ .Content }}
-    </article>
+  <div class="prose">
+    {{ .Content }}
   </div>
 
-</div>
-
+  {{ if or .PrevInSection .NextInSection }}
+    <nav class="post-nav" aria-label="Other posts">
+      {{ with .NextInSection }}<a href="{{ .RelPermalink }}">&larr; {{ .Title }}</a>{{ else }}<span></span>{{ end }}
+      {{ with .PrevInSection }}<a href="{{ .RelPermalink }}" style="text-align:right">{{ .Title }} &rarr;</a>{{ end }}
+    </nav>
+  {{ end }}
+</article>
 {{ end }}

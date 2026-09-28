@@ -1,11 +1,17 @@
-{{ $built := resources.Get "js/main.js" | js.Build "main.js" }}
-<script type="text/javascript" src="{{ $built.RelPermalink }}" defer></script>
-
-{{ template "_internal/google_analytics.html" . }}
+<footer class="site-footer">
+  <div>&copy; {{ now.Format "2006" }} {{ or site.Params.author site.Title }}</div>
+  <nav aria-label="More on this site">
+    {{ partial "menu-links.html" . }}
+    {{ with site.Home.OutputFormats.Get "rss" }}<a href="{{ .RelPermalink }}">RSS</a>{{ end }}
+  </nav>
+</footer>
 
 {{ if .Page.Store.Get "hasMermaid" }}
   <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true });
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.classList.contains("dark") ? "dark" : "default",
+    });
   </script>
 {{ end }}

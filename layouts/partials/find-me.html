@@ -1,0 +1,29 @@
+{{- with site.Menus.social }}
+<div class="find-me">
+  <p>Find me on</p>
+  <ul>
+    {{ range . }}
+      {{ $icon := printf "icon/%s.html" (.Name | lower) }}
+      {{ $external := strings.HasPrefix .URL "http" }}
+      <li>
+        <a href="{{ .URL }}"{{ if $external }} target="_blank" rel="me noopener noreferrer"{{ end }}>
+          {{ if templates.Exists (printf "partials/%s" $icon) }}
+            {{ partial $icon $ }}
+          {{ else }}
+            <span>{{ .Name }}</span>
+          {{ end }}
+          <span class="sr-only">{{ .Name }}</span>
+        </a>
+      </li>
+    {{ end }}
+    {{ with site.Home.OutputFormats.Get "rss" }}
+      <li>
+        <a href="{{ .RelPermalink }}">
+          {{ partial "icon/rss.html" $ }}
+          <span class="sr-only">RSS</span>
+        </a>
+      </li>
+    {{ end }}
+  </ul>
+</div>
+{{- end }}

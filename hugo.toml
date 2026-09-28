@@ -1,76 +1,46 @@
 baseURL = "https://lopez-manas.com/"
-theme = 'digitalgarden'
+title = "Enrique López-Mañas"
+locale = "en-US"
 
 googleAnalytics = "G-M37D0QHKMX"
 
-[Params]
-  description = "Enrique's Sanctum"
+# Newest first in the blog archive.
+[params]
+  author = "Enrique López-Mañas"
+  description = "Enrique's Sanctum — writing on Kotlin, Android, AI, investing and whatever else holds my attention."
   images = ['/digital-garden-logo.png']
-  enableSearch = true
 
 [menu]
-[[menu.main]]
-  name = 'Home'
-  url = '/'
-  weight = 1
-[[menu.main]]
-  name = 'Content'
-  params.header = true
-  weight = 2
-[[menu.main]]
-  name = 'Articles'
-  url = '/articles'
-  weight = 3
-
-[[menu.main]]
-  name = 'Links'
-  params.header = true
-  weight = 6
-[[menu.main]]
-  name = 'An Analysis with R of Bike Usage in NYC'
-  url = 'https://bikesnyc.eu/'
-  weight = 7
   [[menu.main]]
-  name = 'Kotlin Weekly'
-  url = 'https://kotlinweekly.net'
-  weight = 8
-[[menu.main]]
-  name = 'Lexiconic'
-  url = 'https://lexiconic.de/'
-  weight = 9
-[[menu.main]]
-  name = "Enrique's Fund"
-  url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQRferMVtbXYbpuuTC6DSbnJq5Kupxf4fCmSV5npzryzDs0MKGemu2co8v3HUiyFkc1HTQYDt7ynN5c/pubchart?oid=215253988&format=interactive'
-  weight = 10
-[[menu.main]]
-  name = 'findSkills.dev'
-  url = 'https://findskills.dev'
-  weight = 11
-
-
-[[menu.social]]
-  name = "Mastodon"
-  url = "https://kotlin.social/@eenriquelopez"
-  weight = 1
+    name = 'About'
+    url = '/'
+    weight = 1
+  [[menu.main]]
+    name = 'Blog'
+    url = '/articles/'
+    weight = 2
 
   [[menu.social]]
-  name = "Goodreads"
-  url = "https://www.goodreads.com/author/show/7510473.Enrique_L_pez_Ma_as"
-  weight = 3
-[[menu.social]]
-  name = "LinkedIn"
-  url = "https://www.linkedin.com/in/eenriquelopez/"
-  weight = 4
-[[menu.social]]
-  name = "Email"
-  url = "mailto:eenriquelopez@gmail.com"
-  weight = 5
+    name = "Mastodon"
+    url = "https://kotlin.social/@eenriquelopez"
+    weight = 1
+  [[menu.social]]
+    name = "LinkedIn"
+    url = "https://www.linkedin.com/in/eenriquelopez/"
+    weight = 2
+  [[menu.social]]
+    name = "Goodreads"
+    url = "https://www.goodreads.com/author/show/7510473.Enrique_L_pez_Ma_as"
+    weight = 3
+  [[menu.social]]
+    name = "Email"
+    url = "mailto:eenriquelopez@gmail.com"
+    weight = 4
 
-
-# syntax highlight settings
 [markup]
   [markup.highlight]
     style = "dracula"
   [markup.goldmark.renderer]
     # Enable to include inline HTML
     unsafe = true
+

@@ -1,5 +1,5 @@
 ---
-title: About Me
+title: About
 ---
 
 My name is Enrique. I was born in a small town near the mountains of Madrid, Spain, where the nearest house was three kilometers away. That meant a lot of walking and running from an early age, something that shaped both my lifestyle and mindset.
@@ -24,3 +24,11 @@ I hold a Master’s in Computer Science and am currently finishing a second Mast
 - Reading every day.
 - Becoming a teetotaller.
 - Writing every day.
+
+### Projects
+
+- [Kotlin Weekly](https://kotlinweekly.net) — a weekly newsletter about Kotlin.
+- [findSkills.dev](https://findskills.dev) — a directory of Claude Code skills.
+- [Lexiconic](https://lexiconic.de/) — vocabulary learning.
+- [An Analysis with R of Bike Usage in NYC](https://bikesnyc.eu/) — data visualisation of Citi Bike trips.
+- [Enrique's Fund](https://docs.google.com/spreadsheets/d/e/2PACX-1vQRferMVtbXYbpuuTC6DSbnJq5Kupxf4fCmSV5npzryzDs0MKGemu2co8v3HUiyFkc1HTQYDt7ynN5c/pubchart?oid=215253988&format=interactive) — my dividend portfolio, updated publicly.
