@@ -7,7 +7,7 @@ googleAnalytics = "G-M37D0QHKMX"
 # Newest first in the blog archive.
 [params]
   author = "Enrique López-Mañas"
-  description = "Enrique's Sanctum — writing on Kotlin, Android, AI, investing and whatever else holds my attention."
+  description = "Enrique's Sanctum: writing on Kotlin, Android, AI, investing and whatever else holds my attention."
   images = ['/digital-garden-logo.png']
 
 [menu]

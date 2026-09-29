@@ -1,0 +1,5 @@
+{{- /* External links on the About page open in a new tab; everywhere else they behave normally. */ -}}
+{{- $external := or (strings.HasPrefix .Destination "http://") (strings.HasPrefix .Destination "https://") -}}
+{{- $newTab := and $external .Page.IsHome -}}
+<a href="{{ .Destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $newTab }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Text }}</a>
+{{- /* no trailing newline: it would render as a stray space after the link */ -}}
