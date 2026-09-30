@@ -531,3 +531,32 @@ h6 {
     border-left: 1px solid var(--text-muted);
   }
 }
+
+/* ----- CV / experience list ------------------------------------ */
+
+.cv-list {
+  list-style: none;
+  padding: 0;
+}
+
+.cv-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 0 0.75rem;
+  padding: 0.35rem 0;
+}
+
+.cv-list .cv-date {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  min-width: 8rem;
+}
+
+@media (min-width: 640px) {
+  .cv-list li {
+    flex-direction: row;
+    align-items: baseline;
+  }
+}
