@@ -117,7 +117,7 @@ Play Integrity is also, obviously, a Google Play Services API, which mean it doe
 
 #### Layer 4: spend the expensive proof once
 
-Attestation is not something you want to run on every single request. It cost latency, it counts against rate limits, and it is simply overkill to re-prove device integrity for every analytics event your SDK sends. The fix is to spend that expensive proof once, at session start, and convert it into something cheap you can reuse.
+Attestation is not something you want to run on every single request. It cost latency, it counts against rate limits, and it is simply overkill to re-prove device integrity for every request your SDK sends. The fix is to spend that expensive proof once, at session start, and convert it into something cheap you can reuse.
 
 The flow is a short handshake. The client attests, send the token to the server, and gets back a short lived session token in exchange.
 
