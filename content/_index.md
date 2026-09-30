@@ -18,20 +18,6 @@ Finance is another area I’ve grown into. I've been investing thoughtfully sinc
 
 I hold a Master’s in Computer Science and am currently finishing a second Master’s in Economics, with an emphasis on theory rather than business administration. Over the years, I’ve spoken at various conferences, mainly on Kotlin, Java, Android, and AI.
 
-### Experience
-
-<ul class="cv-list">
-  <li><span class="cv-date">2025 &ndash; now</span><span>Chief Technical Officer, Snapp Mobile Germany GmbH</span></li>
-  <li><span class="cv-date">2023 &ndash; now</span><span>Senior Software Engineer (Contractor), Google</span></li>
-  <li><span class="cv-date">2025 &ndash; now</span><span>Lecturer in Mobile Software Engineering, HDBW Munich</span></li>
-  <li><span class="cv-date">2024</span><span>Senior Mobile Engineer, Snapp Mobile Germany GmbH</span></li>
-  <li><span class="cv-date">2022 &ndash; 2023</span><span>Lead Android Software Engineer (Contractor), Elli &ndash; A Volkswagen Company</span></li>
-  <li><span class="cv-date">2021 &ndash; 2022</span><span>Principal Android Engineer, Alibaba Group</span></li>
-  <li><span class="cv-date">2020 &ndash; 2021</span><span>Android Software Engineer (Contractor), PricewaterhouseCoopers</span></li>
-  <li><span class="cv-date">2015 &ndash; 2020</span><span>Mobile Engineer (Contractor), Stadtwerke M&uuml;nchen</span></li>
-  <li><span class="cv-date">2009 &ndash; 2019</span><span>Earlier roles at Sixt, Google LaunchPad, Pearson, University of Alcal&aacute;, IdeaKnow, WZL Aachen and Ericsson</span></li>
-</ul>
-
 ### Things I am trying to do now:
 
 - Running every day.
