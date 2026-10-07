@@ -22,7 +22,6 @@ I hold a Master’s in Computer Science and am currently finishing a second Mast
 
 - Running every day.
 - Reading every day.
-- Becoming a teetotaller.
 - Writing every day.
 
 ### Projects
