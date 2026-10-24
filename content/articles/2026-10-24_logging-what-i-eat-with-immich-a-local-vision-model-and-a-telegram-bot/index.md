@@ -7,8 +7,9 @@ description: "How a Mac mini, Immich, a local vision model and a Telegram bot tu
 
 subtitle: "I can tell you how many kilometers I ran in March and how many days I spent in Vietnam, but until now I could not tell you what I had for lunch on Tuesday."
 
-image: "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/1.jpg"
+image: "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/0.jpg"
 images:
+ - "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/0.jpg"
  - "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/1.jpg"
  - "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/2.jpg"
  - "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/3.jpg"
@@ -25,25 +26,9 @@ So the idea was the following: let a machine look at my food photos every evenin
 
 The whole system lives on the same Mac mini, and it is made of a nightly job, a Telegram listener and a new page in the dashboard. Nothing of it runs in the cloud, except an optional second opinion I will explain later.
 
-```
- iPhone ──upload──▶ Immich (Docker)
-                        │  smart search: "plate of food, meal, dish, drink"
-                        ▼
-              food_log.job  (launchd, 21:30)
-                        │
-          ┌─────────────┴──────────────┐
-          ▼                            ▼
-  Ollama · qwen3-vl:8b         Claude Sonnet (only when
-  (local, every photo)         the local model is not sure)
-          └─────────────┬──────────────┘
-                        ▼
-                 SQLite (food.db) ──▶ Google Sheet, "Food" tab
-                        │
-         ┌──────────────┼───────────────────┐
-         ▼              ▼                   ▼
-  Streamlit page   MacMiniBot: one     food_log.bot (launchd)
-  "Comida"         message per night   applies my answers
-```
+![image](/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/0.jpg#layoutTextWidth)
+
+_The whole pipeline. The green dashed line is the learning loop: every answer I give ends up in the next prompts._
 
 Every evening at 21:30, launchd starts a Python job. It asks Immich for the photos uploaded since the previous run, and uses Immich's smart search (the CLIP embeddings it already computes for every photo) with a query like "plate of food, meal, dish, drink". Smart search does not filter, it ranks: it returns every photo in the time window ordered by how much it looks like food. The top candidates go to the vision model, and is the model the one that decides what is food and what is a photo of my kitchen floor. If I want to be more strict, a single setting makes the job read only an album called "Food" instead.
 
@@ -55,11 +40,11 @@ I wanted the default to be local. My food is, after all, quite personal data, an
 
 Here I learnt my first lesson of the project. The default `qwen3-vl:8b` tag in Ollama is the thinking variant, and it ignores the request to not think: it was spending more than a thousand tokens reasoning about whether a paella is a paella before answering, around a hundred seconds per photo. The `qwen3-vl:8b-instruct` variant answers the same JSON, with the same quality for my test photos, in fifteen to twenty seconds. Ollama also supports structured outputs, so I pass the JSON schema directly and the model can not produce anything that does not parse. When the run is finished the job unloads the model, so the memory goes back to LM Studio.
 
-This is how a normal day looks like in the dashboard once the job has run. The paella was recognized by the local model with a confidence of 0.95: rice, peas and chicken, around 500 kcal, no meat I do not eat. The meatballs in the afternoon were a different story, and that is the next section.
+This is how a normal day looks like in the dashboard once the job has run. The paella was recognized by the local model with a confidence of 0.95: rice, green beans and chicken, around 500 kcal, no meat I do not eat. The meatballs in the afternoon were a different story, and that is the next section.
 
 ![image](/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/1.jpg#layoutTextWidth)
 
-_The daily view of the "Comida" page: totals of the day, the overnight fast and every meal with its photo, macros and place. The entries were produced by the local model from sample photos (credits at the end)._
+_The daily view of the "Food" page: totals of the day, the overnight fast and every meal with its photo, macros and place. The entries were produced by the local model from sample photos (credits at the end)._
 
 When the local model is not confident, the same photo with the same prompt goes to Claude Sonnet, which is were the second opinion comes in. This is optional and capped at a few calls per night, and in practice most of the photos never leave the house.
 
@@ -67,9 +52,9 @@ When the local model is not confident, the same photo with the same prompt goes 
 
 There is one thing that is more important for me than the calories: I do not eat pork, beef or any other red meat. Poultry, fish and seafood are fine. A burger in a restaurant, meatballs or a dumpling filling can be any of them, and a model that guesses "chicken" just because I usually eat chicken is worse than useless. So the prompt is very explicit about it, and the model has three options for the meat: yes, no, and unsure.
 
-If the confidence is below 0.7, or the meat is unsure, the entry does not get confirmed. Instead, the model writes one concrete question and two to four possible answers. For a takeaway box of rice with some unidentified meat, the question is "¿Qué tipo de carne lleva el arroz?", with the options "Pollo", "Cerdo", "Ternera" and "No llevaba carne".
+If the confidence is below 0.7, or the meat is unsure, the entry does not get confirmed. Instead, the model writes one concrete question and two to four possible answers. For a plate of rice with some unidentified meat, the question is "What meat was in the rice?", with the options "Chicken", "Pork", "Beef" and "No meat".
 
-All the open questions of the day are sent as one single message through MacMiniBot, the Telegram bot that already sends me my morning summary. Telegram does not allow inline buttons on an album of photos, so the job builds a numbered collage of the photos, puts the questions in the caption and adds a row of buttons per photo: the suggested answers, plus "Otra cosa" to type a free answer. A small listener running under launchd processes the button presses, sends the photo and my answer back to the model to rewrite the entry, removes the buttons of that photo and, when everything is answered, marks the message as solved. Since the morning bot only sends messages and never reads updates, the listener can be the only reader of the bot without stepping on anybody's toes.
+All the open questions of the day are sent as one single message through MacMiniBot, the Telegram bot that already sends me my morning summary. Telegram does not allow inline buttons on an album of photos, so the job builds a numbered collage of the photos, puts the questions in the caption and adds a row of buttons per photo: the suggested answers, plus "Something else" to type a free answer. A small listener running under launchd processes the button presses, sends the photo and my answer back to the model to rewrite the entry, removes the buttons of that photo and, when everything is answered, marks the message as solved. Since the morning bot only sends messages and never reads updates, the listener can be the only reader of the bot without stepping on anybody's toes.
 
 ![image](/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/2.jpg#layoutTextWidth)
 
@@ -81,7 +66,7 @@ Every answer I give, on Telegram or in the dashboard, is stored as a correction:
 
 #### The dashboard
 
-The new "Comida" page of the dashboard shows each day in order: the thumbnail of the photo (served from Immich), the dish, the type of meal, where I ate and the macros, together with the totals of the day. A weekly and monthly view plots the calories and the macros per day, how many times I ate outside and how many hours I fasted every night, which is simply the time between the last meal with a photo of one day and the first one of the next.
+The new "Food" page of the dashboard shows each day in order: the thumbnail of the photo (served from Immich), the dish, the type of meal, where I ate and the macros, together with the totals of the day. A weekly and monthly view plots the calories and the macros per day, how many times I ate outside and how many hours I fasted every night, which is simply the time between the last meal with a photo of one day and the first one of the next.
 
 ![image](/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/3.jpg#layoutTextWidth)
 
