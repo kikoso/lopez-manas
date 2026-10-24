@@ -7,6 +7,12 @@ description: "How a Mac mini, Immich, a local vision model and a Telegram bot tu
 
 subtitle: "I can tell you how many kilometers I ran in March and how many days I spent in Vietnam, but until now I could not tell you what I had for lunch on Tuesday."
 
+image: "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/1.jpg"
+images:
+ - "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/1.jpg"
+ - "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/2.jpg"
+ - "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/3.jpg"
+
 ---
 
 I am used to measure almost everything. My personal dashboard, a small Streamlit application running on a Mac mini at home, pulls my runs and my sleep from Garmin, my weight from Withings and my whereabouts from Google Timeline. I can tell you how many kilometers I ran in March, how my resting heart rate evolved during the last year or how many days I have spent in Germany since 2012. But there was always a hole in the middle of all this data: food. I could not tell you what I had for lunch on Tuesday, how many calories I eat in a normal week, or for how many hours I fast every night.
@@ -49,6 +55,12 @@ I wanted the default to be local. My food is, after all, quite personal data, an
 
 Here I learnt my first lesson of the project. The default `qwen3-vl:8b` tag in Ollama is the thinking variant, and it ignores the request to not think: it was spending more than a thousand tokens reasoning about whether a paella is a paella before answering, around a hundred seconds per photo. The `qwen3-vl:8b-instruct` variant answers the same JSON, with the same quality for my test photos, in fifteen to twenty seconds. Ollama also supports structured outputs, so I pass the JSON schema directly and the model can not produce anything that does not parse. When the run is finished the job unloads the model, so the memory goes back to LM Studio.
 
+This is how a normal day looks like in the dashboard once the job has run. The paella was recognized by the local model with a confidence of 0.95: rice, peas and chicken, around 500 kcal, no meat I do not eat. The meatballs in the afternoon were a different story, and that is the next section.
+
+![image](/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/1.jpg#layoutTextWidth)
+
+_The daily view of the "Comida" page: totals of the day, the overnight fast and every meal with its photo, macros and place. The entries were produced by the local model from sample photos (credits at the end)._
+
 When the local model is not confident, the same photo with the same prompt goes to Claude Sonnet, which is were the second opinion comes in. This is optional and capped at a few calls per night, and in practice most of the photos never leave the house.
 
 #### Asking only when it matters
@@ -59,13 +71,23 @@ If the confidence is below 0.7, or the meat is unsure, the entry does not get co
 
 All the open questions of the day are sent as one single message through MacMiniBot, the Telegram bot that already sends me my morning summary. Telegram does not allow inline buttons on an album of photos, so the job builds a numbered collage of the photos, puts the questions in the caption and adds a row of buttons per photo: the suggested answers, plus "Otra cosa" to type a free answer. A small listener running under launchd processes the button presses, sends the photo and my answer back to the model to rewrite the entry, removes the buttons of that photo and, when everything is answered, marks the message as solved. Since the morning bot only sends messages and never reads updates, the listener can be the only reader of the bot without stepping on anybody's toes.
 
+![image](/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/2.jpg#layoutTextWidth)
+
+_The message of the night with two open questions. Meatballs and döner meat can be chicken, turkey or beef, so the model asks instead of guessing._
+
 #### Learning from my answers
 
 Every answer I give, on Telegram or in the dashboard, is stored as a correction: what the model understood, what it asked, what I answered and how the final entry looked like. The next night those corrections are part of the prompt, together with the list of dishes I eat most often and their usual macros. It is a very humble form of learning, few-shot examples rather than fine-tuning, but it works for what I want: after I explained once that the brown thing in my Tuesday bowl is tofu, the model should not ask me again every Tuesday.
 
 #### The dashboard
 
-The new "Comida" page of the dashboard shows each day in order: the thumbnail of the photo (served from Immich), the dish, the type of meal, where I ate and the macros, together with the totals of the day. A weekly and monthly view plots the calories and the macros per day, how many times I ate outside and how many hours I fasted every night, which is simply the time between the last meal with a photo of one day and the first one of the next. Any entry can be edited, recalculated with a hint, or thrown away if it was not food, and those edits also feed the corrections. And there is a red warning on top if any record contains meat I do not eat, because if that happens I want to know it, whatever the reason.
+The new "Comida" page of the dashboard shows each day in order: the thumbnail of the photo (served from Immich), the dish, the type of meal, where I ate and the macros, together with the totals of the day. A weekly and monthly view plots the calories and the macros per day, how many times I ate outside and how many hours I fasted every night, which is simply the time between the last meal with a photo of one day and the first one of the next.
+
+![image](/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/3.jpg#layoutTextWidth)
+
+_The weekly view: calories, macros, meals out and the overnight fast per day (sample data for the screenshot)._
+
+Any entry can be edited, recalculated with a hint, or thrown away if it was not food, and those edits also feed the corrections. And there is a red warning on top if any record contains meat I do not eat, because if that happens I want to know it, whatever the reason.
 
 The confirmed meals also go to a new "Food" tab of the Google Sheet where I track my investments, so I can play with the numbers in a spreadsheet as I do with everything else.
 
@@ -79,5 +101,7 @@ Building this took an afternoon, and most of the interesting problems were not t
 - **Ask once, ask well.** The first version of the prompt produced questions like "is the chicken fresh or processed?", which changes nothing in the entry. Telling the model to only ask about what changes the record (the dish, the meat, the portion) made the questions short enough to answer with one tap.
 
 It is early to say if this will survive more than the two weeks my previous attempts did, but this time the habit I need to keep is one I already had: taking a photo of the plate. The rest happens while I sleep, or more precisely, while I am having dinner.
+
+_Photo credits for the screenshots: [Paella Valenciana](https://commons.wikimedia.org/wiki/File:01_Paella_Valenciana_original.jpg) by Jan Harenburg (CC BY-SA 4.0), [seared salmon](https://commons.wikimedia.org/wiki/File:DZ6_1891_Seared_salmon_in_a_rich_brown_sauce_with_grilled_potatoes_fresh_greens_and_toasted_bread_garnished_with_dill.jpg) by PattayaPatrol (CC BY-SA 4.0), [döner kebab plate](https://commons.wikimedia.org/wiki/File:D%C3%B6ner_Kebab_plate_with_onions.jpg) by Almanta (CC BY-SA 4.0) and [Swedish meatballs](https://commons.wikimedia.org/wiki/File:Swedish_meatballs_with_egg_noodles.jpg) by RandomKatze (CC0), all from Wikimedia Commons._
 
 I write my thoughts about Software Engineering and life in general on my [Mastodon account](https://kotlin.social/@eenriquelopez). If you have liked this article or if it did help you, feel free to share, 👏 it and/or leave a comment. This is the currency that fuels amateur writers.
