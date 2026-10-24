@@ -51,7 +51,7 @@ For every candidate the model returns a small JSON document: whether it is food 
 
 #### A local model first
 
-I wanted the default to be local. My food is, after all, quite personal data, and I do not need a frontier model to recognize a paella. The Mac mini has an M4 and 24 GB of memory, and a big part of that memory is already taken by LM Studio, which keeps a 26B model loaded for my Local AI Bridge. The largest vision model that fits next to it is Qwen3-VL with 8 billion parameters, running in Ollama.
+I wanted the default to be local. My food is, after all, quite personal data, and I do not need a frontier model to recognize a paella. The Mac mini has an M4 and 24 GB of memory, and a big part of that memory is already taken by LM Studio, which keeps a 26B model loaded for my [Local AI Bridge](/articles/2026-04-09_bridging-the-gap-local-ai-meets-telegram-cli/). The largest vision model that fits next to it is Qwen3-VL with 8 billion parameters, running in Ollama.
 
 Here I learnt my first lesson of the project. The default `qwen3-vl:8b` tag in Ollama is the thinking variant, and it ignores the request to not think: it was spending more than a thousand tokens reasoning about whether a paella is a paella before answering, around a hundred seconds per photo. The `qwen3-vl:8b-instruct` variant answers the same JSON, with the same quality for my test photos, in fifteen to twenty seconds. Ollama also supports structured outputs, so I pass the JSON schema directly and the model can not produce anything that does not parse. When the run is finished the job unloads the model, so the memory goes back to LM Studio.
 
