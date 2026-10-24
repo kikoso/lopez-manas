@@ -23,6 +23,8 @@ The reason is simple. I have tried calorie counting apps several times, and I al
 
 So the idea was the following: let a machine look at my food photos every evening, figure out what I ate, estimate the calories and macros, and only bother me when it is not sure. Logging what I eat, without having to log what I eat.
 
+The photo on top of this article is the first meal the system logged on its own: a takeaway paella I had today, with a lemon Fanta. It was recognized as a paella with no meat I do not eat, around 500 kcal, eaten out, without asking me anything.
+
 #### The architecture
 
 The whole system lives on the same Mac mini, and it is made of a nightly job, a Telegram listener and a new page in the dashboard. Nothing of it runs in the cloud, except an optional second opinion I will explain later.
@@ -88,6 +90,6 @@ Building this took an afternoon, and most of the interesting problems were not t
 
 It is early to say if this will survive more than the two weeks my previous attempts did, but this time the habit I need to keep is one I already had: taking a photo of the plate. The rest happens while I sleep, or more precisely, while I am having dinner.
 
-_Photo credits for the cover and the screenshots: [Paella Valenciana](https://commons.wikimedia.org/wiki/File:01_Paella_Valenciana_original.jpg) by Jan Harenburg (CC BY-SA 4.0), [seared salmon](https://commons.wikimedia.org/wiki/File:DZ6_1891_Seared_salmon_in_a_rich_brown_sauce_with_grilled_potatoes_fresh_greens_and_toasted_bread_garnished_with_dill.jpg) by PattayaPatrol (CC BY-SA 4.0), [döner kebab plate](https://commons.wikimedia.org/wiki/File:D%C3%B6ner_Kebab_plate_with_onions.jpg) by Almanta (CC BY-SA 4.0) and [Swedish meatballs](https://commons.wikimedia.org/wiki/File:Swedish_meatballs_with_egg_noodles.jpg) by RandomKatze (CC0), all from Wikimedia Commons._
+_Photo credits for the screenshots (the cover is my own): [Paella Valenciana](https://commons.wikimedia.org/wiki/File:01_Paella_Valenciana_original.jpg) by Jan Harenburg (CC BY-SA 4.0), [seared salmon](https://commons.wikimedia.org/wiki/File:DZ6_1891_Seared_salmon_in_a_rich_brown_sauce_with_grilled_potatoes_fresh_greens_and_toasted_bread_garnished_with_dill.jpg) by PattayaPatrol (CC BY-SA 4.0), [döner kebab plate](https://commons.wikimedia.org/wiki/File:D%C3%B6ner_Kebab_plate_with_onions.jpg) by Almanta (CC BY-SA 4.0) and [Swedish meatballs](https://commons.wikimedia.org/wiki/File:Swedish_meatballs_with_egg_noodles.jpg) by RandomKatze (CC0), all from Wikimedia Commons._
 
 I write my thoughts about Software Engineering and life in general on my [Mastodon account](https://kotlin.social/@eenriquelopez). If you have liked this article or if it did help you, feel free to share, 👏 it and/or leave a comment. This is the currency that fuels amateur writers.
