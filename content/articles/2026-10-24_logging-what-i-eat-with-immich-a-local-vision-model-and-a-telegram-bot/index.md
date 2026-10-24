@@ -7,8 +7,9 @@ description: "How a Mac mini, Immich, a local vision model and a Telegram bot tu
 
 subtitle: "I can tell you how many kilometers I ran in March and how many days I spent in Vietnam, but until now I could not tell you what I had for lunch on Tuesday."
 
-image: "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/0.jpg"
+image: "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/cover.jpg"
 images:
+ - "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/cover.jpg"
  - "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/0.jpg"
  - "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/1.jpg"
  - "/articles/2026-10-24_logging-what-i-eat-with-immich-a-local-vision-model-and-a-telegram-bot/images/2.jpg"
@@ -87,6 +88,6 @@ Building this took an afternoon, and most of the interesting problems were not t
 
 It is early to say if this will survive more than the two weeks my previous attempts did, but this time the habit I need to keep is one I already had: taking a photo of the plate. The rest happens while I sleep, or more precisely, while I am having dinner.
 
-_Photo credits for the screenshots: [Paella Valenciana](https://commons.wikimedia.org/wiki/File:01_Paella_Valenciana_original.jpg) by Jan Harenburg (CC BY-SA 4.0), [seared salmon](https://commons.wikimedia.org/wiki/File:DZ6_1891_Seared_salmon_in_a_rich_brown_sauce_with_grilled_potatoes_fresh_greens_and_toasted_bread_garnished_with_dill.jpg) by PattayaPatrol (CC BY-SA 4.0), [döner kebab plate](https://commons.wikimedia.org/wiki/File:D%C3%B6ner_Kebab_plate_with_onions.jpg) by Almanta (CC BY-SA 4.0) and [Swedish meatballs](https://commons.wikimedia.org/wiki/File:Swedish_meatballs_with_egg_noodles.jpg) by RandomKatze (CC0), all from Wikimedia Commons._
+_Photo credits for the cover and the screenshots: [Paella Valenciana](https://commons.wikimedia.org/wiki/File:01_Paella_Valenciana_original.jpg) by Jan Harenburg (CC BY-SA 4.0), [seared salmon](https://commons.wikimedia.org/wiki/File:DZ6_1891_Seared_salmon_in_a_rich_brown_sauce_with_grilled_potatoes_fresh_greens_and_toasted_bread_garnished_with_dill.jpg) by PattayaPatrol (CC BY-SA 4.0), [döner kebab plate](https://commons.wikimedia.org/wiki/File:D%C3%B6ner_Kebab_plate_with_onions.jpg) by Almanta (CC BY-SA 4.0) and [Swedish meatballs](https://commons.wikimedia.org/wiki/File:Swedish_meatballs_with_egg_noodles.jpg) by RandomKatze (CC0), all from Wikimedia Commons._
 
 I write my thoughts about Software Engineering and life in general on my [Mastodon account](https://kotlin.social/@eenriquelopez). If you have liked this article or if it did help you, feel free to share, 👏 it and/or leave a comment. This is the currency that fuels amateur writers.
