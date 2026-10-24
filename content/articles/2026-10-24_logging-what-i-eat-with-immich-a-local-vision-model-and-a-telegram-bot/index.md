@@ -1,7 +1,7 @@
 ---
 title: "Logging What I Eat Without Logging What I Eat"
 author: "Enrique López-Mañas"
-date: 2026-10-24T18:00:00.000Z
+date: 2026-10-24T12:00:00.000Z
 
 description: "How a Mac mini, Immich, a local vision model and a Telegram bot turned my food photos into a calorie and fasting log."
 
