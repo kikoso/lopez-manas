@@ -85,7 +85,6 @@ Building this took an afternoon, and most of the interesting problems were not t
 
 - **The calories are estimations, and that is fine.** A photo can not tell you how much oil went into the pan. What I want is a trend and a consistent baseline, not a laboratory measurement. The fasting numbers have the same limitation: if I forget to photograph a snack, my fast looks longer than it was.
 - **A dry run is worth gold.** The job has a `--dry-run --date` mode that analyses one day and writes nothing. The first time I ran it over three days it found exactly zero meals, and it was right: the best matches for "plate of food" were photos of my kitchen and two screenshots of my broker.
-- **Your infrastructure moves under your feet.** In the middle of my first dry run I updated Immich to a new version, the containers were recreated and the job failed for every remaining photo. Now the client waits and retries for a few minutes when Immich is not there, instead of loosing the whole night.
 - **Ask once, ask well.** The first version of the prompt produced questions like "is the chicken fresh or processed?", which changes nothing in the entry. Telling the model to only ask about what changes the record (the dish, the meat, the portion) made the questions short enough to answer with one tap.
 
 It is early to say if this will survive more than the two weeks my previous attempts did, but this time the habit I need to keep is one I already had: taking a photo of the plate. The rest happens while I sleep, or more precisely, while I am having dinner.
