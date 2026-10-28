@@ -8,7 +8,7 @@ Growing up in relative isolation, I spent much of my time reading. At around ten
 
 During the COVID pandemic, I stayed in Germany, while my girlfriend-to-be-wife stayed in Vietnam. After a few months we realised that it could be years until we meet again, so I had to find a way to get into Vietnam. I found a job at Alibaba as a Principal Android Engineer, and moved into the country. I had a [live interview with a Spanish TV](https://www.youtube.com/watch?v=5gE_UltbhAs&ab_channel=EnriqueL%C3%B3pezMa%C3%B1as) while doing my two weeks of forced isolation in a hotel.
 
-Today, I live in Munich, Germany with my family, after having spent time in Spain, Japan, Brazil, and Vietnam. I speak English, German, Portuguese, Spanish, and Catalan with different degrees of fluency, and can understand a few other languages as well. My daily routine revolves around software development, reading, running or biking, learning, and family life.
+Today, I live in Da Nang, Vietnam with my family, after having spent time in Spain, Japan, Brazil, and Germany. I speak English, German, Portuguese, Spanish, and Catalan with different degrees of fluency, and can understand a few other languages as well. My daily routine revolves around software development, reading, running or biking, learning, and family life.
 
 I have broad interests and try not to limit myself to a single domain.
 
