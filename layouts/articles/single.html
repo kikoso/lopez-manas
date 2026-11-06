@@ -2,6 +2,16 @@
 {{ $date := .Date.Format "January 2, 2006" }}
 {{ $lastmod := .Lastmod.Format "January 2, 2006" }}
 <article>
+  {{ with .Params.header }}
+    {{ $src := .image }}
+    {{ if not (hasPrefix $src "/") }}{{ $src = print $.RelPermalink $src }}{{ end }}
+    <figure class="post-cover">
+      <img src="{{ $src }}" alt="{{ or .alt $.Title }}">
+      {{ with .caption }}
+        <figcaption>{{ with $.Params.header.link }}<a href="{{ . }}">{{ $.Params.header.caption }}</a>{{ else }}{{ . }}{{ end }}</figcaption>
+      {{ end }}
+    </figure>
+  {{ end }}
   <header class="post-header">
     <h1 class="page-title">{{ .Title }}</h1>
     {{ if not .Date.IsZero }}
@@ -16,13 +26,13 @@
     {{ with .Params.subtitle }}<p class="post-subtitle">{{ . }}</p>{{ end }}
   </header>
 
-  {{ with .Params.images }}
+  {{ if not .Params.header }}{{ with .Params.images }}
     {{ range first 1 . }}
       {{ $src := . }}
       {{ if not (hasPrefix $src "/") }}{{ $src = print $.Permalink $src }}{{ end }}
       <img src="{{ $src }}" alt="{{ $.Title }}" style="border-radius:.375rem;margin:0 auto 2.5rem">
     {{ end }}
-  {{ end }}
+  {{ end }}{{ end }}
 
   <div class="prose">
     {{ .Content }}

@@ -7,8 +7,15 @@ description: "How Pipecat, MLX Whisper, a local Gemma model in LM Studio and Pip
 
 subtitle: "Some companies in Germany still only talk to you over the phone. So I asked my Mac mini to do the talking."
 
-image: "/articles/2026-11-06_teaching-my-mac-mini-to-call-the-plumber/images/2.png"
+header:
+  image: "/articles/2026-11-06_teaching-my-mac-mini-to-call-the-plumber/images/header.jpg"
+  alt: "Northern lights over a fjord near Tromsø"
+  caption: "Lights of Tromsø, by Enrique López-Mañas"
+  link: "https://500px.com/photo/R6dqX8gL0Gm"
+
+image: "/articles/2026-11-06_teaching-my-mac-mini-to-call-the-plumber/images/header.jpg"
 images:
+ - "/articles/2026-11-06_teaching-my-mac-mini-to-call-the-plumber/images/header.jpg"
  - "/articles/2026-11-06_teaching-my-mac-mini-to-call-the-plumber/images/2.png"
  - "/articles/2026-11-06_teaching-my-mac-mini-to-call-the-plumber/images/0.png"
  - "/articles/2026-11-06_teaching-my-mac-mini-to-call-the-plumber/images/1.png"
