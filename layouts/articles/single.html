@@ -38,6 +38,8 @@
     {{ .Content }}
   </div>
 
+  {{ partial "comments.html" . }}
+
   {{ if or .PrevInSection .NextInSection }}
     <nav class="post-nav" aria-label="Other posts">
       {{ with .NextInSection }}<a href="{{ .RelPermalink }}">&larr; {{ .Title }}</a>{{ else }}<span></span>{{ end }}

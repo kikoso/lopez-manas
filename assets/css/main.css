@@ -500,6 +500,10 @@ h6 {
   font-size: 1.0625rem;
 }
 
+.post-comments {
+  margin-top: 3rem;
+}
+
 .post-nav {
   display: flex;
   flex-wrap: wrap;
